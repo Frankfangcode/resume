@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1478">
+	<title>澤享的個人作品集</title>	<style>
+		/* ========== 全局樣式 ========== */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #f5f5f5;
+			font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+			line-height: 1.6;
+			color: #333;
+			padding: 20px;
+		}
+
+		.resume-container {
+			max-width: 1000px;
+			margin: 0 auto;
+			background: white;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		/* ========== 頁首區域 ========== */
+		.header-section {
+			background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+			color: white;
+			padding: 40px;
+			text-align: center;
+		}		.profile-photo {
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			margin: 0 auto 20px;
+			background-image: url('personal photo big.jpg');
+			background-size: 150%;
+			background-position: center -22px;
+			border: 5px solid white;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+		}
+
+		.name-title {
+			margin-bottom: 15px;
+		}
+
+		.name-title h1 {
+			font-size: 2.5em;
+			font-weight: 300;
+			margin-bottom: 5px;
+			letter-spacing: 2px;
+		}
+
+		.name-title .title {
+			font-size: 1.2em;
+			opacity: 0.9;
+			font-weight: 300;
+		}
+
+		.contact-info {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 20px;
+			margin-top: 20px;
+		}
+
+		.contact-item {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			color: white;
+			text-decoration: none;
+			transition: opacity 0.3s;
+		}
+
+		.contact-item:hover {
+			opacity: 0.8;
+		}
+
+		/* ========== 主要內容區域 ========== */
+		.main-content {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			gap: 0;
+		}
+
+		/* ========== 左側欄 ========== */
+		.sidebar {
+			background-color: #ecf0f1;
+			padding: 30px;
+		}
+
+		.sidebar-section {
+			margin-bottom: 30px;
+		}
+
+		.sidebar h2 {
+			color: #2c3e50;
+			font-size: 1.3em;
+			margin-bottom: 15px;
+			padding-bottom: 8px;
+			border-bottom: 2px solid #3498db;
+		}
+
+		.skill-item {
+			margin-bottom: 15px;
+		}
+
+		.skill-name {
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+
+		.skill-bar {
+			background: #bdc3c7;
+			height: 6px;
+			border-radius: 3px;
+			overflow: hidden;
+		}
+
+		.skill-level {
+			height: 100%;
+			background: linear-gradient(90deg, #3498db, #2980b9);
+			border-radius: 3px;
+		}
+
+		.contact-list {
+			list-style: none;
+		}
+
+		.contact-list li {
+			margin-bottom: 10px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.nccu-logo {
+			width: 100%;
+			max-width: 200px;
+			margin: 20px auto;
+			display: block;
+		}
+
+		/* ========== 右側主要內容 ========== */
+		.content {
+			padding: 30px;
+		}
+
+		.section {
+			margin-bottom: 35px;
+		}
+
+		.section h2 {
+			color: #2c3e50;
+			font-size: 1.5em;
+			margin-bottom: 20px;
+			padding-bottom: 10px;
+			border-bottom: 3px solid #3498db;
+			position: relative;
+		}
+
+		.section h2::after {
+			content: '';
+			position: absolute;
+			bottom: -3px;
+			left: 0;
+			width: 50px;
+			height: 3px;
+			background: #e74c3c;
+		}
+
+		.experience-item, .education-item {
+			margin-bottom: 25px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid #ecf0f1;
+		}
+
+		.experience-item:last-child, .education-item:last-child {
+			border-bottom: none;
+		}
+
+		.item-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			margin-bottom: 10px;
+			flex-wrap: wrap;
+		}
+
+		.item-title {
+			font-weight: 600;
+			color: #2c3e50;
+			font-size: 1.1em;
+		}
+
+		.item-date {
+			color: #7f8c8d;
+			font-weight: 500;
+			font-size: 0.9em;
+		}
+
+		.item-company {
+			color: #3498db;
+			font-weight: 500;
+			margin-bottom: 8px;
+		}
+
+		.item-description {
+			color: #555;
+			line-height: 1.6;
+		}
+
+		.about-text {
+			font-size: 1.05em;
+			line-height: 1.7;
+			color: #555;
+			text-align: justify;
+		}
+
+		.achievement-list {
+			list-style: none;
+		}
+
+		.achievement-list li {
+			margin-bottom: 12px;
+			padding-left: 20px;
+			position: relative;
+		}
+
+		.achievement-list li::before {
+			content: '▶';
+			color: #3498db;
+			position: absolute;
+			left: 0;
+		}
+
+		.project-link {
+			color: #3498db;
+			text-decoration: none;
+			font-weight: 500;
+		}
+
+		.project-link:hover {
+			text-decoration: underline;
+		}
+
+		/* ========== 響應式設計 ========== */
+		@media (max-width: 768px) {
+			.main-content {
+				grid-template-columns: 1fr;
+			}
+			
+			.contact-info {
+				flex-direction: column;
+				align-items: center;
+			}
+			
+			.item-header {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="resume-container">
+		<!-- 頁首區域 - 照片、姓名、聯絡資訊 -->
+		<div class="header-section">
+			<div class="profile-photo"></div>
+			<div class="name-title">
+				<h1>澤享</h1>
+				<div class="title">資訊管理學系學生 | 跨域探索者</div>
+			</div>
+			<div class="contact-info">
+				<a href="mailto:113306052@g.nccu.edu.tw" class="contact-item">
+					<span>📧</span>
+					<span>113306052@g.nccu.edu.tw</span>
+				</a>
+				<a href="#" target="_blank" class="contact-item">
+					<span>💼</span>
+					<span>LinkedIn 個人檔案</span>
+				</a>
+				<div class="contact-item">
+					<span>🎓</span>
+					<span>國立政治大學</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- 主要內容區域 -->
+		<div class="main-content">
+			<!-- 左側欄 -->
+			<div class="sidebar">				<div class="sidebar-section">
+					<h2>關於我</h2>
+					<p class="about-text">
+						從企業管理到統計學，再到資訊管理的學習歷程，讓我深刻體會到跨域整合的重要性。我是一個不安於單一領域的探索者，熱衷於在程式碼、商業賽局、數據分析與跨文化交流中尋找交集。
+						<br><br>
+						這段多元的學術旅程不僅展現了我的時間管理與學習適應能力，更重要的是培養了我從不同角度思考問題的能力。我相信科技的價值在於解決真實世界的問題，並致力於成為能深刻理解使用者需求、掌握數據洞察，並與技術團隊高效溝通的跨域人才。
+					</p>
+				</div>				<div class="sidebar-section">
+					<h2>技能</h2>
+					<div class="skill-item">
+						<div class="skill-name">HTML/CSS/JavaScript</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 85%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">Java</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 80%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">統計分析</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 78%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">資料庫管理</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 75%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">專案管理</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 90%"></div>
+						</div>
+					</div>
+				</div>				<div class="sidebar-section">
+					<h2>語言能力</h2>
+					<div class="skill-item">
+						<div class="skill-name">中文 (母語)</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 100%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">英語 - ETP 商業英語課程資格</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 80%"></div>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-name">日語 - 日文系輔系，跨文化溝通</div>
+						<div class="skill-bar">
+							<div class="skill-level" style="width: 70%"></div>
+						</div>
+					</div>
+				</div>
+
+				<img src="logo.png" alt="NCCU Logo" class="nccu-logo">
+			</div>
+
+			<!-- 右側主要內容 -->
+			<div class="content">				<div class="section">
+					<h2>學歷</h2>
+					
+					<div class="education-item">
+						<div class="item-header">
+							<div class="item-title">桃園市立武陵高中</div>
+							<div class="item-date">2021 - 2023</div>
+						</div>
+						<div class="item-description">培養紮實的學術基礎，為多元化學習奠定根基</div>
+					</div>
+
+					<div class="education-item">
+						<div class="item-header">
+							<div class="item-title">國立臺北大學 企業管理學系</div>
+							<div class="item-date">2023年 (短期)</div>
+						</div>
+						<div class="item-company">系排名第四</div>
+						<div class="item-description">優異的學術表現展現了我的學習能力，但透過實際修課發現對數據分析的興趣，決定轉向更專精的統計領域深耕</div>
+					</div>
+
+					<div class="education-item">
+						<div class="item-header">
+							<div class="item-title">國立臺北大學 統計學系</div>
+							<div class="item-date">2023 - 2024</div>
+						</div>
+						<div class="item-company">校內轉系 | 跨域學習實踐者</div>
+						<div class="item-description">深入學習統計理論與數據分析技能，累積了扎實的量化分析基礎。在此期間體認到統計專業結合資訊技術的強大潛力，因此決定朝向資訊管理領域發展，整合商業思維、統計分析與資訊技術</div>
+					</div>
+                    
+					<div class="education-item">
+						<div class="item-header">
+							<div class="item-title">國立政治大學 資訊管理學系</div>
+							<div class="item-date">2024 - 現在</div>
+						</div>
+						<div class="item-company">主修：資訊管理學系 | 輔修：日本語文學系</div>
+						<div class="item-description">
+							<strong>113上學期班級排名第四</strong><br>
+							結合前期企管與統計背景，在資管領域展現優異學習成果。此跨域學習歷程讓我具備了：<br>
+							• 商業思維與市場敏感度 (企管基礎)<br>
+							• 數據分析與統計建模能力 (統計專業)<br>
+							• 資訊系統設計與程式開發技能 (資管核心)<br>
+							• 跨文化溝通能力 (日文輔系)<br>
+							這樣的多元背景使我能從不同角度理解問題，並提供更全面的解決方案
+						</div>
+					</div>
+				</div>				<div class="section">
+					<h2>競賽與榮譽</h2>
+					<ul class="achievement-list">
+						<li><strong>2025</strong> - 政大AI跨域 x 永續創新競賽 (參賽中)</li>
+						<li><strong>ATCC</strong> - 全國大專院校商業個案大賽 | 進入初賽</li>
+						<li><strong>系級專案</strong> - 健身房紀錄系統 | 榮獲第二名</li>
+						<li><strong>學術表現</strong> - 政大資管系 113上學期班級排名第四</li>
+						<li><strong>學術表現</strong> - 臺北大學企管系系排名第四</li>
+						<li><strong>跨域學習</strong> - 成功完成企管→統計→資管的學術轉換</li>
+					</ul>
+				</div>
+
+				<div class="section">
+					<h2>體育表現</h2>
+					<ul class="achievement-list">
+						<li><strong>2025</strong> - 全國大專校院運動會 游泳項目 | 政治大學代表選手</li>
+						<li><strong>2024</strong> - 松竹梅全國大專校際游泳邀請賽 | 政治大學代表選手</li>
+						<li><strong>游泳專長</strong> - 展現優異的運動素養與毅力，代表學校參與全國性賽事</li>
+					</ul>
+				</div>
+
+				<div class="section">
+					<h2>經歷</h2>
+					<div class="experience-item">
+						<div class="item-header">
+							<div class="item-title">政大 EMBA 工作人員</div>
+							<div class="item-date">2024 - 現在</div>
+						</div>
+						<div class="item-company">國立政治大學</div>
+						<div class="item-description">協助EMBA相關業務執行與活動籌劃</div>
+					</div>
+					<div class="experience-item">
+						<div class="item-header">
+							<div class="item-title">包種茶節 公關組</div>
+							<div class="item-date">2024</div>
+						</div>
+						<div class="item-company">政大資管系</div>
+						<div class="item-description">負責活動對外聯絡與宣傳事務</div>
+					</div>
+					<div class="experience-item">
+						<div class="item-header">
+							<div class="item-title">交換生Buddy program 計畫成員</div>
+							<div class="item-date">2024 - 現在</div>
+						</div>
+						<div class="item-company">政大國合處</div>
+						<div class="item-description">協助國際交換生適應校園生活與文化交流</div>
+					</div>
+                    <div class="experience-item">
+						<div class="item-header">
+							<div class="item-title">商院菁英種子營</div>
+							<div class="item-date">2024</div>
+						</div>
+						<div class="item-company">政治大學商院生涯大使</div>
+						<div class="item-description">了解產業趨勢與AI應用</div>
+					</div>
+				</div>
+
+				<div class="section">
+					<h2>個人專案</h2>
+					<div class="experience-item">
+						<div class="item-title">健身房紀錄系統</div>
+						<div class="item-description">
+							一個協助使用者記錄與規劃訓練的系統，負責核心功能與資料庫架構設計。
+							<br><a href="https://github.com/frank956952/Java-final.git" target="_blank" class="project-link">查看專案 →</a>
+						</div>
+					</div>
+					<div class="experience-item">
+						<div class="item-title">個人作品集網站</div>
+						<div class="item-description">
+							使用 HTML/CSS/JavaScript 手刻的個人形象網站，展現前端開發與設計能力。
+							<br><a href="#" target="_blank" class="project-link">查看原始碼 →</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
