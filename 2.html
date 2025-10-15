@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>河內塔 - 圓盤數量可調整的互動遊戲</title>
+<style>
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f0f4f8;
+    margin:0; padding:20px;
+  }
+  h1{ text-align:center; margin-bottom:30px;}
+  .controls{
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .peg-container{ display:flex; justify-content:center; gap:40px;}
+  .peg{
+    width:120px;
+    height:300px;
+    background:#dcdcdc;
+    position:relative;
+    border-radius:4px 4px 0 0;
+    padding-top:10px;
+    display:flex; flex-direction:column-reverse; align-items:center;
+  }
+  .peg::before{
+    content:"";
+    position:absolute;
+    bottom:0; left:50%; transform:translateX(-50%);
+    width:10px;height:100%;
+    background:#444;
+  }
+  .disk{
+    position:absolute; left:50%; transform:translateX(-50%);
+    height:20px;
+    border-radius:4px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .disk.dragging{ opacity:0.6; z-index:10;}
+  .stats{
+    margin-top:20px;
+    text-align:center;
+  }
+</style>
+</head>
+
+<body>
+<h1>河內塔互動遊戲</h1>
+
+<div class="controls">
+  <label for="diskCount">圓盤數量: </label>
+  <input type="number" id="diskCount" min="1" max="8" value="5">
+  <button id="startBtn">開始</button>
+  <button id="resetBtn" disabled>重置</button>
+</div>
+
+<div class="peg-container">
+  <div class="peg" data-peg="A"><h3>A</h3></div>
+  <div class="peg" data-peg="B"><h3>B</h3></div>
+  <div class="peg" data-peg="C"><h3>C</h3></div>
+</div>
+
+<div class="stats">
+  <span id="minSteps">最少步數：0</span> | 
+  <span id="currSteps">已走步數：0</span>
+</div>
+
+<script>
+// ------------- 全局變量 ----------
+const pegs = { A: [], B: [], C: [] };
+let currentSteps = 0;
+let minSteps = 1;          // 2^n - 1
+const pegEls = document.querySelectorAll('.peg');
+let draggedDisk = null;
+
+// ---------- 初始化 ----------
+function initGame() {
+  const n = parseInt(document.getElementById('diskCount').value, 10);
+  minSteps = Math.pow(2, n) - 1;
+  currentSteps = 0;
+
+  // 清空
+  pegs.A.length = pegs.B.length = pegs.C.length = 0;
+  pegEls.forEach(el => el.innerHTML = `<h3>${el.dataset.peg}</h3>`);
+
+  // 建立圓盤
+  for (let i = n; i >= 1; i--) {
+    const disk = createDisk(i, n);
+    pegs.A.push(disk);
+  }
+  renderPegs();
+  updateStats();
+}
+
+// ---------- 建立單個圓盤 ----------
+function createDisk(size, total) {
+  const disk = document.createElement('div');
+  disk.className = 'disk';
+  disk.dataset.size = size;
+  const widthPercent = 80 + (size / total) * 20; // 80% ~100%
+  disk.style.width = `${widthPercent}%`;
+  disk.style.backgroundColor = `hsl(${size * 40},70%,50%)`;
+  return disk;
+}
+
+// ---------- 渲染 ----------
+function renderPegs() {
+  pegEls.forEach(pegEl => {
+    const key = pegEl.dataset.peg;
+    const disks = pegs[key];
+    // 清空
+    pegEl.innerHTML = `<h3>${key}</h3>`;
+    disks.forEach((disk, idx) => {
+      disk.style.bottom = `${idx * 22}px`;
+      pegEl.appendChild(disk);
+    });
+  });
+}
+
+// ---------- 更新統計 ----------
+function updateStats() {
+  document.getElementById('minSteps').textContent = `最少步數：${minSteps}`;
+  document.getElementById('currSteps').textContent = `已走步數：${currentSteps}`;
+}
+
+// ---------- 拖曳 ----------
+pegEls.forEach(pegEl => {
+  pegEl.addEventListener('mousedown', e => {
+    const target = e.target;
+    if (!target.classList.contains('disk')) return;
+
+    // 只允許最上層盤子
+    const pegKey = pegEl.dataset.peg;
+    if (pegs[pegKey][pegs[pegKey].length - 1] !== target) return;
+
+    draggedDisk = target;
+    draggedDisk.classList.add('dragging');
+    document.body.appendChild(draggedDisk); // 移到 body 方便拖曳
+
+    const offsetX = e.clientX - draggedDisk.getBoundingClientRect().left;
+    const offsetY = e.clientY - draggedDisk.getBoundingClientRect().top;
+
+    function onMove(ev) {
+      draggedDisk.style.left = ev.clientX - offsetX + 'px';
+      draggedDisk.style.top = ev.clientY - offsetY + 'px';
+    }
+    function onUp(ev) {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+
+      draggedDisk.classList.remove('dragging');
+      // 回到原位置
+      renderPegs();
+      draggedDisk.style.left = '';
+      draggedDisk.style.top = '';
+
+      // 判斷落點
+      const targetPegEl = document.elementFromPoint(ev.clientX, ev.clientY);
+      const pegTarget = targetPegEl?.closest('.peg');
+      if (!pegTarget) return; // 放回原處
+
+      const srcPeg = pegEl.dataset.peg;
+      const dstPeg = pegTarget.dataset.peg;
+
+      if (srcPeg === dstPeg) return; // 同一柱
+
+      const movingSize = parseInt(draggedDisk.dataset.size, 10);
+      const dstTop = pegs[dstPeg].length
+        ? parseInt(pegs[dstPeg][pegs[dstPeg].length - 1].dataset.size, 10)
+        : Infinity;
+
+      if (movingSize > dstTop) {
+        // 不合法，回到原處
+        pegs[srcPeg].push(draggedDisk);
+      } else {
+        // 合法移動
+        pegs[dstPeg].push(draggedDisk);
+        currentSteps++;
+      }
+      renderPegs();
+      updateStats();
+
+      // 檢查完成
+      if (pegs.C.length === pegs.A.length + pegs.B.length) {
+        setTimeout(() => alert(`恭喜！完成於 ${currentSteps} 步（最少步數 ${minSteps}）`), 100);
+        document.getElementById('resetBtn').disabled = false;
+      }
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  });
+});
+
+// ---------- 按鈕 ----------
+document.getElementById('startBtn').addEventListener('click', () => {
+  initGame();
+  document.getElementById('resetBtn').disabled = false;
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  initGame();
+});
+</script>
+</body>
+</html>

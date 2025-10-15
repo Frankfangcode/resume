@@ -1,569 +1,1150 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=1478">
-	<title>澤享的個人作品集</title>	<style>
-		/* ========== 全局樣式 ========== */
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澤享的個人作品集</title>
+    <style>
+        /* ========== 全局與字體設定 ========== */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
 
-		body {
-			background-color: #f5f5f5;
-			font-family: 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', sans-serif;
-			line-height: 1.6;
-			color: #333;
-			padding: 20px;
-		}
+        :root {
+            /* Light Theme */
+            --bg-color: #fafafa;
+            --text-color-primary: #1a1a1a;
+            --text-color-secondary: #4a5568;
+            --card-bg: #ffffff;
+            --nav-bg: #2d3748;
+            --nav-text: #f7fafc;
+            --accent-color: #4299e1;
+            --accent-hover: #3182ce;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --border-color: #e2e8f0;
+            --tag-bg: #edf2f7;
+            --skill-bar-bg: #e2e8f0;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        }
 
-		.resume-container {
-			max-width: 1000px;
-			margin: 0 auto;
-			background: white;
-			box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-			border-radius: 8px;
-			overflow: hidden;
-		}
+        body.dark-mode {
+            /* Dark Theme */
+            --bg-color: #0f0f0f;
+            --text-color-primary: #f7fafc;
+            --text-color-secondary: #a0aec0;
+            --card-bg: #1a202c;
+            --nav-bg: #1a202c;
+            --nav-text: #f7fafc;
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
+            --border-color: #2d3748;
+            --tag-bg: #2d3748;
+            --skill-bar-bg: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+        }
 
-		/* ========== 頁首區域 ========== */
-		.header-section {
-			background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-			color: white;
-			padding: 40px;
-			text-align: center;
-		}		.profile-photo {
-			width: 180px;
-			height: 180px;
-			border-radius: 50%;
-			margin: 0 auto 20px;
-			background-image: url('personal photo big.jpg');
-			background-size: 150%;
-			background-position: center -22px;
-			border: 5px solid white;
-			box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-		}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-		.name-title {
-			margin-bottom: 15px;
-		}
+        html {
+            scroll-behavior: smooth;
+        }
 
-		.name-title h1 {
-			font-size: 2.5em;
-			font-weight: 300;
-			margin-bottom: 5px;
-			letter-spacing: 2px;
-		}
+        body {
+            font-family: 'Noto Sans TC', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color-secondary);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
 
-		.name-title .title {
-			font-size: 1.2em;
-			opacity: 0.9;
-			font-weight: 300;
-		}
+        /* ========== 導覽列 ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            transition: transform 0.3s ease, background-color 0.4s ease;
+        }
 
-		.contact-info {
-			display: flex;
-			justify-content: center;
-			flex-wrap: wrap;
-			gap: 20px;
-			margin-top: 20px;
-		}
+        .nav-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 15px;
+        }
 
-		.contact-item {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			color: white;
-			text-decoration: none;
-			transition: opacity 0.3s;
-		}
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-image: url('personal photo big.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 3px solid var(--accent-color);
+            margin: 0 auto 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+        }
 
-		.contact-item:hover {
-			opacity: 0.8;
-		}
+        .profile-photo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(52, 152, 219, 0.3);
+        }
 
-		/* ========== 主要內容區域 ========== */
-		.main-content {
-			display: grid;
-			grid-template-columns: 1fr 2fr;
-			gap: 0;
-		}
+        .nav-header h1 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-color-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-		/* ========== 左側欄 ========== */
-		.sidebar {
-			background-color: #ecf0f1;
-			padding: 30px;
-		}
+        .nav-header p {
+            font-size: 0.85em;
+            opacity: 0.85;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
 
-		.sidebar-section {
-			margin-bottom: 30px;
-		}
+        .nav-links {
+            list-style: none;
+            width: 100%;
+            flex-grow: 1;
+        }
 
-		.sidebar h2 {
-			color: #2c3e50;
-			font-size: 1.3em;
-			margin-bottom: 15px;
-			padding-bottom: 8px;
-			border-bottom: 2px solid #3498db;
-		}
+        .nav-links li a {
+            display: block;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 15px 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 400;
+            position: relative;
+            border-radius: 8px;
+            margin: 2px 15px;
+        }
 
-		.skill-item {
-			margin-bottom: 15px;
-		}
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
 
-		.skill-name {
-			font-weight: 600;
-			margin-bottom: 5px;
-		}
+        .nav-links li a:hover, .nav-links li a.active {
+            background: rgba(66, 153, 225, 0.1);
+            padding-left: 40px;
+            color: var(--accent-color);
+        }
 
-		.skill-bar {
-			background: #bdc3c7;
-			height: 6px;
-			border-radius: 3px;
-			overflow: hidden;
-		}
+        .nav-links li a:hover::before, .nav-links li a.active::before {
+            height: 20px;
+        }
 
-		.skill-level {
-			height: 100%;
-			background: linear-gradient(90deg, #3498db, #2980b9);
-			border-radius: 3px;
-		}
+        .theme-switcher-container {
+            padding: 20px 0;
+        }
 
-		.contact-list {
-			list-style: none;
-		}
+        .theme-switcher {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid rgba(255,255,255,0.2);
+            color: var(--nav-text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-		.contact-list li {
-			margin-bottom: 10px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
-		}
+        .theme-switcher:hover {
+            background: linear-gradient(145deg, rgba(66, 153, 225, 0.2), rgba(66, 153, 225, 0.1));
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.3);
+        }
+        
+        body.dark-mode .theme-switcher {
+            background: linear-gradient(145deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        body.dark-mode .theme-switcher:hover {
+            background: linear-gradient(145deg, rgba(99, 179, 237, 0.2), rgba(99, 179, 237, 0.1));
+            border-color: var(--accent-color);
+        }
 
-		.nccu-logo {
-			width: 100%;
-			max-width: 200px;
-			margin: 20px auto;
-			display: block;
-		}
+        /* ========== 主內容區域 ========== */
+        .main-content {
+            margin-left: 220px;
+            width: calc(100% - 220px);
+        }
 
-		/* ========== 右側主要內容 ========== */
-		.content {
-			padding: 30px;
-		}
+        /* ========== Hero 輪播區塊 ========== */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
 
-		.section {
-			margin-bottom: 35px;
-		}
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
 
-		.section h2 {
-			color: #2c3e50;
-			font-size: 1.5em;
-			margin-bottom: 20px;
-			padding-bottom: 10px;
-			border-bottom: 3px solid #3498db;
-			position: relative;
-		}
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
 
-		.section h2::after {
-			content: '';
-			position: absolute;
-			bottom: -3px;
-			left: 0;
-			width: 50px;
-			height: 3px;
-			background: #e74c3c;
-		}
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
 
-		.experience-item, .education-item {
-			margin-bottom: 25px;
-			padding-bottom: 20px;
-			border-bottom: 1px solid #ecf0f1;
-		}
+        .carousel-slide.active {
+            opacity: 1;
+        }
 
-		.experience-item:last-child, .education-item:last-child {
-			border-bottom: none;
-		}
+        .slide-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-		.item-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			margin-bottom: 10px;
-			flex-wrap: wrap;
-		}
+        .slide-content img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
 
-		.item-title {
-			font-weight: 600;
-			color: #2c3e50;
-			font-size: 1.1em;
-		}
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+            z-index: 2;
+        }
 
-		.item-date {
-			color: #7f8c8d;
-			font-weight: 500;
-			font-size: 0.9em;
-		}
+        body.dark-mode .slide-overlay {
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+        }
 
-		.item-company {
-			color: #3498db;
-			font-weight: 500;
-			margin-bottom: 8px;
-		}
+        .slide-text {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 40px;
+        }
 
-		.item-description {
-			color: #555;
-			line-height: 1.6;
-		}
+        .slide-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
 
-		.about-text {
-			font-size: 1.05em;
-			line-height: 1.7;
-			color: #555;
-			text-align: justify;
-		}
+        .slide-text p {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
 
-		.achievement-list {
-			list-style: none;
-		}
+        .slide-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
 
-		.achievement-list li {
-			margin-bottom: 12px;
-			padding-left: 20px;
-			position: relative;
-		}
+        /* 導航箭頭 */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 4;
+            backdrop-filter: blur(10px);
+        }
 
-		.achievement-list li::before {
-			content: '▶';
-			color: #3498db;
-			position: absolute;
-			left: 0;
-		}
+        .carousel-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.05);
+        }
 
-		.project-link {
-			color: #3498db;
-			text-decoration: none;
-			font-weight: 500;
-		}
+        .carousel-nav.prev {
+            left: 30px;
+        }
 
-		.project-link:hover {
-			text-decoration: underline;
-		}
+        .carousel-nav.next {
+            right: 30px;
+        }
 
-		/* ========== 響應式設計 ========== */
-		@media (max-width: 768px) {
-			.main-content {
-				grid-template-columns: 1fr;
-			}
-			
-			.contact-info {
-				flex-direction: column;
-				align-items: center;
-			}
-			
-			.item-header {
-				flex-direction: column;
-				align-items: flex-start;
-			}
-		}
-	</style>
+        /* 指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active,
+        .indicator:hover {
+            background: white;
+            border-color: white;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 2.8em;
+            font-weight: 600;
+            color: var(--text-color-primary);
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 80px;
+                opacity: 1;
+            }
+        }
+        
+        /* Card樣式 */
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), #2980b9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        body.dark-mode .card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* ========== 各區塊細部樣式 ========== */
+
+        /* 關於我 */
+        #about .about-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 2;
+            text-align: justify;
+        }
+        
+        .about-details {
+            flex: 1;
+        }
+
+        .about-details h3 {
+            color: var(--text-color-primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .contact-list li {
+            margin-bottom: 10px;
+        }
+        .contact-list a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* 技能 */
+        #skills .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category h3 {
+            color: var(--text-color-primary);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-color-primary);
+        }
+
+        .skill-bar {
+            background: var(--skill-bar-bg);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+        }
+
+        /* 學歷 & 經歷 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 3px solid var(--accent-color);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .item-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text-color-primary);
+        }
+        
+        .item-date {
+            color: var(--text-color-secondary);
+            font-weight: 500;
+            background: var(--tag-bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .item-subtitle {
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        .item-description ul {
+            padding-left: 20px;
+            list-style-position: inside;
+        }
+        
+        .project-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(66, 153, 225, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .project-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        body.dark-mode .project-link {
+            background: rgba(99, 179, 237, 0.15);
+        }
+
+        /* 專案 */
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card .item-description {
+            flex-grow: 1;
+        }
+
+        .project-links {
+            margin-top: 15px;
+        }
+        
+        /* 響應式設計 */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            border: none;
+            padding: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .section {
+                padding: 60px 30px;
+            }
+            
+            #about .about-container {
+                flex-direction: column;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+             .section h2 {
+                font-size: 2em;
+            }
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-date {
+                margin-top: 5px;
+            }
+            #projects .projects-grid {
+                 grid-template-columns: 1fr;
+            }
+
+            /* Hero 響應式 */
+            .slide-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide-text p {
+                font-size: 1.2rem;
+            }
+            
+            .slide-subtitle {
+                font-size: 1rem;
+            }
+            
+            .slide-text {
+                padding: 0 20px;
+            }
+            
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .carousel-nav.prev {
+                left: 15px;
+            }
+            
+            .carousel-nav.next {
+                right: 15px;
+            }
+        }
+
+    </style>
 </head>
 <body>
-	<div class="resume-container">
-		<!-- 頁首區域 - 照片、姓名、聯絡資訊 -->
-		<div class="header-section">
-			<div class="profile-photo"></div>
-			<div class="name-title">
-				<h1>方澤享</h1>
-				<div class="title">資訊管理學系學生 | 跨域探索者</div>
-			</div>
-			<div class="contact-info">
-				<a href="mailto:113306052@g.nccu.edu.tw" class="contact-item">
-					<span>📧</span>
-					<span>113306052@g.nccu.edu.tw</span>
-				</a>
-				<a href="#" target="_blank" class="contact-item">
-					<span>💼</span>
-					<span>LinkedIn 個人檔案</span>
-				</a>
-				<div class="contact-item">
-					<span>🎓</span>
-					<span>國立政治大學</span>
-				</div>
-			</div>
-		</div>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
 
-		<!-- 主要內容區域 -->
-		<div class="main-content">
-			<!-- 左側欄 -->
-			<div class="sidebar">				<div class="sidebar-section">
-					<h2>關於我</h2>
-					<p class="about-text">
-						我是一個喜歡跨域探索的人，學習歷程從企管到統計，再到資管，也因為對財務管理的興趣，延伸到金融科技和創新創業的學程。這些經驗讓我不只懂程式和數據，更能從商業和金融的角度去思考科技的應用。
-我特別享受把不同領域的點連起來：程式設計與數據分析帶來的方法論，金融知識讓我看見價值創造的可能，而創業思維則提醒我要不斷實驗、快速調整。</br>對我來說，科技不只是技術，而是一種解決問題、創造新機會的工具。
-因此，我一直努力培養三種能力：理解使用者需求、掌握數據洞察，以及能在技術、商業和金融之間高效溝通。每一次轉換與挑戰，都讓我更相信自己能走向結合 科技 × 金融 × 創新 的道路。
-						<br><br>
-						除了學術，我也熱愛游泳和重訓，曾代表學校參加全國大專運動會。游泳教會我紀律、堅持和團隊合作，這些品質也反映在我的學習和工作態度上。我相信，無論是程式碼還是泳道，只要持續努力，就能不斷突破自我。
-					</p>
-				</div>				<div class="sidebar-section">
-					<h2>技能</h2>
-					<div class="skill-item">
-						<div class="skill-name">HTML/CSS/JavaScript</div>
-						<div class="skill-bar">
-							<div class="skill-level" style="width: 85%"></div>
-						</div>
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">Java</div>
-						<div class="skill-bar">
-							<div class="skill-level" style="width: 80%"></div>
-						</div>
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">統計分析</div>
-						<div class="skill-bar">
-							<div class="skill-level" style="width: 78%"></div>
-						</div>
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">資料庫管理</div>
-						<div class="skill-bar">
-							<div class="skill-level" style="width: 75%"></div>
-						</div>
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">專案管理</div>
-						<div class="skill-bar">
-							<div class="skill-level" style="width: 90%"></div>
-						</div>
-					</div>
-				</div>				<div class="sidebar-section">
-					<h2>語言能力</h2>
-					<div class="skill-item">
-						<div class="skill-name">中文 (母語)</div>
-						<!-- <div class="skill-bar">
-							<div class="skill-level" style="width: 100%"></div>
-						</div> -->
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">英語 - ETP 商業英語課程資格</div>
-						<!-- <div class="skill-bar">
-							<div class="skill-level" style="width: 80%"></div>
-						</div> -->
-					</div>
-					<div class="skill-item">
-						<div class="skill-name">日語 - 日文系輔系，跨文化溝通</div>
-						<!-- <div class="skill-bar">
-							<div class="skill-level" style="width: 70%"></div>
-						</div> -->
-					</div>
-					</br>
-				</div>
+    <!-- ========== 側邊導覽列 ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-header">
+            <div class="profile-photo"></div>
+            <h1>方澤享</h1>
+            <p>資訊管理學系學生</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">首頁</a></li>
+            <li><a href="#about">關於我</a></li>
+            <li><a href="#skills">專業技能</a></li>
+            <li><a href="#education">學歷</a></li>
+            <li><a href="#projects">個人專案</a></li>
+            <li><a href="#experience">經歷與榮譽</a></li>
+        </ul>
+        <div class="theme-switcher-container">
+            <button id="theme-switcher" class="theme-switcher" aria-label="切換顏色主題">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </nav>
 
-				<img src="logo.png" alt="NCCU Logo" class="nccu-logo">
-			</div>
+    <!-- ========== 主要內容 ========== -->
+    <main class="main-content">
 
-			<!-- 右側主要內容 -->
-			<div class="content">				<div class="section">
-					<h2>學歷</h2>
-					<div class="education-item">
-						<div class="item-header">
-							<div class="item-title">國立政治大學 資訊管理學系</div>
-							<div class="item-date">2024 - 現在</div>
-						</div>
-						<div class="item-company">主修：資訊管理學系 | 輔修：日本語文學系 | 學程：金融科技學程、創新創業學程</div>
-						<div class="item-description">
-							<strong>113上學期班級排名第四</strong><br>
-							結合前期企管與統計背景，在資管領域展現優異學習成果。除了主修資管、輔修日文外，更修讀金融科技學程與創新創業學程，展現對財務管理和創業的興趣。此跨域學習歷程讓我具備了：<br>
-							• 商業思維與市場敏感度 (企管基礎)<br>
-							• 數據分析與統計建模能力 (統計專業)<br>
-							• 資訊系統設計與程式開發技能 (資管核心)<br>
-							• 金融科技與創新創業思維 (學程專精)<br>
-							• 跨文化溝通能力 (日文輔系)<br>
-							這樣的多元背景使我能從不同角度理解問題，並提供更全面的解決方案
-							<br><a href="https://docs.google.com/spreadsheets/d/1rdWkmZQjQV-NC_YZtRDiFWY6zmWAlJLMJLzHAnxWjx4/edit?usp=sharing" target="_blank" class="project-link">查看大學四年修課計劃 →</a>
-						</div>
-					</div>
+        <!-- Hero 輪播區塊 -->
+        <section id="hero" class="hero-section">
+            <div class="hero-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="personal photo big.jpg" alt="個人照片" />
+                            <div class="slide-text">
+                                <h1>方澤享</h1>
+                                <p>跨域探索・數據思維・創新實踐</p>
+                                <div class="slide-subtitle">資訊管理學系學生 | 金融科技學程 | 創新創業學程</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="logo.png" alt="專案作品" />
+                            <div class="slide-text">
+                                <h1>創新專案</h1>
+                                <p>融合技術與創意的數位解決方案</p>
+                                <div class="slide-subtitle">AI跨域競賽入圍 | 全國大專運動會代表選手</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="personal photo big.jpg" alt="學習歷程" />
+                            <div class="slide-text">
+                                <h1>跨域學習</h1>
+                                <p>從企管到統計，再到資管的學習旅程</p>
+                                <div class="slide-subtitle">政大資管系第四名 | 跨領域整合能力</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 導航箭頭 -->
+                <button class="carousel-nav prev" aria-label="上一張">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="carousel-nav next" aria-label="下一張">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <!-- 指示器 -->
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                </div>
+            </div>
+        </section>
 
-					<div class="education-item">
-						<div class="item-header">
-							<div class="item-title">國立臺北大學 統計學系</div>
-							<div class="item-date">2023 - 2024</div>
-						</div>
-						<div class="item-company">校內轉系 | 跨域學習實踐者</div>
-						<div class="item-description">深入學習統計理論與數據分析技能，累積了扎實的量化分析基礎。在此期間體認到統計專業結合資訊技術的強大潛力，因此決定朝向資訊管理領域發展，整合商業思維、統計分析與資訊技術</div>
-					</div>
-					<div class="education-item">
-						<div class="item-header">
-							<div class="item-title">國立臺北大學 企業管理學系</div>
-							<div class="item-date">2023年 (短期)</div>
-						</div>
-						<div class="item-company">系排名第四</div>
-						<div class="item-description">優異的學術表現展現了我的學習能力，但透過實際修課發現對數據分析的興趣，決定轉向更專精的統計領域深耕</div>
-					</div>
-                    <div class="education-item">
-						<div class="item-header">
-							<div class="item-title">桃園市立武陵高中</div>
-							<div class="item-date">2021 - 2023</div>
-						</div>
-						<div class="item-description">培養紮實的學術基礎，為多元化學習奠定根基</div>
-					</div>
-					
-				</div>				<div class="section">
-					<h2>競賽與榮譽</h2>
-					<ul class="achievement-list">
-						<li><strong>2025</strong> - 政大AI跨域 x 永續創新競賽 | 入圍決賽</li>
-						<li><strong>ATCC</strong> - 全國大專院校商業個案大賽 | 進入初賽</li>
-						<li><strong>系級專案</strong> - 健身房紀錄系統 | 榮獲第二名</li>
-						<li><strong>學術表現</strong> - 政大資管系 113上學期班級排名第四</li>
-						<li><strong>學術表現</strong> - 臺北大學企管系系排名第四</li>
-						<li><strong>跨域學習</strong> - 成功完成企管→統計→資管的學術轉換</li>
-					</ul>
-				</div>
+        <!-- 關於我 -->
+        <section id="about" class="section">
+            <h2>關於我</h2>
+            <div class="about-container card">
+                <div class="about-text">
+                    <p>我是一個喜歡跨域探索的人，學習歷程從企管到統計，再到資管，也因為對財務管理的興趣，延伸到金融科技和創新創業的學程。這些經驗讓我不只懂程式和數據，更能從商業和金融的角度去思考科技的應用。</p>
+                    <p>我特別享受把不同領域的點連起來：程式設計與數據分析帶來的方法論，金融知識讓我看見價值創造的可能，而創業思維則提醒我要不斷實驗、快速調整。對我來說，科技不只是技術，而是一種解決問題、創造新機會的工具。</p>
+                    <p>除了學術，我也熱愛游泳和重訓，曾代表學校參加全國大專運動會。運動教會我紀律、堅持和團隊合作，我相信，無論是程式碼還是泳道，只要持續努力，就能不斷突破自我。</p>
+                </div>
+                <div class="about-details">
+                    <h3>核心能力</h3>
+                    <ul>
+                        <li>理解使用者需求</li>
+                        <li>掌握數據洞察</li>
+                        <li>技術、商業和金融之間的高效溝通</li>
+                    </ul>
+                    <h3>聯絡資訊</h3>
+                    <ul class="contact-list">
+                        <li>📧 <a href="mailto:113306052@g.nccu.edu.tw">113306052@g.nccu.edu.tw</a></li>
+                        <li>💼 <a href="#" target="_blank">LinkedIn 個人檔案</a></li>
+                        <li>🎓 國立政治大學</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-				<div class="section">
-					<h2>體育表現</h2>
-					<ul class="achievement-list">
-						<li><strong>2025</strong> - 全國大專校院運動會 游泳項目 | 政治大學代表選手</li>
-						<li><strong>2024</strong> - 松竹梅全國大專校際游泳邀請賽 | 政治大學代表選手</li>
-						<li><strong>游泳專長</strong> - 展現優異的運動素養與毅力，代表學校參與全國性賽事</li>
-					</ul>
-				</div>
+        <!-- 專業技能 -->
+        <section id="skills" class="section">
+            <h2>專業技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category card">
+                    <h3>技術能力</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">HTML/CSS/JavaScript</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Java</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">統計分析 (R, SPSS)</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 78%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">資料庫管理 (SQL)</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category card">
+                    <h3>軟實力</h3>
+                     <div class="skill-item">
+                        <div class="skill-name">專案管理</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">跨領域溝通</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">問題解決</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 88%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category card">
+                    <h3>語言能力</h3>
+                    <div class="skill-item"><div class="skill-name">中文 (母語)</div></div>
+                    <div class="skill-item"><div class="skill-name">英語 (ETP 商業英語課程資格)</div></div>
+                    <div class="skill-item"><div class="skill-name">日語 (日文系輔系)</div></div>
+                </div>
+            </div>
+        </section>
 
-				<div class="section">
-					<h2>個人專案</h2>
-					
-					<div class="experience-item">
-						<div class="item-title">政治大學游泳隊管理系統</div>
-						<div class="item-description">
-							為政治大學游泳隊開發的數位化管理平台。<br>
-							主要功能包含：隊員登入簽到、隊長安排課表發布、請假申請審核、個人訓練日誌記錄。採用 Google Apps Script 搭配 Google Sheets 作為後端資料庫，提供即時同步的隊務管理解決方案。
-							<br><a href="https://script.google.com/macros/s/AKfycbzIfhIGqvpgDw72G7pGafnvPALs7FvB4A_RBx4VKiKmNtqyW-jTrmNTDILpyvz7NBnK/exec" target="_blank" class="project-link">系統連結 →</a>　
-							<a href="https://docs.google.com/spreadsheets/d/1m2tulabeedQtCR0OMjP_ydKNM76rtyduBvsljfqU498/edit?usp=sharing" target="_blank" class="project-link">資料庫 →</a>
-						</div>
-					</div>
+        <!-- 學歷 -->
+        <section id="education" class="section">
+            <h2>學歷</h2>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立政治大學 資訊管理學系</div>
+                            <div class="item-date">2024 - 現在</div>
+                        </div>
+                        <div class="item-subtitle">主修：資管 | 輔修：日文 | 學程：金融科技、創新創業</div>
+                        <div class="item-description">113上學期班級排名第四，結合前期企管與統計背景，展現優異的跨域學習成果。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立臺北大學 統計學系</div>
+                            <div class="item-date">2023 - 2024</div>
+                        </div>
+                         <div class="item-subtitle">校內轉系</div>
+                        <div class="item-description">深入學習統計理論與數據分析技能，並體認到結合資訊技術的潛力，決定朝資管領域發展。</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立臺北大學 企業管理學系</div>
+                            <div class="item-date">2023年 (短期)</div>
+                        </div>
+                        <div class="item-subtitle">系排名第四</div>
+                        <div class="item-description">優異的學術表現展現了學習能力，但透過修課發現對數據分析的興趣，決定轉向統計領域。</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">桃園市立武陵高中</div>
+                            <div class="item-date">2021 - 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- 個人專案 -->
+        <section id="projects" class="section">
+            <h2>個人專案</h2>
+            <div class="projects-grid">
+                <div class="project-card card">
+                    <div class="item-title">《蓋亞造界：GaiaCraft》</div>
+                    <div class="item-subtitle">政大AI跨域X永續創新競賽 | 入圍決賽</div>
+                    <div class="item-description">
+                        全球首創虛實整合RPG永續生態圈。融合遊戲化與永續行動的2D像素風RPG，讓玩家透過淨灘、回收等日常永續行為來解鎖任務、改變虛擬世界。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://iaic.nccu.edu.tw/contests/ai-api" target="_blank" class="project-link">競賽首頁 →</a>
+                        <a href="https://youtu.be/O2rK_wXFQwk?si=xpk_8r6osu7tFEGu" target="_blank" class="project-link">影片介紹 →</a>
+                    </div>
+                </div>
+                <div class="project-card card">
+                    <div class="item-title">政治大學游泳隊管理系統</div>
+                    <div class="item-subtitle">數位化管理平台</div>
+                    <div class="item-description">
+                        功能包含：隊員簽到、課表發布、請假審核、訓練日誌。採用 Google Apps Script 搭配 Google Sheets 作為後端，提供即時同步的隊務管理方案。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://script.google.com/macros/s/AKfycbzIfhIGqvpgDw72G7pGafnvPALs7FvB4A_RBx4VKiKmNtqyW-jTrmNTDILpyvz7NBnK/exec" target="_blank" class="project-link">系統連結 →</a>
+                    </div>
+                </div>
+                <div class="project-card card">
+                    <div class="item-title">國泰人壽 Health+ 健康永續生態圈</div>
+                    <div class="item-subtitle">行銷提案競賽作品</div>
+                    <div class="item-description">
+                        將用戶健康行為轉化為保費優惠與積分，優化風險池，並透過獎勵機制鼓勵年長者運動，同時結合永續公益，強化品牌連結。
+                    </div>
+                    <div class="project-links">
+                         <a href="https://frank956952.github.io/Cathay-Life-Insurance/" target="_blank" class="project-link">查看專案 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- 經歷與榮譽 -->
+        <section id="experience" class="section">
+            <h2>經歷與榮譽</h2>
+             <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">政大 EMBA 工作人員</div><div class="item-date">2024 - 現在</div></div>
+                        <div class="item-subtitle">國立政治大學</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">交換生Buddy program 計畫成員</div><div class="item-date">2024 - 現在</div></div>
+                        <div class="item-subtitle">政大國合處</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">競賽與榮譽</div><div class="item-date">2023 - 2025</div></div>
+                        <div class="item-description">
+                            <ul>
+                                <li>2025 - 政大AI跨域 x 永續創新競賽 | 入圍決賽</li>
+                                <li>ATCC - 全國大專院校商業個案大賽 | 進入初賽</li>
+                                <li>學術表現 - 政大資管系、臺北大學企管系排名第四</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">體育表現</div><div class="item-date">2024 - 2025</div></div>
+                        <div class="item-description">
+                            <ul>
+                                <li>全國大專校院運動會 游泳項目 | 政治大學代表選手</li>
+                                <li>松竹梅全國大專校際游泳邀請賽 | 政治大學代表選手</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-					<div class="experience-item">
-						<div class="item-title">《蓋亞造界：GaiaCraft》——全球首創虛實整合ＲＰＧ永續生態圈大作</div>
-						<div class="item-description">
-							政大AI跨域X永續創新競賽 入圍決賽作品，由政治大學游泳隊四位跨域學生共同開發。<br>
-							《GaiaCraft 永續冒險》是一款融合遊戲化與永續行動的2D像素風RPG。以90年代日式RPG為靈感，打造一個讓玩家透過日常永續行為——如淨灘、回收、使用環保杯——來解鎖任務、獲得獎勳、改變虛擬世界的冒險旅程。透過AI整合（如GPS打卡、照片辨識、語音回報），玩家每一個善行都能被即時記錄並轉化為遊戲內成就與劇情進展。企業也可參與提供綠幣獎勵，創造ESG價值。GaiaCraft不只是一款遊戲，而是一場跨世代的文化實驗：讓永續成為榮耀，讓善行變得好玩。
-							<br><a href="https://iaic.nccu.edu.tw/contests/ai-api" target="_blank" class="project-link">競賽首頁 →</a>　
-							<a href="https://youtu.be/O2rK_wXFQwk?si=xpk_8r6osu7tFEGu" target="_blank" class="project-link">影片介紹 →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-title">國泰人壽 Health+ 健康永續生態圈</div>
-						<div class="item-description">
-							參加國泰人壽Show出你的新『泰』度！策略領航家：行銷提案組競賽作品。<br>
-							國泰 HEALTH+ 健康平台將用戶健康行為轉化為積分，辨識低風險青年族群並提供保費優惠與國泰小數點積分，優化風險池與理賠結構；同時透過獎勵機制鼓勵年長者運動、降低風險，積分亦可轉贈弱勢提升個人與企業永續公益參與，強化品牌連結。目標五年內提升 20–30 歲市佔率至 60%，穩健擴大利潤與永續收益。
-							<br><a href="https://frank956952.github.io/Cathay-Life-Insurance/" target="_blank" class="project-link">查看專案 →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-title">健身房紀錄系統</div>
-						<div class="item-description">
-							一個協助使用者記錄與規劃訓練的系統，負責核心功能與資料庫架構設計。
-							<br><a href="https://github.com/frank956952/Java-final.git" target="_blank" class="project-link">查看專案 →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-title">個人作品集網站</div>
-						<div class="item-description">
-							使用 HTML/CSS/JavaScript 手刻的個人形象網站，展現前端開發與設計能力。
-							<br><a href="https://github.com/frank956952/resume.git" target="_blank" class="project-link">查看原始碼 →</a>
-						</div>
-					</div>
-				</div>
+    </main>
 
-				<div class="section">
-					<h2>經歷</h2>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">政大 EMBA 工作人員</div>
-							<div class="item-date">2024 - 現在</div>
-						</div>
-						<div class="item-company">國立政治大學</div>
-						<div class="item-description">協助EMBA相關業務執行與活動籌劃</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">包種茶節 公關組</div>
-							<div class="item-date">2024</div>
-						</div>
-						<div class="item-company">政大資管系</div>
-						<div class="item-description">負責活動對外聯絡與宣傳事務</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">交換生Buddy program 計畫成員</div>
-							<div class="item-date">2024 - 現在</div>
-						</div>
-						<div class="item-company">政大國合處</div>
-						<div class="item-description">協助國際交換生適應校園生活與文化交流</div>
-					</div>
-                    <div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">商院菁英種子營</div>
-							<div class="item-date">2024</div>
-						</div>
-						<div class="item-company">政治大學商院生涯大使</div>
-						<div class="item-description">了解產業趨勢與AI應用</div>
-					</div>
-				</div>
+    <script>
+        // 簡易的導覽列 active 狀態 & 手機版 menu toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const menuToggle = document.getElementById('menu-toggle');
+            const navbar = document.getElementById('navbar');
 
-				<div class="section">
-					<h2>社群媒體經營</h2>
-					<div class="experience-item">
-						<div class="item-title">個人社群媒體經營</div>
-						<div class="item-description">
-							自主經營個人Instagram與Threads帳號（4000粉絲），分享生活日常、學習心得與跨域探索歷程。
-							<br><a href="https://www.instagram.com/itsfrankiefunky?igsh=aHo2dDZza2IydTg5&utm_source=qr" target="_blank" class="project-link">Instagram →</a>　
-							<a href="https://www.threads.com/@itsfrankiefunky?igshid=NTc4MTIwNjQ2YQ==" target="_blank" class="project-link">Threads →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">政治大學游泳隊 IG 管理</div>
-							<div class="item-date">2024 - 現在</div>
-						</div>
-						<div class="item-company">政治大學游泳隊</div>
-						<div class="item-description">
-							協助游泳隊Instagram帳號營運，記錄訓練日常、比賽成果與隊員生活，提升校隊曝光度。
-							<br><a href="https://www.instagram.com/nccuswimteam?igsh=dnhsejlwZnV1Nm1h" target="_blank" class="project-link">查看 Instagram →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">政大資管系系學會 IG 管理</div>
-							<div class="item-date">2024 - 現在</div>
-						</div>
-						<div class="item-company">政大資管系系學會</div>
-						<div class="item-description">
-							參與系學會Instagram帳號內容規劃與管理，負責系上活動宣傳與學生資訊傳遞。
-							<br><a href="https://www.instagram.com/nccumis_sa?igsh=MWs1cTRyN2N2cTl6Nw==" target="_blank" class="project-link">查看 Instagram →</a>
-						</div>
-					</div>
-					<div class="experience-item">
-						<div class="item-header">
-							<div class="item-title">武陵高中舞林社公關管理</div>
-							<div class="item-date">2021 - 2023</div>
-						</div>
-						<div class="item-company">桃園市立武陵高中</div>
-						<div class="item-description">
-							負責社團對外形象經營與活動宣傳，透過Instagram平台提升社團知名度與參與度。
-							<br><a href="https://www.instagram.com/wldc__33?igsh=cGt0d2ppaDI5bzg1" target="_blank" class="project-link">查看 Instagram →</a>
-						</div>
-					</div>
-				</div>
+            // --- Dark Mode ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const body = document.body;
 
-				
-			</div>
-		</div>
-	</div>
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    body.classList.remove('dark-mode');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            };
+
+            themeSwitcher.addEventListener('click', () => {
+                const isDarkMode = body.classList.contains('dark-mode');
+                const newTheme = isDarkMode ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+            // Load saved theme from localStorage, default to 'dark'
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+            // --- End Dark Mode ---
+
+            // --- Hero Carousel ---
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.querySelector('.carousel-nav.prev');
+            const nextBtn = document.querySelector('.carousel-nav.next');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                // 移除所有active類別
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // 添加active類別到當前幻燈片
+                slides[index].classList.add('active');
+                indicators[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                const next = (currentSlide + 1) % slides.length;
+                showSlide(next);
+            }
+
+            function prevSlide() {
+                const prev = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prev);
+            }
+
+            function startAutoplay() {
+                slideInterval = setInterval(nextSlide, 5000); // 每5秒切換
+            }
+
+            function stopAutoplay() {
+                clearInterval(slideInterval);
+            }
+
+            // 綁定事件監聽器
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoplay();
+                startAutoplay(); // 重新開始自動播放
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoplay();
+                startAutoplay(); // 重新開始自動播放
+            });
+
+            // 指示器點擊事件
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                    stopAutoplay();
+                    startAutoplay(); // 重新開始自動播放
+                });
+            });
+
+            // 滑鼠懸停時暫停自動播放
+            const heroCarousel = document.querySelector('.hero-carousel');
+            heroCarousel.addEventListener('mouseenter', stopAutoplay);
+            heroCarousel.addEventListener('mouseleave', startAutoplay);
+
+            // 開始自動播放
+            startAutoplay();
+            // --- End Hero Carousel ---
+
+            function changeLinkState() {
+                let index = sections.length;
+
+                // 從後面往前找，找到第一個在視窗上方的區塊
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                if (navLinks[index]) {
+                   navLinks[index].classList.add('active');
+                }
+            }
+
+            changeLinkState();
+            window.addEventListener('scroll', changeLinkState);
+
+            // 手機版漢堡選單點擊事件
+            menuToggle.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+
+            // 點擊導覽列連結後，自動關閉手機版選單
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navbar.classList.contains('active')) {
+                        navbar.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
