@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方澤享 (Frank Fang) - 履歷</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+        header {
+            text-align: left;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .profile-pic-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+        .profile-pic-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(0.96);
+            object-position: 50% 33%; /* 將圖片在垂直方向上稍微下移 */
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+        header .contact-info {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #555;
+        }
+        header .contact-info span, header .contact-info a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #555;
+            transition: color 0.3s;
+        }
+        header .contact-info a:hover {
+            color: #3498db;
+        }
+        header .subtitle {
+            font-size: 1.2em;
+            color: #34495e;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 1.6em;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+        }
+        .item {
+            display: grid;
+            grid-template-columns: 130px 1fr; /* 固定日期欄寬度 */
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .date {
+            font-weight: 600;
+            color: #555;
+            text-align: right;
+            padding-right: 20px;
+            position: relative;
+            font-size: 0.95em;
+            padding-top: 2px;
+        }
+        /* 仿造範例圖片的垂直線 */
+        .date::before {
+            content: '|';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #3498db;
+            font-weight: bold;
+        }
+        .details h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.15em;
+            color: #2c3e50;
+        }
+        .details .company {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        .details p, .details ul {
+            margin: 0;
+            padding-left: 0;
+            color: #444;
+        }
+        .details ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .details ul li {
+            position: relative;
+            margin-bottom: 5px;
+        }
+        .details ul li::before {
+            content: '•';
+            position: absolute;
+            left: -20px;
+            color: #3498db;
+            font-weight: bold;
+        }
+        /* 技能區塊的客製化排版 */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .skills-container h4 {
+            margin: 0 0 10px 0;
+            color: #34495e;
+        }
+        .skills-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skills-container li {
+            background: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .profile-pic-container {
+                width: 120px;
+                height: 120px;
+                margin-left: 0;
+                margin-bottom: 20px;
+            }
+            .item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .date {
+                text-align: left;
+                padding-right: 0;
+                margin-bottom: 5px;
+                padding-left: 15px; /* 讓垂直線有空間 */
+            }
+            .date::before {
+                left: 0;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+            .contact-info {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+             .contact-info span, .contact-info a {
+                 margin-bottom: 5px;
+             }
+        }
+
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                font-size: 10pt;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            header {
+                border-bottom: 2px solid #000;
+                padding-bottom: 15px;
+                margin-bottom: 20px;
+            }
+            .profile-pic-container {
+                width: 130px;
+                height: 130px;
+                margin: 0 0 0 20px;
+                border: 1px solid #ddd;
+                box-shadow: none;
+            }
+            h1 { font-size: 20pt; }
+            .subtitle { font-size: 11pt; }
+            h2 {
+                font-size: 14pt;
+                border-bottom: 2px solid #000;
+                padding-bottom: 5px;
+                margin-bottom: 15px;
+            }
+            section {
+                margin-bottom: 20px;
+            }
+            .item {
+                page-break-inside: avoid;
+                margin-bottom: 15px;
+            }
+            .date::before, .details ul li::before {
+                color: #000;
+            }
+            .skills-container li {
+                background: none;
+                padding: 2px 0;
+            }
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+            .contact-info a[href^="mailto"]::after {
+                content: " (" attr(href) ")";
+                font-size: 9pt;
+                color: #333;
+            }
+             .contact-info a[href="#"] {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div>
+                <h1>方澤享 (FANG ZE SIANG)</h1>
+                <div class="subtitle">Sophomore, Department of Management Information Systems (MIS), NCCU</div>
+                <div class="contact-info">
+                    <span>0956956952</span>
+                    <a href="mailto:113306052@g.nccu.edu.tw">113306052@g.nccu.edu.tw</a>
+                </div>
+            </div>
+            <div class="profile-pic-container">
+                <img src="profile.jpeg" alt="Frank Fang Profile Picture">
+            </div>
+        </header>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="item">
+                <div class="date">Since 09/2024</div>
+                <div class="details">
+                    <h3>National Chengchi University (NCCU)</h3>
+                    <div class="company">B.B.A. in Management Information Systems (Sophomore)</div>
+                    <ul>
+                        <li><b>Minor:</b> Japanese Language & Literature</li>
+                        <li><b>Program:</b> FinTech & Innovation and Entrepreneurship</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2023 - 2024</div>
+                <div class="details">
+                    <h3>National Taipei University (NTPU)</h3>
+                    <div class="company">Department of Statistics (Transfer Student)</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2023</div>
+                <div class="details">
+                    <h3>National Taipei University (NTPU)</h3>
+                    <div class="company">Department of Business Administration (Transfer Student)</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work-experience">
+            <h2>Work Experience</h2>
+            <div class="item">
+                <div class="date">Since 2024</div>
+                <div class="details">
+                    <h3>Social Media Editor, OIC</h3>
+                    <div class="company">NCCU Office of International Cooperation</div>
+                    <p>Responsible for content creation and social media management for NCCU's international student community.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">Since 2024</div>
+                <div class="details">
+                    <h3>Staff, NCCU EMBA Program</h3>
+                    <div class="company">National Chengchi University</div>
+                    <p>Assist in the execution and event coordination for the EMBA program.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="competition-experience">
+            <h2>Competition Experience</h2>
+            <div class="item">
+                <div class="date">2025</div>
+                <div class="details">
+                    <h3>Allianz Business Competition</h3>
+                    <div class="company">Participant (Currently participating)</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2025</div>
+                <div class="details">
+                    <h3>Line Business Competition</h3>
+                    <div class="company">Participant (Currently participating)</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2025</div>
+                <div class="details">
+                    <h3>NCCU AI x Sustainability Innovation Competition</h3>
+                    <div class="company">Finalist</div>
+                    <p>Project "GaiaCraft": A gamified RPG platform integrating virtual achievements with real-world sustainable actions.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2024</div>
+                <div class="details">
+                    <h3>ATCC National Business Case Competition</h3>
+                    <div class="company">Participant</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2024</div>
+                <div class="details">
+                    <h3>MIS Department Project: Gym Management System</h3>
+                    <div class="company">2nd Place</div>
+                    <p>Led core function development and database architecture design.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="scholarships-honors">
+            <h2>Scholarships & Honors</h2>
+            <div class="item">
+                <div class="date">2025</div>
+                <div class="details">
+                    <h3>Ho Yu Education Foundation Scholarship</h3>
+                    <div class="company">Recipient</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2025</div>
+                <div class="details">
+                    <h3>National Intercollegiate Athletic Games (Swimming)</h3>
+                    <div class="company">NCCU University Team Representative</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">2024</div>
+                <div class="details">
+                    <h3>Academic Excellence Award</h3>
+                    <div class="company">4th Place, MIS Department (Fall 2024 Semester)</div>
+                </div>
+            </div>
+             <div class="item">
+                <div class="date">2023</div>
+                <div class="details">
+                    <h3>Academic Excellence Award</h3>
+                    <div class="company">4th Place, Business Administration Department, NTPU</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="extracurricular-volunteer">
+            <h2>Extracurricular & Volunteer Experience</h2>
+            <div class="item">
+                <div class="date">Since 2024</div>
+                <div class="details">
+                    <h3>Volunteer, NCCU OIC Buddy Program</h3>
+                    <p>Facilitate cultural exchange and assist international exchange students with campus adaptation.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">Since 2024</div>
+                <div class="details">
+                    <h3>Social Media Manager, NCCU Swim Team</h3>
+                    <p>Manage the team's official Instagram account.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="date">Since 2024</div>
+                <div class="details">
+                    <h3>Social Media Manager, MIS Dept. Student Association</h3>
+                    <p>Co-manage the department's Instagram for event promotion.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills-languages">
+            <h2>Skills & Languages</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <ul>
+                        <li><b>Chinese (Mandarin):</b> Native</li>
+                        <li><b>English:</b> TOEIC 900 | NCCU College of Commerce ETP (English Taught Program) Qualification</li>
+                        <li><b>Japanese:</b> Proficient (Minor in Japanese Literature)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Technical Skills</h4>
+                    <ul>
+                        <li><b>Programming:</b> Java, HTML/CSS/JavaScript</li>
+                        <li><b>Data:</b> Statistical Analysis, Database Management</li>
+                        <li><b>General:</b> Project Management, Social Media Marketing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /container -->
+
+</body>
+</html>
