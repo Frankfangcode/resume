@@ -166,7 +166,11 @@ main { padding-top:52px; }
 
 @media(max-width:768px){
   .hero-grid,.awards-wrap,.about-wrap { grid-template-columns:1fr; }
-  .hero-meta { border-left:none; border-top:1px solid var(--border); padding:1rem 0 0; margin-top:1.5rem; }
+  .hero-meta { border-left:none; border-top:1px solid var(--border); padding:1rem 0 0; margin-top:1.5rem; display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
+  .hero-stat { margin-bottom:0; }
+  .hstat-num { font-size:28px; }
+  .hstat-lbl { font-size:11px; }
+  .hero-vol { grid-column:1/-1; }
   /* 手機上把 meta 移到名字下面 */
   .hero-grid { display:flex; flex-direction:column; }
   .hero-name { font-size:clamp(36px,12vw,60px) !important; }
