@@ -78,6 +78,8 @@ main { padding-top:52px; }
 .proj-wrap { max-width:1100px; margin:0 auto; padding:0 2rem 3rem; }
 .proj-feat { display:grid; grid-template-columns:1fr 1fr; gap:1px; border:1px solid var(--border); margin-bottom:1px; background:var(--border); }
 .proj-sec { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; border:1px solid var(--border); border-top:none; background:var(--border); }
+.proj-more { display:none; }
+.proj-more.open { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-top:none; max-width:1100px; margin:0 auto; }
 .pcard { background:var(--white); padding:1.5rem; cursor:pointer; transition:background .15s; }
 .pcard:hover { background:var(--paper-sec); }
 .pcard.feat { padding:2rem; }
@@ -164,12 +166,19 @@ main { padding-top:52px; }
 
 @media(max-width:768px){
   .hero-grid,.awards-wrap,.about-wrap { grid-template-columns:1fr; }
-  .hero-meta { border-left:none; border-top:1px solid var(--border); padding:1rem 0 0; }
+  .hero-meta { border-left:none; border-top:1px solid var(--border); padding:1rem 0 0; margin-top:1.5rem; }
+  /* 手機上把 meta 移到名字下面 */
+  .hero-grid { display:flex; flex-direction:column; }
+  .hero-name { font-size:clamp(36px,12vw,60px) !important; }
+  .hero-tagline { font-size:15px; }
   .proj-feat,.proj-sec,.skills-grid,.exp-wrap { grid-template-columns:1fr; }
+  .proj-more.open { grid-template-columns:1fr; }
   .nav-links { display:none; }
   .contact-bar { flex-direction:column; gap:1rem; text-align:center; }
   .contact-links { flex-direction:column; gap:.75rem; }
   .yt-grid,.img-gallery { grid-template-columns:1fr; }
+  /* 找我做什麼：手機改成單欄 */
+  .find-me-grid { grid-template-columns:1fr !important; }
 }
 </style>
 </head>
@@ -210,9 +219,9 @@ main { padding-top:52px; }
         <span class="en">I build AI tools that actually run in production — not demos. From quantitative finance to community revitalization, every project starts from a real problem.</span>
       </p>
       <div class="hero-tags">
-        <span class="tag red"><span class="zh">🤖 AI 導入 · 自動化應用開發</span><span class="en">🤖 AI Integration & Automation</span></span>
-        <span class="tag red"><span class="zh">💹 金融科技</span><span class="en">💹 FinTech</span></span>
-        <span class="tag red"><span class="zh">🌱 社會創新 · 地方創生</span><span class="en">🌱 Social Innovation</span></span>
+        <span class="tag red"><span class="zh"> AI 導入 · 自動化應用開發</span><span class="en"> AI Integration & Automation</span></span>
+        <span class="tag red"><span class="zh"> 金融科技</span><span class="en">FinTech</span></span>
+        <span class="tag red"><span class="zh"> 社會創新 · 地方創生</span><span class="en"> Social Innovation</span></span>
       </div>
     </div>
     <div class="hero-meta">
@@ -234,7 +243,7 @@ main { padding-top:52px; }
 </section>
 
 <!-- FIND ME FOR -->
-<div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--border);background:var(--border);">
+<div class="find-me-grid" style="max-width:1100px;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--border);background:var(--border);margin-top:2rem;">
   <div style="background:var(--paper);padding:1.5rem;">
     <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.1em;margin-bottom:.75rem;text-transform:uppercase;">01 · AI 導入</div>
     <div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.5rem;"><span class="zh">要把 AI 塞進你的流程？</span><span class="en">Want to embed AI in your workflow?</span></div>
@@ -355,9 +364,8 @@ main { padding-top:52px; }
       </div>
     </div>
 
-    <div class="proj-sec">
-
-      <!-- 論文查核 -->
+    <!-- 第一排小卡：只顯示 CiteGuard -->
+    <div class="proj-sec" style="grid-template-columns:1fr;">
       <div class="pcard" onclick="toggleP(this)">
         <div class="p-issue">
           <span class="p-cat"><span class="zh">學術AI</span><span class="en">Academic AI</span></span>
@@ -374,7 +382,10 @@ main { padding-top:52px; }
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
+    </div>
 
+    <!-- 更多專案（收合） -->
+    <div class="proj-more" id="proj-more">
       <!-- X調查 -->
       <div class="pcard" onclick="toggleP(this)">
         <div class="p-issue">
@@ -388,7 +399,6 @@ main { padding-top:52px; }
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
-
       <!-- 公車 -->
       <div class="pcard" onclick="toggleP(this)">
         <div class="p-issue">
@@ -404,7 +414,6 @@ main { padding-top:52px; }
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
-
       <!-- 排班系統 -->
       <div class="pcard" onclick="toggleP(this)">
         <div class="p-issue">
@@ -424,7 +433,6 @@ main { padding-top:52px; }
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
-
       <!-- 游泳隊管理系統 -->
       <div class="pcard" onclick="toggleP(this)">
         <div class="p-issue">
@@ -440,8 +448,10 @@ main { padding-top:52px; }
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
-
-    </div>
+    </div><!-- /proj-more -->
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:.75rem 2rem 2rem;">
+    <button class="more-btn" onclick="var m=document.getElementById('proj-more');m.classList.toggle('open');this.textContent=m.classList.contains('open')?'收起 ↑':'更多專案 ↓ (4)'">更多專案 ↓ (4)</button>
   </div>
 </div>
 
