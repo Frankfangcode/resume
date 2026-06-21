@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澤享的個人作品集</title>
+    <style>
+        /* ========== 全局與字體設定 ========== */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+        :root {
+            /* Light Theme */
+            --bg-color: #fafafa;
+            --text-color-primary: #1a1a1a;
+            --text-color-secondary: #4a5568;
+            --card-bg: #ffffff;
+            --nav-bg: #2d3748;
+            --nav-text: #f7fafc;
+            --accent-color: #4299e1;
+            --accent-hover: #3182ce;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --border-color: #e2e8f0;
+            --tag-bg: #edf2f7;
+            --skill-bar-bg: #e2e8f0;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        }
+
+        body.dark-mode {
+            /* Dark Theme */
+            --bg-color: #0f0f0f;
+            --text-color-primary: #f7fafc;
+            --text-color-secondary: #a0aec0;
+            --card-bg: #1a202c;
+            --nav-bg: #1a202c;
+            --nav-text: #f7fafc;
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
+            --border-color: #2d3748;
+            --tag-bg: #2d3748;
+            --skill-bar-bg: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color-secondary);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* ========== 導覽列 ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            transition: transform 0.3s ease, background-color 0.4s ease;
+        }
+
+        .nav-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 15px;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-image: url('personal photo big.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 3px solid var(--accent-color);
+            margin: 0 auto 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
+        }
+
+        .profile-photo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(52, 152, 219, 0.3);
+        }
+
+        .nav-header h1 {
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text-color-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-header p {
+            font-size: 0.85em;
+            opacity: 0.85;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .nav-links li a {
+            display: block;
+            color: var(--nav-text);
+            text-decoration: none;
+            padding: 15px 30px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 400;
+            position: relative;
+            border-radius: 8px;
+            margin: 2px 15px;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            background: rgba(66, 153, 225, 0.1);
+            padding-left: 40px;
+            color: var(--accent-color);
+        }
+
+        .nav-links li a:hover::before, .nav-links li a.active::before {
+            height: 20px;
+        }
+
+        .theme-switcher-container {
+            padding: 20px 0;
+        }
+
+        .theme-switcher {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid rgba(255,255,255,0.2);
+            color: var(--nav-text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .theme-switcher:hover {
+            background: linear-gradient(145deg, rgba(66, 153, 225, 0.2), rgba(66, 153, 225, 0.1));
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.3);
+        }
+        
+        body.dark-mode .theme-switcher {
+            background: linear-gradient(145deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        body.dark-mode .theme-switcher:hover {
+            background: linear-gradient(145deg, rgba(99, 179, 237, 0.2), rgba(99, 179, 237, 0.1));
+            border-color: var(--accent-color);
+        }
+
+        /* ========== 主內容區域 ========== */
+        .main-content {
+            margin-left: 220px;
+            width: calc(100% - 220px);
+        }
+
+        /* ========== Hero 輪播區塊 ========== */
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+            z-index: 2;
+        }
+
+        body.dark-mode .slide-overlay {
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+        }
+
+        .slide-text {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 40px;
+        }
+
+        .slide-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide-text p {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .slide-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* 導航箭頭 */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 4;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--accent-color);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .carousel-nav.prev {
+            left: 30px;
+        }
+
+        .carousel-nav.next {
+            right: 30px;
+        }
+
+        /* 指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active,
+        .indicator:hover {
+            background: white;
+            border-color: white;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            font-size: 2.8em;
+            font-weight: 600;
+            color: var(--text-color-primary);
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 80px;
+                opacity: 1;
+            }
+        }
+        
+        /* Card樣式 */
+        .card {
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), #2980b9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        body.dark-mode .card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* ========== 各區塊細部樣式 ========== */
+
+        /* 關於我 */
+        #about .about-container {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .about-text {
+            flex: 2;
+            text-align: justify;
+        }
+        
+        .about-details {
+            flex: 1;
+        }
+
+        .about-details h3 {
+            color: var(--text-color-primary);
+            margin-bottom: 15px;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .contact-list li {
+            margin-bottom: 10px;
+        }
+        .contact-list a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* 技能 */
+        #skills .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category h3 {
+            color: var(--text-color-primary);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-color-primary);
+        }
+
+        .skill-bar {
+            background: var(--skill-bar-bg);
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+        }
+
+        /* 學歷 & 經歷 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 3px solid var(--accent-color);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .item-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text-color-primary);
+        }
+        
+        .item-date {
+            color: var(--text-color-secondary);
+            font-weight: 500;
+            background: var(--tag-bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .item-subtitle {
+            font-weight: 500;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        
+        .item-description ul {
+            padding-left: 20px;
+            list-style-position: inside;
+        }
+        
+        .project-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(66, 153, 225, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .project-link:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        body.dark-mode .project-link {
+            background: rgba(99, 179, 237, 0.15);
+        }
+
+        /* 專案 */
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card .item-description {
+            flex-grow: 1;
+        }
+
+        .project-links {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            column-gap: 18px;
+            row-gap: 12px;
+            align-items: center;
+        }
+        
+        /* 響應式設計 */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--nav-bg);
+            color: var(--nav-text);
+            border: none;
+            padding: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                transform: translateX(-100%);
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .section {
+                padding: 60px 30px;
+            }
+            
+            #about .about-container {
+                flex-direction: column;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+             .section h2 {
+                font-size: 2em;
+            }
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-date {
+                margin-top: 5px;
+            }
+            #projects .projects-grid {
+                 grid-template-columns: 1fr;
+            }
+
+            /* Hero 響應式 */
+            .slide-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide-text p {
+                font-size: 1.2rem;
+            }
+            
+            .slide-subtitle {
+                font-size: 1rem;
+            }
+            
+            .slide-text {
+                padding: 0 20px;
+            }
+            
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .carousel-nav.prev {
+                left: 15px;
+            }
+            
+            .carousel-nav.next {
+                right: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+
+    <!-- ========== 側邊導覽列 ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-header">
+            <div class="profile-photo"></div>
+            <h1>方澤享</h1>
+            <p>資訊管理學系學生</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">首頁</a></li>
+            <li><a href="#about">關於我</a></li>
+            <li><a href="#skills">專業技能</a></li>
+            <li><a href="#education">學歷</a></li>
+            <li><a href="#projects">個人專案</a></li>
+            <li><a href="#experience">經歷與榮譽</a></li>
+        </ul>
+        <div class="theme-switcher-container">
+            <button id="theme-switcher" class="theme-switcher" aria-label="切換顏色主題">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== 主要內容 ========== -->
+    <main class="main-content">
+
+        <!-- Hero 輪播區塊 -->
+        <section id="hero" class="hero-section">
+            <div class="hero-carousel">
+                <div class="carousel-container">
+                    <div class="carousel-slide active">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="photo.jpeg" alt="個人照片" />
+                            <div class="slide-text">
+                                <h1>方澤享</h1>
+                                <p>跨域探索・數據思維・創新實踐</p>
+                                <div class="slide-subtitle">資訊管理學系學生 | 金融科技學程 | 創新創業學程</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="logo.png" alt="專案作品" />
+                            <div class="slide-text">
+                                <h1>創新專案</h1>
+                                <p>融合技術與創意的數位解決方案</p>
+                                <div class="slide-subtitle">AI跨域競賽佳作 | 全國大專運動會代表選手</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-content">
+                            <div class="slide-overlay"></div>
+                            <img src="personal photo big.jpg" alt="學習歷程" />
+                            <div class="slide-text">
+                                <h1>跨域學習</h1>
+                                <p>從企管到統計，再到資管的學習旅程</p>
+                                <div class="slide-subtitle">政大資管系第四名 | 跨領域整合能力</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 導航箭頭 -->
+                <button class="carousel-nav prev" aria-label="上一張">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="carousel-nav next" aria-label="下一張">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                
+                <!-- 指示器 -->
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0"></button>
+                    <button class="indicator" data-slide="1"></button>
+                    <button class="indicator" data-slide="2"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 關於我 -->
+        <section id="about" class="section">
+            <h2>關於我</h2>
+            <div class="about-container card">
+                <div class="about-text">
+                    <p>我是一個喜歡跨域探索的人，學習歷程從企管到統計，再到資管，也因為對財務管理的興趣，延伸到金融科技和創新創業的學程。這些經驗讓我不只懂程式和數據，更能從商業和金融的角度去思考科技的應用。</p>
+                    <p>我特別享受把不同領域的點連起來：程式設計與數據分析帶來的方法論，金融知識讓我看見價值創造的可能，而創業思維則提醒我要不斷實驗、快速調整。對我來說，科技不只是技術，而是一種解決問題、創造新機會的工具。</p>
+                    <p>除了學術，我也熱愛游泳和重訓，曾代表學校參加全國大專運動會。運動教會我紀律、堅持和團隊合作，我相信，無論是程式碼還是泳道，只要持續努力，就能不斷突破自我。</p>
+                </div>
+                <div class="about-details">
+                    <h3>核心能力</h3>
+                    <ul>
+                        <li>理解使用者需求</li>
+                        <li>掌握數據洞察</li>
+                        <li>技術、商業和金融之間的高效溝通</li>
+                    </ul>
+                    <h3>聯絡資訊</h3>
+                    <ul class="contact-list">
+                        <li>📧 <a href="mailto:113306052@g.nccu.edu.tw">113306052@g.nccu.edu.tw</a></li>
+                        <li>💼 <a href="#" target="_blank">LinkedIn 個人檔案</a></li>
+                        <li>🎓 國立政治大學</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 專業技能 -->
+        <section id="skills" class="section">
+            <h2>專業技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category card">
+                    <h3>技術能力</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">HTML/CSS/JavaScript</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 85%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Java</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 80%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">統計分析 (R, SPSS)</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 78%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">資料庫管理 (SQL)</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 75%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category card">
+                    <h3>軟實力</h3>
+                     <div class="skill-item">
+                        <div class="skill-name">專案管理</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 90%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">跨領域溝通</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 95%"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">問題解決</div>
+                        <div class="skill-bar"><div class="skill-level" style="width: 88%"></div></div>
+                    </div>
+                </div>
+                <div class="skill-category card">
+                    <h3>語言能力</h3>
+                    <div class="skill-item"><div class="skill-name">中文 (母語)</div></div>
+                    <div class="skill-item"><div class="skill-name">英語 (ETP 商業英語課程資格)</div></div>
+                    <div class="skill-item"><div class="skill-name">日語 (日文系輔系)</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 學歷 -->
+        <section id="education" class="section">
+            <h2>學歷</h2>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立政治大學 資訊管理學系</div>
+                            <div class="item-date">2024 - 現在</div>
+                        </div>
+                        <div class="item-subtitle">主修：資管 | 輔修：日文 | 學程：金融科技、創新創業</div>
+                        <div class="item-description">113上學期班級排名第四，結合前期企管與統計背景，展現優異的跨域學習成果。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立臺北大學 統計學系</div>
+                            <div class="item-date">2023 - 2024</div>
+                        </div>
+                         <div class="item-subtitle">校內轉系</div>
+                        <div class="item-description">深入學習統計理論與數據分析技能，並體認到結合資訊技術的潛力，決定朝資管領域發展。</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立臺北大學 企業管理學系</div>
+                            <div class="item-date">2023年 (短期)</div>
+                        </div>
+                        <div class="item-subtitle">系排名第四</div>
+                        <div class="item-description">優異的學術表現展現了學習能力，但透過修課發現對數據分析的興趣，決定轉向統計領域。</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">桃園市立武陵高中</div>
+                            <div class="item-date">2021 - 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 個人專案 -->
+        <section id="projects" class="section">
+            <h2>個人專案</h2>
+            <div class="projects-grid">
+                <div class="project-card card">
+                    <div class="item-title">《蓋亞造界：GaiaCraft》</div>
+                    <div class="item-subtitle">政大AI跨域X永續創新競賽 | 佳作</div>
+                    <div class="item-description">
+                        全球首創虛實整合RPG永續生態圈。融合遊戲化與永續行動的2D像素風RPG，讓玩家透過淨灘、回收等日常永續行為來解鎖任務、改變虛擬世界。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://iaic.nccu.edu.tw/contests/ai-api" target="_blank" class="project-link">競賽首頁 →</a>
+                        <a href="https://youtu.be/O2rK_wXFQwk?si=xpk_8r6osu7tFEGu" target="_blank" class="project-link">影片介紹 →</a>
+                        <a href="https://gd.games/games/4e33e1ea-67c3-49f9-a7be-c8b9da6a7c8a" target="_blank" class="project-link">遊戲連結 →</a>
+                        <a href="https://youtu.be/0NY5umAoa2E?si=7-z5huaePAVEYpnV" target="_blank" class="project-link">遊戲 Demo →</a>
+                    </div>
+                </div>
+                <div class="project-card card">
+                    <div class="item-title">互動敘事遊戲：像素藝術遊戲於台灣地方創生之應用</div>
+                    <div class="item-subtitle">國科會大專學生研究計畫</div>
+                    <div class="item-description">
+                        以像素藝術風格的互動敘事遊戲為媒介，結合在地文史與場景設計，探索遊戲化敘事在台灣地方創生中的應用潛力，串接資管專業與人文社區實踐。
+                    </div>
+                </div>
+                <div class="project-card card">
+                    <div class="item-title">政治大學游泳隊管理系統</div>
+                    <div class="item-subtitle">數位化管理平台</div>
+                    <div class="item-description">
+                        功能包含：隊員簽到、課表發布、請假審核、訓練日誌。採用 Google Apps Script 搭配 Google Sheets 作為後端，提供即時同步的隊務管理方案。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://script.google.com/macros/s/AKfycbzIfhIGqvpgDw72G7pGafnvPALs7FvB4A_RBx4VKiKmNtqyW-jTrmNTDILpyvz7NBnK/exec" target="_blank" class="project-link">系統連結 →</a>
+                    </div>
+                </div>
+                <div class="project-card card">
+                    <div class="item-title">國泰人壽 Health+ 健康永續生態圈</div>
+                    <div class="item-subtitle">行銷提案競賽作品</div>
+                    <div class="item-description">
+                        將用戶健康行為轉化為保費優惠與積分，優化風險池，並透過獎勵機制鼓勵年長者運動，同時結合永續公益，強化品牌連結。
+                    </div>
+                    <div class="project-links">
+                         <a href="https://frank956952.github.io/Cathay-Life-Insurance/" target="_blank" class="project-link">查看專案 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 經歷與榮譽 -->
+        <section id="experience" class="section">
+            <h2>經歷與榮譽</h2>
+             <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">政大 EMBA 工作人員</div><div class="item-date">2024 - 現在</div></div>
+                        <div class="item-subtitle">國立政治大學</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">交換生Buddy program 計畫成員</div><div class="item-date">2024 - 現在</div></div>
+                        <div class="item-subtitle">政大國合處</div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">競賽與榮譽</div><div class="item-date">2023 - 2025</div></div>
+                        <div class="item-description">
+                            <ul>
+                                <li>2025 - 政大AI跨域 x 永續創新競賽 | 佳作</li>
+                                <li>2025 - Line 商業競賽 | 入圍決賽</li>
+                                <li>2025 - 安聯人壽商業競賽 | 參加中</li>
+                                <li>2026 - 國科會大專學生研究計畫 |「互動敘事遊戲：像素藝術遊戲於台灣地方創生之應用」提案</li>
+                                <li>ATCC - 全國大專院校商業個案大賽 | 進入初賽</li>
+                                <li>現任 - 國合處 OIC 社群編輯</li>
+                                <li>學術表現 - 政大資管系、臺北大學企管系排名第四</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header"><div class="item-title">體育表現</div><div class="item-date">2024 - 2025</div></div>
+                        <div class="item-description">
+                            <ul>
+                                <li>全國大專校院運動會 游泳項目 | 政治大學代表選手</li>
+                                <li>松竹梅全國大專校際游泳邀請賽 | 政治大學代表選手</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // 簡易的導覽列 active 狀態 & 手機版 menu toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const menuToggle = document.getElementById('menu-toggle');
+            const navbar = document.getElementById('navbar');
+
+            // --- Dark Mode ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const body = document.body;
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.add('dark-mode');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    body.classList.remove('dark-mode');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            };
+
+            themeSwitcher.addEventListener('click', () => {
+                const isDarkMode = body.classList.contains('dark-mode');
+                const newTheme = isDarkMode ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+            // Load saved theme from localStorage, default to 'dark'
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+            // --- End Dark Mode ---
+
+            // --- Hero Carousel ---
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const prevBtn = document.querySelector('.carousel-nav.prev');
+            const nextBtn = document.querySelector('.carousel-nav.next');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                // 移除所有active類別
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                // 添加active類別到當前幻燈片
+                slides[index].classList.add('active');
+                indicators[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                const next = (currentSlide + 1) % slides.length;
+                showSlide(next);
+            }
+
+            function prevSlide() {
+                const prev = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prev);
+            }
+
+            function startAutoplay() {
+                slideInterval = setInterval(nextSlide, 5000); // 每5秒切換
+            }
+
+            function stopAutoplay() {
+                clearInterval(slideInterval);
+            }
+
+            // 綁定事件監聽器
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoplay();
+                startAutoplay(); // 重新開始自動播放
+            });
+
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoplay();
+                startAutoplay(); // 重新開始自動播放
+            });
+
+            // 指示器點擊事件
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                    stopAutoplay();
+                    startAutoplay(); // 重新開始自動播放
+                });
+            });
+
+            // 滑鼠懸停時暫停自動播放
+            const heroCarousel = document.querySelector('.hero-carousel');
+            heroCarousel.addEventListener('mouseenter', stopAutoplay);
+            heroCarousel.addEventListener('mouseleave', startAutoplay);
+
+            // 開始自動播放
+            startAutoplay();
+            // --- End Hero Carousel ---
+
+            function changeLinkState() {
+                let index = sections.length;
+
+                // 從後面往前找，找到第一個在視窗上方的區塊
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                if (navLinks[index]) {
+                   navLinks[index].classList.add('active');
+                }
+            }
+
+            changeLinkState();
+            window.addEventListener('scroll', changeLinkState);
+
+            // 手機版漢堡選單點擊事件
+            menuToggle.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+
+            // 點擊導覽列連結後，自動關閉手機版選單
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navbar.classList.contains('active')) {
+                        navbar.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
