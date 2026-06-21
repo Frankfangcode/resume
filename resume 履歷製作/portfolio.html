@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方澤享 Frank Fang — Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+        :root {
+            --bg-color: #fafafa;
+            --text-color-primary: #1a1a1a;
+            --text-color-secondary: #4a5568;
+            --card-bg: #ffffff;
+            --nav-bg: #2d3748;
+            --nav-text: #f7fafc;
+            --accent-color: #4299e1;
+            --accent-hover: #3182ce;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --border-color: #e2e8f0;
+            --tag-bg: #edf2f7;
+            --skill-bar-bg: #e2e8f0;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        }
+
+        body.dark-mode {
+            --bg-color: #0f0f0f;
+            --text-color-primary: #f7fafc;
+            --text-color-secondary: #a0aec0;
+            --card-bg: #1a202c;
+            --nav-bg: #1a202c;
+            --nav-text: #f7fafc;
+            --accent-color: #63b3ed;
+            --accent-hover: #4299e1;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
+            --border-color: #2d3748;
+            --tag-bg: #2d3748;
+            --skill-bar-bg: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans TC', 'Segoe UI', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color-secondary);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            position: fixed; top: 0; left: 0;
+            width: 220px; height: 100vh;
+            background: var(--nav-bg); color: var(--nav-text);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 20px 0;
+            transition: transform 0.3s ease, background-color 0.4s ease;
+            z-index: 999;
+        }
+        .nav-header { text-align: center; margin-bottom: 30px; padding: 20px 15px; }
+        .profile-photo {
+            width: 100px; height: 100px; border-radius: 50%;
+            background-image: url('personal photo big.jpg');
+            background-size: cover; background-position: center top;
+            border: 3px solid var(--accent-color);
+            margin: 0 auto 16px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(52,152,219,0.2);
+        }
+        .profile-photo:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(52,152,219,0.3); }
+        .nav-header h1 {
+            font-size: 1.4em; font-weight: 600; margin-bottom: 4px;
+            background: linear-gradient(135deg, var(--nav-text), var(--accent-color));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .nav-header p { font-size: 0.8em; opacity: 0.75; letter-spacing: 0.5px; }
+        .nav-links { list-style: none; width: 100%; flex-grow: 1; }
+        .nav-links li a {
+            display: block; color: var(--nav-text); text-decoration: none;
+            padding: 12px 30px;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            font-weight: 400; position: relative; border-radius: 8px; margin: 2px 15px;
+        }
+        .nav-links li a::before {
+            content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+            width: 3px; height: 0; background: var(--gradient-accent); border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+        .nav-links li a:hover, .nav-links li a.active {
+            background: rgba(66,153,225,0.1); padding-left: 40px; color: var(--accent-color);
+        }
+        .nav-links li a:hover::before, .nav-links li a.active::before { height: 20px; }
+        .theme-switcher-container { padding: 20px 0; }
+        .theme-switcher {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid rgba(255,255,255,0.2); color: var(--nav-text);
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .theme-switcher:hover {
+            background: linear-gradient(145deg, rgba(66,153,225,0.2), rgba(66,153,225,0.1));
+            border-color: var(--accent-color); transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66,153,225,0.3);
+        }
+        body.dark-mode .theme-switcher { background: linear-gradient(145deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1)); border-color: rgba(255,255,255,0.1); }
+        body.dark-mode .theme-switcher:hover { background: linear-gradient(145deg, rgba(99,179,237,0.2), rgba(99,179,237,0.1)); border-color: var(--accent-color); }
+
+        /* ── Main ── */
+        .main-content { margin-left: 220px; width: calc(100% - 220px); }
+
+        /* ── Hero Carousel ── */
+        .hero-section { height: 100vh; position: relative; overflow: hidden; }
+        .carousel-container { position: relative; width: 100%; height: 100%; }
+        .carousel-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; }
+        .carousel-slide.active { opacity: 1; }
+        .slide-content { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .slide-content img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, rgba(0,0,0,0.65), rgba(0,0,0,0.3)); z-index: 2; }
+        body.dark-mode .slide-overlay { background: linear-gradient(45deg, rgba(0,0,0,0.82), rgba(0,0,0,0.45)); }
+        .slide-text { position: relative; z-index: 3; text-align: center; color: white; max-width: 800px; padding: 0 40px; }
+        .slide-text h1 { font-size: 4rem; font-weight: 700; margin-bottom: 20px; background: linear-gradient(135deg,#ffffff,#f0f8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .slide-text p { font-size: 1.5rem; margin-bottom: 12px; font-weight: 300; letter-spacing: 1px; }
+        .slide-subtitle { font-size: 1rem; opacity: 0.88; font-weight: 400; }
+        .hero-stats { display: flex; gap: 40px; justify-content: center; margin-top: 24px; }
+        .hstat { text-align: center; }
+        .hstat-num { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+        .hstat-lbl { font-size: 0.78rem; opacity: 0.8; margin-top: 4px; }
+        .carousel-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.3);
+            color: white; width: 60px; height: 60px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; z-index: 4; backdrop-filter: blur(10px);
+        }
+        .carousel-nav:hover { background: rgba(255,255,255,0.3); border-color: var(--accent-color); transform: translateY(-50%) scale(1.05); }
+        .carousel-nav.prev { left: 30px; }
+        .carousel-nav.next { right: 30px; }
+        .carousel-indicators { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 4; }
+        .indicator { width: 12px; height: 12px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); background: transparent; cursor: pointer; transition: all 0.3s ease; }
+        .indicator.active, .indicator:hover { background: white; border-color: white; }
+
+        /* ── Sections ── */
+        .section {
+            min-height: 100vh; padding: 70px 50px;
+            display: flex; flex-direction: column; justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .section:last-of-type { border-bottom: none; }
+        .section h2 {
+            font-size: 2.6em; font-weight: 600; color: var(--text-color-primary);
+            margin-bottom: 45px; position: relative; padding-bottom: 18px; letter-spacing: -0.02em;
+        }
+        .section h2::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 80px; height: 4px; background: var(--gradient-accent); border-radius: 2px;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card-bg); padding: 30px; border-radius: 16px;
+            box-shadow: var(--shadow); margin-bottom: 20px;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            border: 1px solid var(--border-color); position: relative; overflow: hidden;
+        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-color), #2980b9); opacity: 0; transition: opacity 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        body.dark-mode .card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .card:hover::before { opacity: 1; }
+
+        /* ── About ── */
+        #about .about-container { display: flex; gap: 40px; align-items: flex-start; }
+        .about-text { flex: 2; text-align: justify; }
+        .about-text p { margin-bottom: 14px; }
+        .about-details { flex: 1; }
+        .about-details h3 { color: var(--text-color-primary); margin-bottom: 10px; margin-top: 20px; font-size: 1em; }
+        .about-details h3:first-child { margin-top: 0; }
+        .contact-list { list-style: none; margin-top: 8px; }
+        .contact-list li { margin-bottom: 8px; font-size: 0.9em; }
+        .contact-list a { color: var(--accent-color); text-decoration: none; }
+
+        /* ── Skills ── */
+        #skills .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+        .skill-category h3 { color: var(--text-color-primary); margin-bottom: 14px; padding-bottom: 5px; border-bottom: 2px solid var(--accent-color); }
+        .skill-tag { display: inline-block; background: var(--tag-bg); color: var(--text-color-secondary); font-size: 0.82em; padding: 4px 10px; border-radius: 20px; margin: 4px 4px 4px 0; }
+
+        /* ── Timeline ── */
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent-color); }
+        .timeline-item { margin-bottom: 28px; position: relative; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before { content: ''; position: absolute; left: -38px; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--card-bg); border: 3px solid var(--accent-color); }
+        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; flex-wrap: wrap; }
+        .item-title { font-size: 1.1em; font-weight: 600; color: var(--text-color-primary); }
+        .item-date { color: var(--text-color-secondary); font-weight: 500; background: var(--tag-bg); padding: 3px 8px; border-radius: 4px; font-size: 0.88em; }
+        .item-subtitle { font-weight: 500; color: var(--accent-color); margin-bottom: 8px; width: 100%; font-size: 0.92em; }
+        .item-description { font-size: 0.92em; }
+        .item-description ul { padding-left: 18px; }
+        .item-description li { margin-bottom: 4px; }
+
+        /* ── Projects ── */
+        #projects .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; }
+        .project-card { display: flex; flex-direction: column; }
+        .project-card .item-description { flex-grow: 1; font-size: 0.92em; margin: 8px 0 12px; }
+        .project-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .project-link {
+            color: var(--accent-color); text-decoration: none; font-weight: 500;
+            padding: 6px 14px; border-radius: 20px;
+            background: rgba(66,153,225,0.1);
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.88em;
+        }
+        .project-link:hover { background: var(--accent-color); color: white; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(66,153,225,0.3); }
+        body.dark-mode .project-link { background: rgba(99,179,237,0.15); }
+        .yt-wrap { margin-top: 14px; }
+        .yt-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; }
+        .yt-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .proj-img { width: 100%; border-radius: 10px; object-fit: cover; margin-bottom: 14px; aspect-ratio: 16/9; cursor: zoom-in; transition: opacity 0.2s; }
+        .proj-img:hover { opacity: 0.88; }
+
+        /* ── Awards ── */
+        .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .award-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border-color); align-items: flex-start; }
+        .award-item:last-child { border-bottom: none; }
+        .award-year { font-size: 0.82em; color: var(--text-color-secondary); background: var(--tag-bg); padding: 3px 8px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+        .award-rank { font-weight: 700; color: var(--accent-color); font-size: 1em; line-height: 1.2; }
+        .award-name { font-size: 0.88em; color: var(--text-color-secondary); margin-top: 2px; }
+        .schol-card { padding: 16px 20px; border-radius: 10px; border-left: 4px solid var(--accent-color); background: var(--bg-color); margin-bottom: 14px; border: 1px solid var(--border-color); border-left: 4px solid var(--accent-color); }
+        .schol-name { font-weight: 600; color: var(--text-color-primary); margin-bottom: 4px; }
+        .schol-desc { font-size: 0.88em; color: var(--text-color-secondary); }
+        .research-item { padding: 16px 0; border-bottom: 1px solid var(--border-color); }
+        .research-item:last-child { border-bottom: none; }
+        .research-title { font-weight: 600; color: var(--text-color-primary); margin-bottom: 4px; }
+        .research-desc { font-size: 0.9em; color: var(--text-color-secondary); }
+
+        /* ── Lightbox ── */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 92vw; max-height: 90vh; object-fit: contain; box-shadow: 0 0 40px rgba(0,0,0,0.6); border-radius: 4px; }
+
+        /* ── Mobile ── */
+        .menu-toggle { display: none; position: fixed; top: 16px; right: 16px; z-index: 1001; background: var(--nav-bg); color: var(--nav-text); border: none; padding: 10px; font-size: 22px; cursor: pointer; border-radius: 6px; }
+        @media (max-width: 992px) {
+            .navbar { transform: translateX(-100%); z-index: 1000; }
+            .navbar.active { transform: translateX(0); }
+            .main-content { margin-left: 0; width: 100%; }
+            .section { padding: 60px 24px; }
+            #about .about-container { flex-direction: column; }
+            .menu-toggle { display: block; }
+            .awards-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .section h2 { font-size: 2em; }
+            .item-header { flex-direction: column; align-items: flex-start; }
+            .item-date { margin-top: 4px; }
+            #projects .projects-grid { grid-template-columns: 1fr; }
+            .slide-text h1 { font-size: 2.4rem; }
+            .slide-text p { font-size: 1.1rem; }
+            .hero-stats { gap: 20px; }
+            .hstat-num { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lb" onclick="closeLB()"><img id="lb-img" src="" alt=""></div>
+
+    <!-- ── Sidebar ── -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-header">
+            <div class="profile-photo"></div>
+            <h1>方澤享 Frank</h1>
+            <p>NCCU · 資訊管理 · FinTech</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#hero" class="active">首頁</a></li>
+            <li><a href="#about">關於我</a></li>
+            <li><a href="#skills">專業技能</a></li>
+            <li><a href="#education">學歷</a></li>
+            <li><a href="#projects">個人專案</a></li>
+            <li><a href="#research">研究計畫</a></li>
+            <li><a href="#awards">競賽與榮譽</a></li>
+            <li><a href="#experience">經歷</a></li>
+        </ul>
+        <div class="theme-switcher-container">
+            <button id="theme-switcher" class="theme-switcher" aria-label="切換主題">
+                <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content">
+
+        <!-- ── Hero ── -->
+        <section id="hero" class="hero-section">
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <div class="slide-content">
+                        <div class="slide-overlay"></div>
+                        <img src="./images/gaia-village.jpg" alt="GaiaCraft 失落村莊">
+                        <div class="slide-text">
+                            <h1>方澤享 Frank Fang</h1>
+                            <p>跨域複合型執行者 — 技術 × 商業 × 社會</p>
+                            <div class="slide-subtitle">NCCU 資訊管理 · 金融科技學程 · 創新創業學程</div>
+                            <div class="hero-stats">
+                                <div class="hstat"><div class="hstat-num">7+</div><div class="hstat-lbl">獨立專案</div></div>
+                                <div class="hstat"><div class="hstat-num">3×</div><div class="hstat-lbl">全國競賽第二名</div></div>
+                                <div class="hstat"><div class="hstat-num">90</div><div class="hstat-lbl">歲阿嬤 我們用AI留住她的聲音</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-overlay"></div>
+                        <img src="./images/gaia-underwater.jpg" alt="GaiaCraft 水中廢墟">
+                        <div class="slide-text">
+                            <h1>GaiaCraft 蓋亞造界</h1>
+                            <p>用像素 RPG 保存地方記憶，驅動真實永續行為</p>
+                            <div class="slide-subtitle">教育部人文永續決賽 · 中鼎基金會決賽 · 國科會計畫獲選</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-overlay"></div>
+                        <img src="./images/gaia-nccu.webp" alt="GaiaCraft 政大校園">
+                        <div class="slide-text">
+                            <h1>Alpha Pipeline</h1>
+                            <p>十層自動化 AI 投資決策系統</p>
+                            <div class="slide-subtitle">Claude API · vectorbt · Telegram Bot · 12宮格決策矩陣</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav prev" aria-label="上一張">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="carousel-nav next" aria-label="下一張">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0"></button>
+                <button class="indicator" data-slide="1"></button>
+                <button class="indicator" data-slide="2"></button>
+            </div>
+        </section>
+
+        <!-- ── About ── -->
+        <section id="about" class="section">
+            <h2>關於我</h2>
+            <div class="about-container card">
+                <div class="about-text">
+                    <p>我的學習歷程從企管到統計，再到資管——不是迷失方向，而是每一步都在<strong>疊加視角</strong>。我懂程式、懂數據、懂商業、懂金融，最終落腳在「如何用科技解決真實問題」。</p>
+                    <p>我創辦了<strong>政大金融科技創新實驗室</strong>，邀請王儷玲主任（政大FinTech研究中心）擔任指導老師；與EMBA學長共同開發<strong>Alpha Pipeline</strong>十層量化投資系統；帶著沈錡大使獎學金赴<strong>日本九州</strong>實地考察台積電供應鏈；2026全國大專國際經貿競賽以供應鏈重組研究拿下<strong>全國第二</strong>。</p>
+                    <p>讓我最難忘的，是在深坑山上遇到那位90歲的阿嬤。她是整座山的活記憶庫。我們把她的聲音用AI留下來，把她的樣貌用3D列印出來，讓記憶公仔繼續說話——在薪燼之前。</p>
+                    <p>我也游泳，代表政大參加<strong>全國大專運動會</strong>，自由式接力全國第七。泳道和程式碼教我同樣的事：只要持續推進，就能突破。</p>
+                </div>
+                <div class="about-details">
+                    <h3>核心定位</h3>
+                    <p style="font-size:0.9em">技術 × 商業 × 社會影響力三域的跨域執行者，每個想法都能親手做出來。</p>
+                    <h3>聯絡資訊</h3>
+                    <ul class="contact-list">
+                        <li>📧 <a href="mailto:113306052@g.nccu.edu.tw">113306052@g.nccu.edu.tw</a></li>
+                        <li>💼 <a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+                        <li>⌥ <a href="https://github.com/Frankfangcode" target="_blank">GitHub</a></li>
+                        <li>🎓 國立政治大學</li>
+                    </ul>
+                    <h3>語言</h3>
+                    <ul class="contact-list">
+                        <li>中文（母語）</li>
+                        <li>英文（雅思 IELTS 6.5）</li>
+                        <li>日文（輔系）</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Skills ── -->
+        <section id="skills" class="section">
+            <h2>專業技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category card">
+                    <h3>程式語言</h3>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">HTML / CSS</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Google Apps Script</span>
+                </div>
+                <div class="skill-category card">
+                    <h3>AI / 大語言模型</h3>
+                    <span class="skill-tag">Claude API</span>
+                    <span class="skill-tag">RAG</span>
+                    <span class="skill-tag">LLM Prompting</span>
+                    <span class="skill-tag">ASR</span>
+                    <span class="skill-tag">GROBID</span>
+                    <span class="skill-tag">向量資料庫</span>
+                </div>
+                <div class="skill-category card">
+                    <h3>量化投資 / 數據</h3>
+                    <span class="skill-tag">vectorbt</span>
+                    <span class="skill-tag">pandas-ta</span>
+                    <span class="skill-tag">yfinance</span>
+                    <span class="skill-tag">FRED API</span>
+                    <span class="skill-tag">R / SPSS</span>
+                    <span class="skill-tag">SQLite</span>
+                </div>
+                <div class="skill-category card">
+                    <h3>自動化 / 部署</h3>
+                    <span class="skill-tag">APScheduler</span>
+                    <span class="skill-tag">Telegram Bot</span>
+                    <span class="skill-tag">LINE Bot</span>
+                    <span class="skill-tag">Zeabur</span>
+                    <span class="skill-tag">GitHub Pages</span>
+                    <span class="skill-tag">PWA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Education ── -->
+        <section id="education" class="section">
+            <h2>學歷</h2>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立政治大學 資訊管理學系</div>
+                            <div class="item-date">2024 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">輔系：日文 ｜ 學程：金融科技、創新創業</div>
+                        <div class="item-description">班排第四。創辦金融科技創新實驗室，國科會計畫獲選，參與政大USR計畫，赴日本九州田野考察。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">國立臺北大學 企業管理學系</div>
+                            <div class="item-date">2023 — 2024</div>
+                        </div>
+                        <div class="item-subtitle">系排第四，後轉至政大資管</div>
+                        <div class="item-description">奠定商業思維與管理知識基礎，以優異成績完成學業後轉至政大資管系，擴展至技術領域。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">桃園市立武陵高中</div>
+                            <div class="item-date">2021 — 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Projects ── -->
+        <section id="projects" class="section">
+            <h2>個人專案</h2>
+            <div class="projects-grid">
+
+                <!-- GaiaCraft -->
+                <div class="project-card card">
+                    <img class="proj-img" src="./images/gaia-village.jpg" alt="GaiaCraft" onclick="openLB(this.src)">
+                    <div class="item-title">蓋亞造界 GaiaCraft</div>
+                    <div class="item-subtitle">永續 × 遊戲 × 地方創生 ｜ 2024–2026</div>
+                    <div class="item-description">
+                        用像素RPG驅動真實永續行為，並以AI將耆老記憶化為遊戲資產。三版迭代：V1永續循環平台、V2文化科技（LLM+ASR將耆老口述轉為像素資產）、V3校園LINE Bot版（已與信義書院合作）。
+                        <br><br>
+                        <strong>薪火計畫</strong>：深坑炮仔崙90歲阿嬤是整座山的活記憶庫。用AI記錄她的聲音，3D列印製成會說話的記憶公仔，讓記憶在薪盡前留存。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://youtu.be/t5pAcjZBMBA" target="_blank" class="project-link">薪火計畫影片 →</a>
+                        <a href="https://youtu.be/e7reQ-8bgtc" target="_blank" class="project-link">永安篇影片 →</a>
+                        <a href="https://youtu.be/JW3XR1Qz6cM" target="_blank" class="project-link">競賽簡報影片 →</a>
+                    </div>
+                    <div class="yt-wrap">
+                        <div class="yt-embed">
+                            <iframe src="https://www.youtube-nocookie.com/embed/t5pAcjZBMBA" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造界 薪火"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alpha Pipeline -->
+                <div class="project-card card">
+                    <div class="item-title">Alpha Pipeline</div>
+                    <div class="item-subtitle">AI 量化投資自動化 ｜ 2026</div>
+                    <div class="item-description">
+                        十層自動化投資決策系統，將人工研究流程轉為量化紀律機器，屏除情緒干擾。
+                        <ul style="margin-top:8px">
+                            <li>宏觀篩檢：VIX、DXY、Fed利率 → Regime Score (0–100)</li>
+                            <li>AI基本面：Claude API + 12宮格決策矩陣 + 強制Bear Case</li>
+                            <li>Kill Questions：三問題強制對抗確認偏誤</li>
+                            <li>ATR部位管理 + 相關性矩陣防集中</li>
+                            <li>Telegram Bot 推送決策卡片</li>
+                            <li>60天Paper Trading畢業條件</li>
+                        </ul>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Frankfangcode" target="_blank" class="project-link">GitHub →</a>
+                    </div>
+                </div>
+
+                <!-- CiteGuard -->
+                <div class="project-card card">
+                    <div class="item-title">CiteGuard 智慧論文引用查核</div>
+                    <div class="item-subtitle">學術 AI ｜ 指導：政大AI中心陳昭伶老師 ｜ 2026</div>
+                    <div class="item-description">
+                        生醫文獻中高達39.18%的引用存在錯誤。系統透過GROBID萃取、雙重RAG（Citing chunk=1500 + Reference chunk=1000）、LLM裁判比對，自動輸出Excel查核報告。Gemma & Qwen 72% 準確率。
+                    </div>
+                    <div class="yt-wrap">
+                        <div class="yt-embed">
+                            <iframe src="https://www.youtube-nocookie.com/embed/P1wXEafgkwI" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="CiteGuard Demo"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- X調查 -->
+                <div class="project-card card">
+                    <div class="item-title">X調查 — 銀髮微物流</div>
+                    <div class="item-subtitle">X創業家 金牌 ｜ 2026</div>
+                    <div class="item-description">
+                        解決都市低價短程配送痛點。以55–69歲退休族為核心送件人力，服務「多數不急的日常配送」——這正是物流成本最高、效率最低的一段。<br><br>
+                        SAM約28萬人；Phase 1 C2C捷運沿線驗證 → Phase 2 B2B電商最後一哩。ESG：綠色里程轉為企業資產，打造共融就業。
+                    </div>
+                    <div class="project-links">
+                        <span class="skill-tag" style="margin:0">合作：勞動部發展署 · 銀髮人才資源中心</span>
+                    </div>
+                </div>
+
+                <!-- 公車網站 -->
+                <div class="project-card card">
+                    <div class="item-title">政大校內公車時刻表</div>
+                    <div class="item-subtitle">工具開發 · Threads 爆紅 ｜ 2026</div>
+                    <div class="item-description">
+                        發現政大公車App即時資訊不準，真正的訣竅是「發車時間+5分鐘才到山上」。獨自開發網頁顯示最近班次，支援加入Safari主畫面成PWA。<br><br>
+                        一篇Threads貼文：<strong>522讚 · 290分享 · 51轉發</strong>，引爆校園討論。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Frankfangcode/nccu-bus" target="_blank" class="project-link">GitHub →</a>
+                        <a href="https://frankfangcode.github.io/nccu-bus" target="_blank" class="project-link">網站 →</a>
+                    </div>
+                </div>
+
+                <!-- 排班系統 -->
+                <div class="project-card card">
+                    <div class="item-title">游泳隊排班管理系統</div>
+                    <div class="item-subtitle">系統開發 ｜ 2025</div>
+                    <div class="item-description">
+                        為政大游泳隊量身打造。Google Apps Script + Google Sheets 後端，支援隊員簽到、課表發布、請假審核、訓練日誌，大幅降低教練與隊員的行政負擔。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Frankfangcode/scheduling-system-final" target="_blank" class="project-link">GitHub →</a>
+                        <a href="https://script.google.com/macros/s/AKfycbzIfhIGqvpgDw72G7pGafnvPALs7FvB4A_RBx4VKiKmNtqyW-jTrmNTDILpyvz7NBnK/exec" target="_blank" class="project-link">系統連結 →</a>
+                    </div>
+                    <div class="yt-wrap">
+                        <div class="yt-embed">
+                            <iframe src="https://www.youtube-nocookie.com/embed/coc8i1O4XGU" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="排班系統 Demo"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 國泰人壽 -->
+                <div class="project-card card">
+                    <div class="item-title">國泰人壽 Health+ 健康永續生態圈</div>
+                    <div class="item-subtitle">競賽提案 ｜ 2025</div>
+                    <div class="item-description">
+                        將用戶健康行為轉化為保費優惠與積分，優化風險池，透過獎勵機制鼓勵年長者運動，結合永續公益強化品牌連結。
+                    </div>
+                    <div class="project-links">
+                        <a href="https://frank956952.github.io/Cathay-Life-Insurance/" target="_blank" class="project-link">查看專案 →</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ── Research ── -->
+        <section id="research" class="section">
+            <h2>研究計畫</h2>
+            <div class="card">
+                <div class="research-item">
+                    <div class="research-title">國科會大專學生研究計畫 <span class="item-date" style="font-size:0.82em;margin-left:8px">2026</span></div>
+                    <div class="research-desc">「互動敘事遊戲：像素藝術遊戲於台灣地方創生之應用」——獲選執行</div>
+                </div>
+                <div class="research-item">
+                    <div class="research-title">政大 AI 跨域研究構想補助計畫 <span class="item-date" style="font-size:0.82em;margin-left:8px">2026</span></div>
+                    <div class="research-desc">獲選兩項提案，結合AI與地方創生、永續領域</div>
+                </div>
+                <div class="research-item">
+                    <div class="research-title">政大 USR 計畫 — 永安 · 深坑地方創生 <span class="item-date" style="font-size:0.82em;margin-left:8px">2025–2026</span></div>
+                    <div class="research-desc">李怡慧老師主持，以像素數位孿生地圖呈現在地文史，遊客可在虛擬空間走動探索</div>
+                </div>
+                <div class="research-item">
+                    <div class="research-title">日本九州供應鏈田野考察 <span class="item-date" style="font-size:0.82em;margin-left:8px">2026</span></div>
+                    <div class="research-desc">沈錡大使獎學金資助，實地考察台積電在九州的供應鏈佈局，掌握半導體產業第一手國際動態</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Awards ── -->
+        <section id="awards" class="section">
+            <h2>競賽與榮譽</h2>
+            <div class="card" style="margin-bottom:24px">
+                <div class="awards-grid">
+                    <div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">全國第二名</div><div class="award-name">全國大專國際經貿與商務專題競賽 · 半導體AI供應鏈重組</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">全國第二名</div><div class="award-name">禮來 RedSpark 商業競賽</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2025</div>
+                            <div><div class="award-rank">全國第二名</div><div class="award-name">佛光大學三好 AI 創新應用競賽</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">金牌</div><div class="award-name">X創業家 — 政大科智所 × 創新創造力研究中心</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">入圍決賽</div><div class="award-name">教育部人文永續創新應用競賽</div></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">入圍決賽</div><div class="award-name">中鼎基金會永續生活實驗室</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2025</div>
+                            <div><div class="award-rank">佳作</div><div class="award-name">政大 AI × 永續創新競賽</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2025</div>
+                            <div><div class="award-rank">入圍決賽</div><div class="award-name">LINE 商業競賽</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2025</div>
+                            <div><div class="award-rank">進入初賽</div><div class="award-name">ATCC 全國大專商業個案大賽</div></div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-year">2026</div>
+                            <div><div class="award-rank">獲選</div><div class="award-name">國科會大專學生研究計畫</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size:1.4em;font-weight:600;color:var(--text-color-primary);margin-bottom:16px">獎學金</h3>
+            <div class="schol-card">
+                <div class="schol-name">沈錡大使獎學金</div>
+                <div class="schol-desc">赴日本九州實地考察台積電供應鏈佈局，第一手掌握半導體產業國際動態</div>
+            </div>
+            <div class="schol-card">
+                <div class="schol-name">商學院何麗梅校友獎學金</div>
+                <div class="schol-desc">全校每年僅4位獲選。何麗梅女士前任台積電人資長，建立深度業界指導關係</div>
+            </div>
+        </section>
+
+        <!-- ── Experience ── -->
+        <section id="experience" class="section">
+            <h2>組織與經歷</h2>
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">政大金融科技創新實驗室 — 創辦人暨社長</div>
+                            <div class="item-date">2025 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">國立政治大學</div>
+                        <div class="item-description">邀請政大金融科技研究中心主任王儷玲擔任指導老師，推動跨域FinTech研究與競賽實作。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">政大游泳隊 — 公關 · 全國代表選手</div>
+                            <div class="item-date">2024 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">全國大專校院運動會 · 自由式接力全國第七</div>
+                        <div class="item-description">負責品牌經營與動態影片製作；代表政大出賽全國大專運動會及松竹梅全國大專校際游泳邀請賽。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">資管系學會 — 公關</div>
+                            <div class="item-date">2024 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">國立政治大學</div>
+                        <div class="item-description">經營系學會 Instagram，規劃系列圖文與活動宣傳。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">政大國合處 — 社群編輯</div>
+                            <div class="item-date">2024 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">國立政治大學 · 國際合作事務處</div>
+                        <div class="item-description">製作動態影片與貼文規劃，流量亮眼；同時擔任交換生 Buddy Program 計畫成員。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">政大 EMBA — 工作人員</div>
+                            <div class="item-date">2024 — 現在</div>
+                        </div>
+                        <div class="item-subtitle">國立政治大學</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="item-header">
+                            <div class="item-title">IMBA 課堂示範講師</div>
+                            <div class="item-date">2025</div>
+                        </div>
+                        <div class="item-subtitle">政大 IMBA 課程</div>
+                        <div class="item-description">講授永續文化保存遊戲 GaiaCraft，向國際學生介紹地方創生與AI應用。</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const menuToggle = document.getElementById('menu-toggle');
+        const navbar = document.getElementById('navbar');
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const moonIcon = document.getElementById('theme-icon-moon');
+        const body = document.body;
+
+        // ── Theme ──
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                body.classList.remove('dark-mode');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        };
+        themeSwitcher.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-mode');
+            const newTheme = isDark ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        });
+        applyTheme(localStorage.getItem('theme') || 'dark');
+
+        // ── Carousel ──
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        let cur = 0, timer;
+        function showSlide(i) {
+            slides.forEach(s => s.classList.remove('active'));
+            indicators.forEach(d => d.classList.remove('active'));
+            slides[i].classList.add('active');
+            indicators[i].classList.add('active');
+            cur = i;
+        }
+        function next() { showSlide((cur + 1) % slides.length); }
+        function prev() { showSlide((cur - 1 + slides.length) % slides.length); }
+        function startAuto() { timer = setInterval(next, 5000); }
+        function stopAuto() { clearInterval(timer); }
+        document.querySelector('.carousel-nav.next').addEventListener('click', () => { next(); stopAuto(); startAuto(); });
+        document.querySelector('.carousel-nav.prev').addEventListener('click', () => { prev(); stopAuto(); startAuto(); });
+        indicators.forEach((ind, i) => ind.addEventListener('click', () => { showSlide(i); stopAuto(); startAuto(); }));
+        document.querySelector('.carousel-container').addEventListener('mouseenter', stopAuto);
+        document.querySelector('.carousel-container').addEventListener('mouseleave', startAuto);
+        startAuto();
+
+        // ── Nav active state ──
+        function updateNav() {
+            let idx = sections.length;
+            while (--idx && window.scrollY + 120 < sections[idx].offsetTop) {}
+            navLinks.forEach(l => l.classList.remove('active'));
+            if (navLinks[idx + 1]) navLinks[idx + 1].classList.add('active');
+            else if (navLinks[0]) navLinks[0].classList.add('active');
+        }
+        window.addEventListener('scroll', updateNav);
+        updateNav();
+
+        // ── Mobile menu ──
+        menuToggle.addEventListener('click', () => navbar.classList.toggle('active'));
+        navLinks.forEach(l => l.addEventListener('click', () => navbar.classList.remove('active')));
+    });
+
+    // ── Lightbox ──
+    function openLB(src) {
+        document.getElementById('lb-img').src = src;
+        document.getElementById('lb').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLB() {
+        document.getElementById('lb').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Cooling Quest - 城市降溫任務</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide-react@latest"></script>
+
+    <style>
+        @keyframes bounce-in {
+            0% { transform: scale(0.9); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-bounce-in { animation: bounce-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { 
+            MapPin, ArrowRight, Leaf, Navigation, ExternalLink, Camera, 
+            ChevronLeft, Search, MoreVertical, Settings, Map: MapIcon, 
+            List, LocateFixed, X 
+        } = lucideReact;
+
+        const CityCoolingQuest = () => {
+            // App Level State
+            const [appState, setAppState] = useState('LINE'); // 'LINE', 'GoogleMaps', 'Transition'
+            
+            // LINE Context State
+            const [activeTab, setActiveTab] = useState('home'); // 'home' (Daily Quests), 'map' (MRT Map Search)
+            const [lineStep, setLineStep] = useState('onboarding'); 
+            const [selectedQuest, setSelectedQuest] = useState(null);
+            const [homeStation, setHomeStation] = useState('');
+            
+            // Map Search State
+            const [currentLocation, setCurrentLocation] = useState(null); // e.g. '景安站'
+            const [targetDestination, setTargetDestination] = useState(null); // e.g. '台北車站'
+            const [isAnalyzing, setIsAnalyzing] = useState(false);
+            const [matchedOrder, setMatchedOrder] = useState(null);
+
+            // Google Maps Simulation State
+            const [mapProgress, setMapProgress] = useState(0);
+
+            // --- Logic & Effects ---
+
+            useEffect(() => {
+                if (appState === 'GoogleMaps') {
+                    const timer = setInterval(() => {
+                        setMapProgress((prev) => {
+                            if (prev >= 100) {
+                                clearInterval(timer);
+                                return 100;
+                            }
+                            return prev + 2;
+                        });
+                    }, 50);
+                    return () => clearInterval(timer);
+                }
+            }, [appState]);
+
+            // Actions
+            const handleSetHome = (station) => {
+                setHomeStation(station);
+                setTimeout(() => setLineStep('daily_quests'), 800);
+            };
+
+            const handleSelectQuest = (quest) => {
+                setSelectedQuest(quest);
+                setAppState('Transition');
+                setTimeout(() => {
+                    setAppState('GoogleMaps');
+                    setMapProgress(0);
+                }, 1500);
+            };
+
+            const handleArriveAndReturn = () => {
+                setAppState('Transition');
+                setTimeout(() => {
+                    setAppState('LINE');
+                    setLineStep('waiting_return'); 
+                }, 1500);
+            };
+
+            const handleScanCode = () => {
+                setLineStep('completed');
+            };
+
+            const resetDemo = () => {
+                setAppState('LINE');
+                setLineStep('onboarding');
+                setActiveTab('home');
+                setMapProgress(0);
+                setSelectedQuest(null);
+                setHomeStation('');
+                setCurrentLocation(null);
+                setTargetDestination(null);
+                setMatchedOrder(null);
+            };
+
+            const handleLocateMe = () => {
+                setTimeout(() => {
+                    setCurrentLocation('景安站');
+                }, 500);
+            };
+
+            const handleStationClick = (station) => {
+                if (!currentLocation) {
+                    alert("請先點擊右下角定位按鈕，確認您的位置");
+                    return;
+                }
+                if (station === currentLocation) return;
+
+                setTargetDestination(station);
+                setIsAnalyzing(true);
+                setMatchedOrder(null);
+
+                setTimeout(() => {
+                    setIsAnalyzing(false);
+                    setMatchedOrder({
+                        id: 99,
+                        destination: station,
+                        reward: 85,
+                        urgent: true,
+                        co2: 1.8,
+                        time: 22
+                    });
+                }, 1500);
+            };
+
+            const quests = [
+                { id: 1, destination: '台北車站', reward: 85, urgent: true, co2: 2.1, time: 25 },
+                { id: 2, destination: '行天宮站', reward: 65, urgent: false, co2: 1.5, time: 18 },
+                { id: 3, destination: '東門站', reward: 60, urgent: false, co2: 1.2, time: 15 },
+            ];
+
+            // --- Components ---
+
+            const QuestCard = ({ quest, onClick, compact = false }) => (
+                <div 
+                    onClick={onClick}
+                    className={`bg-white rounded-xl overflow-hidden shadow-lg border border-slate-100 flex flex-col relative cursor-pointer active:scale-95 transition-transform ${compact ? 'w-full mb-4' : 'snap-center shrink-0 w-[240px]'}`}
+                >
+                    <div className={`p-4 flex flex-col justify-between text-white ${quest.urgent ? 'bg-gradient-to-br from-red-500 to-orange-500' : 'bg-gradient-to-br from-blue-500 to-cyan-500'} ${compact ? 'h-20' : 'h-24'}`}>
+                        <div className="flex justify-between items-start">
+                            <span className="text-xs font-bold opacity-80 bg-black/20 px-2 py-0.5 rounded-full">i 郵箱</span>
+                            {quest.urgent && <span className="text-xs font-bold bg-yellow-400 text-red-900 px-2 py-0.5 rounded animate-pulse">急件</span>}
+                        </div>
+                        <div className="flex justify-between items-end">
+                            <div className="text-lg font-bold flex items-center gap-1">
+                                {compact ? '往 ' + quest.destination : quest.destination} <ArrowRight size={16} />
+                            </div>
+                            <div className="text-2xl font-bold">NT$ {quest.reward}</div>
+                        </div>
+                    </div>
+                    {!compact && (
+                        <div className="p-4 space-y-3">
+                            <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
+                                <div className="flex items-center gap-1"><Leaf size={12} className="text-green-500"/> -{quest.co2}kg</div>
+                                <div className="flex items-center gap-1"><MapPin size={12} className="text-blue-500"/> {quest.time} 分</div>
+                            </div>
+                            <button className="w-full py-2 bg-green-600 text-white rounded-lg font-bold text-sm">接單出發</button>
+                        </div>
+                    )}
+                </div>
+            );
+
+            const MRTStationNode = ({ name, color, x, y, onClick, isSelected, isCurrent }) => (
+                <div 
+                    onClick={() => onClick(name)}
+                    className={`absolute w-16 flex flex-col items-center cursor-pointer transition-all hover:scale-110 z-10`}
+                    style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
+                >
+                    <div className={`w-4 h-4 rounded-full border-2 border-white shadow-md mb-1 relative
+                        ${color === 'orange' ? 'bg-orange-400' : 
+                          color === 'red' ? 'bg-red-500' : 
+                          color === 'blue' ? 'bg-blue-500' : 'bg-green-500'}
+                        ${isSelected ? 'ring-4 ring-black scale-125' : ''}
+                        ${isCurrent ? 'ring-4 ring-blue-400 animate-pulse scale-125' : ''}
+                    `}>
+                        {isCurrent && <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] px-1.5 py-0.5 rounded shadow whitespace-nowrap">你在這</div>}
+                    </div>
+                    <span className={`text-xs font-bold bg-white/80 px-1 rounded backdrop-blur-sm ${isSelected ? 'text-black scale-110' : 'text-slate-600'}`}>
+                        {name}
+                    </span>
+                </div>
+            );
+
+            const LineView = () => (
+                <div className="flex flex-col h-full bg-[#8EBCDC] relative">
+                    <div className="bg-[#2d3546] text-white p-4 pt-8 flex items-center justify-between shadow-md z-20">
+                        <div className="flex items-center gap-3">
+                            <ChevronLeft size={24} />
+                            <span className="font-bold text-lg">城市降溫任務</span>
+                        </div>
+                        <div className="flex gap-4">
+                            <Search size={20} />
+                            <Settings size={20} />
+                        </div>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto bg-[#8EBCDC] relative">
+                        {(lineStep === 'waiting_return' || lineStep === 'completed') && (
+                            <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+                                {lineStep === 'waiting_return' && (
+                                    <div className="bg-white p-6 rounded-2xl w-full max-w-sm animate-bounce-in">
+                                        <h3 className="text-xl font-bold text-slate-800 mb-2">已抵達目的地！</h3>
+                                        <p className="text-slate-600 mb-4 text-sm">請將包裹放入 i 郵箱並掃描螢幕上的條碼。</p>
+                                        <button onClick={handleScanCode} className="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg">
+                                            <Camera size={20} /> 掃描櫃門條碼
+                                        </button>
+                                    </div>
+                                )}
+                                {lineStep === 'completed' && (
+                                    <div className="bg-white p-6 rounded-2xl w-full max-w-sm animate-bounce-in text-center">
+                                        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <Leaf size={32} className="text-green-600" />
+                                        </div>
+                                        <h3 className="text-xl font-bold text-slate-800 mb-2">任務完成！</h3>
+                                        <p className="text-slate-600 mb-6 text-sm">獎勵金 <span className="font-bold text-green-600">NT$ {matchedOrder ? matchedOrder.reward : selectedQuest?.reward}</span> 已入帳。</p>
+                                        <button onClick={resetDemo} className="w-full py-3 bg-slate-100 text-slate-600 font-bold rounded-xl">回到首頁</button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab === 'home' && (
+                            <div className="p-4 space-y-4 animate-fade-in">
+                                {lineStep === 'onboarding' ? (
+                                    <div className="space-y-4">
+                                        <div className="bg-white p-4 rounded-xl shadow-sm space-y-2">
+                                            <p className="font-bold text-lg">設定您的居住地 🏠</p>
+                                            <p className="text-sm text-slate-600">讓我們為您推薦順路的任務。</p>
+                                            <div className="grid grid-cols-2 gap-2 mt-2">
+                                                {['景安站', '頂溪站', '松江南京', '市政府'].map(s => (
+                                                    <button key={s} onClick={() => handleSetHome(s)} className="p-2 border rounded-lg hover:bg-green-50 text-sm font-bold text-slate-700">{s}</button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="space-y-4">
+                                        <div className="bg-white p-3 rounded-xl shadow-sm flex items-start gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold shrink-0">
+                                                <Leaf size={20}/>
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-bold text-slate-800">早安！今日推薦任務</p>
+                                                <p className="text-xs text-slate-500">從 <span className="text-green-600 font-bold">{homeStation}</span> 出發</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2 overflow-x-auto pb-4 snap-x pr-4">
+                                            {quests.map(q => <QuestCard key={q.id} quest={q} onClick={() => handleSelectQuest(q)} />)}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {activeTab === 'map' && (
+                            <div className="h-full relative overflow-hidden bg-slate-50 animate-fade-in">
+                                <div className="absolute top-4 left-4 right-4 z-20">
+                                    <div className="bg-white/90 backdrop-blur shadow-lg rounded-xl p-3 flex flex-col gap-2 border border-slate-200">
+                                        <div className="flex items-center gap-2 border-b pb-2">
+                                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                            <span className={`text-sm ${currentLocation ? 'text-slate-800 font-bold' : 'text-slate-400'}`}>
+                                                {currentLocation || '請點擊定位按鈕...'}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                            <input 
+                                                type="text" 
+                                                placeholder="點擊下方站點設定終點" 
+                                                value={targetDestination || ''}
+                                                readOnly
+                                                className="bg-transparent text-sm outline-none w-full placeholder-slate-400 font-bold text-slate-800"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="w-full h-full relative overflow-auto pt-20">
+                                    <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" style={{ minHeight: '600px'}}>
+                                        <path d="M 20 80 L 50 50 L 80 50" stroke="#F59E0B" strokeWidth="6" fill="none" />
+                                        <path d="M 50 90 L 50 20" stroke="#EF4444" strokeWidth="6" fill="none" />
+                                        <path d="M 20 60 L 90 60" stroke="#10B981" strokeWidth="6" fill="none" />
+                                        <path d="M 10 70 L 90 30" stroke="#3B82F6" strokeWidth="6" fill="none" />
+                                    </svg>
+
+                                    <MRTStationNode name="景安站" color="orange" x={20} y={80} onClick={handleStationClick} isSelected={targetDestination==='景安站'} isCurrent={currentLocation==='景安站'} />
+                                    <MRTStationNode name="頂溪站" color="orange" x={35} y={65} onClick={handleStationClick} isSelected={targetDestination==='頂溪站'} isCurrent={currentLocation==='頂溪站'} />
+                                    <MRTStationNode name="東門站" color="red" x={50} y={60} onClick={handleStationClick} isSelected={targetDestination==='東門站'} isCurrent={currentLocation==='東門站'} />
+                                    <MRTStationNode name="台北車站" color="red" x={50} y={50} onClick={handleStationClick} isSelected={targetDestination==='台北車站'} isCurrent={currentLocation==='台北車站'} />
+                                    <MRTStationNode name="民權西路" color="red" x={50} y={40} onClick={handleStationClick} isSelected={targetDestination==='民權西路'} isCurrent={currentLocation==='民權西路'} />
+                                    <MRTStationNode name="圓山站" color="red" x={50} y={30} onClick={handleStationClick} isSelected={targetDestination==='圓山站'} isCurrent={currentLocation==='圓山站'} />
+                                    <MRTStationNode name="行天宮站" color="orange" x={65} y={35} onClick={handleStationClick} isSelected={targetDestination==='行天宮站'} isCurrent={currentLocation==='行天宮站'} />
+                                    <MRTStationNode name="松江南京" color="green" x={65} y={60} onClick={handleStationClick} isSelected={targetDestination==='松江南京'} isCurrent={currentLocation==='松江南京'} />
+                                    <MRTStationNode name="市政府" color="blue" x={80} y={70} onClick={handleStationClick} isSelected={targetDestination==='市政府'} isCurrent={currentLocation==='市政府'} />
+                                </div>
+
+                                <button onClick={handleLocateMe} className="absolute bottom-24 right-4 bg-white p-3 rounded-full shadow-lg border border-slate-200 text-slate-600 active:scale-90 transition-transform">
+                                    <LocateFixed size={24} className={!currentLocation ? 'animate-pulse text-blue-500' : ''} />
+                                </button>
+
+                                <div className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-[0_-5px_20px_rgba(0,0,0,0.1)] transition-transform duration-300 transform ${targetDestination ? 'translate-y-0' : 'translate-y-full'}`}>
+                                    <div className="p-4">
+                                        <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto mb-4"></div>
+                                        {isAnalyzing ? (
+                                            <div className="text-center py-6 space-y-3">
+                                                <div className="w-8 h-8 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                                                <p className="text-slate-600 font-bold animate-pulse">正在搜尋路徑上的包裹...</p>
+                                            </div>
+                                        ) : matchedOrder ? (
+                                            <div>
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <h3 className="font-bold text-lg text-slate-800">找到順路任務！✨</h3>
+                                                    <span className="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">重疊度 95%</span>
+                                                </div>
+                                                <QuestCard quest={matchedOrder} compact={true} onClick={() => handleSelectQuest(matchedOrder)} />
+                                                <button onClick={() => handleSelectQuest(matchedOrder)} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                                                    <Navigation size={18} /> 接單並導航 (+NT$ {matchedOrder.reward})
+                                                </button>
+                                            </div>
+                                        ) : null}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="bg-white border-t border-slate-200 p-2 pb-5 flex justify-around items-center z-30">
+                        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 w-16 transition-colors ${activeTab === 'home' ? 'text-green-600' : 'text-slate-400'}`}>
+                            <List size={24} strokeWidth={activeTab === 'home' ? 3 : 2} />
+                            <span className="text-[10px] font-bold">每日任務</span>
+                        </button>
+                        <div className="w-px h-8 bg-slate-200"></div>
+                        <button onClick={() => setActiveTab('map')} className={`flex flex-col items-center gap-1 w-16 transition-colors ${activeTab === 'map' ? 'text-green-600' : 'text-slate-400'}`}>
+                            <MapIcon size={24} strokeWidth={activeTab === 'map' ? 3 : 2} />
+                            <span className="text-[10px] font-bold">地圖找單</span>
+                        </button>
+                    </div>
+                </div>
+            );
+
+            const GoogleMapsApp = () => (
+                <div className="flex flex-col h-full bg-white relative font-sans">
+                    <div className="absolute top-8 left-4 right-4 z-20 flex gap-2">
+                        <div className="flex-1 bg-white rounded-lg shadow-md p-3 flex items-center gap-3 text-slate-600">
+                            <ChevronLeft className="text-slate-400" />
+                            <div className="flex flex-col leading-none">
+                                <span className="font-medium text-slate-800 text-sm">前往 {selectedQuest?.destination || matchedOrder?.destination}</span>
+                                <span className="text-[10px] text-slate-400">已自動規劃取送路徑</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="flex-1 bg-[#e8eaed] relative overflow-hidden">
+                        <div className="absolute inset-0 grid grid-cols-4 grid-rows-6 gap-8 p-4 opacity-30 pointer-events-none">
+                            {[...Array(24)].map((_, i) => <div key={i} className="border-r border-b border-slate-300"></div>)}
+                        </div>
+                        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-2 h-[60%] bg-[#4285F4] rounded-full"></div>
+                        <div className="absolute top-24 left-1/2 -translate-x-1/2 w-2 bg-white/50 rounded-full z-10" style={{ height: `${mapProgress * 0.6}%` }}></div>
+                        <div className="absolute left-1/2 -translate-x-1/2 z-20 drop-shadow-md transition-all duration-100" style={{ top: `calc(${90 + (mapProgress * 0.6)}px)` }}>
+                            <div className="w-8 h-8 bg-[#4285F4] rounded-full border-4 border-white flex items-center justify-center">
+                                <Navigation size={14} className="text-white fill-white" />
+                            </div>
+                        </div>
+                        <div className="absolute top-24 left-4 right-4 bg-[#007D4F] p-4 rounded-lg shadow-lg z-10 flex items-start gap-4">
+                            <div className="text-white mt-1"><ArrowRight size={32} /></div>
+                            <div className="text-white">
+                                <div className="font-bold text-lg">前往 {selectedQuest?.destination || matchedOrder?.destination}</div>
+                                <div className="text-white/80 text-sm">請依照指示搭乘捷運</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-white rounded-t-2xl shadow-[0_-5px_15px_rgba(0,0,0,0.1)] p-5 z-20 pb-8">
+                        <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto mb-4"></div>
+                        <div className="flex justify-between items-center mb-4">
+                            <div>
+                                <div className="text-2xl font-bold text-slate-800">18 分鐘</div>
+                                <div className="text-slate-500 text-sm">預計獲得 NT$ {selectedQuest?.reward || matchedOrder?.reward}</div>
+                            </div>
+                            <div className="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-bold">結束</div>
+                        </div>
+                        {mapProgress < 95 ? (
+                            <div className="w-full bg-slate-100 text-slate-500 py-3 rounded-full font-bold text-center">正在導航中...</div>
+                        ) : (
+                            <button onClick={handleArriveAndReturn} className="w-full bg-blue-600 text-white py-3 rounded-full font-bold shadow-lg animate-pulse flex items-center justify-center gap-2">
+                                <ExternalLink size={18} /> 抵達並開啟 LINE
+                            </button>
+                        )}
+                    </div>
+                </div>
+            );
+
+            return (
+                <div className="flex items-center justify-center min-h-screen bg-slate-200 p-4 font-sans">
+                    <div className="w-full max-w-md h-[800px] bg-black rounded-[3rem] shadow-2xl overflow-hidden border-[8px] border-slate-800 relative ring-4 ring-slate-300/50">
+                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-50"></div>
+                        <div className="h-full bg-white pt-0 pb-0 overflow-hidden relative">
+                            {appState === 'Transition' && (
+                                <div className="h-full bg-black/80 backdrop-blur-sm flex items-center justify-center flex-col text-white z-[60] absolute inset-0">
+                                    <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mb-4"></div>
+                                    <p className="font-bold">正在切換應用程式...</p>
+                                </div>
+                            )}
+                            <div className={`h-full transition-opacity duration-500 ${appState === 'LINE' ? 'opacity-100' : 'opacity-0 hidden'}`}>
+                                <LineView />
+                            </div>
+                            <div className={`h-full transition-opacity duration-500 ${appState === 'GoogleMaps' ? 'opacity-100' : 'opacity-0 hidden'}`}>
+                                <GoogleMapsApp />
+                            </div>
+                        </div>
+                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/50 rounded-full z-50 mix-blend-difference"></div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<CityCoolingQuest />);
+    </script>
+</body>
+</html>
