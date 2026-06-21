@@ -109,6 +109,10 @@ main { padding-top:52px; }
 .tl-rank { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--red); line-height:1.1; }
 .tl-name { font-size:13px; color:var(--ink-sec); line-height:1.4; margin-top:2px; }
 .schol { margin-top:1rem; padding:1.25rem; border:1px solid var(--border); border-left:3px solid var(--red); background:var(--white); }
+.awards-more { display:none; }
+.awards-more.open { display:block; }
+.more-btn { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--blue); background:none; border:1px solid var(--border); padding:5px 14px; cursor:pointer; letter-spacing:.05em; margin-top:.75rem; border-radius:2px; transition:all .15s; }
+.more-btn:hover { background:var(--ink); color:var(--paper); border-color:var(--ink); }
 .schol-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:.25rem; }
 .schol-desc { font-size:12px; color:var(--ink-sec); line-height:1.5; }
 
@@ -202,16 +206,13 @@ main { padding-top:52px; }
         <span class="n-zh">方　澤　享</span>
       </div>
       <p class="hero-tagline">
-        <span class="zh">我跨越資訊技術、商業金融與社會實踐，抓住每一個痛點並動手解決。</span>
-        <span class="en">Builder connecting technology, business and society, every pain point is an opportunity to build something real.</span>
+        <span class="zh">我把 AI 做成真正在用的工具——不是 demo，是上線跑的系統。金融分析、地方創生、學術查核，每一個都從真實痛點出發。</span>
+        <span class="en">I build AI tools that actually run in production — not demos. From quantitative finance to community revitalization, every project starts from a real problem.</span>
       </p>
       <div class="hero-tags">
-        <span class="tag red"><span class="zh">資管 × 金融科技 × 創業</span><span class="en">IM × FinTech × Startup</span></span>
-        <span class="tag">Python</span>
-        <span class="tag">Claude API</span>
-        <span class="tag">RAG</span>
-        <span class="tag"><span class="zh">供應鏈</span><span class="en">Supply Chain</span></span>
-        <span class="tag"><span class="zh">地方創生</span><span class="en">Community Dev</span></span>
+        <span class="tag red"><span class="zh">🤖 AI 導入 · 自動化應用開發</span><span class="en">🤖 AI Integration & Automation</span></span>
+        <span class="tag red"><span class="zh">💹 金融科技</span><span class="en">💹 FinTech</span></span>
+        <span class="tag red"><span class="zh">🌱 社會創新 · 地方創生</span><span class="en">🌱 Social Innovation</span></span>
       </div>
     </div>
     <div class="hero-meta">
@@ -231,6 +232,25 @@ main { padding-top:52px; }
     </div>
   </div>
 </section>
+
+<!-- FIND ME FOR -->
+<div style="max-width:1100px;margin:0 auto;padding:2rem 2rem 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--border);background:var(--border);">
+  <div style="background:var(--paper);padding:1.5rem;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.1em;margin-bottom:.75rem;text-transform:uppercase;">01 · AI 導入</div>
+    <div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.5rem;"><span class="zh">要把 AI 塞進你的流程？</span><span class="en">Want to embed AI in your workflow?</span></div>
+    <div style="font-size:13px;color:var(--ink-sec);line-height:1.6;"><span class="zh">RAG、LLM API、自動化腳本——我從需求出發，把語言模型變成實際跑的後端。</span><span class="en">RAG, LLM APIs, automation scripts — I turn language models into backends that actually run.</span></div>
+  </div>
+  <div style="background:var(--paper);padding:1.5rem;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.1em;margin-bottom:.75rem;text-transform:uppercase;">02 · 金融科技</div>
+    <div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.5rem;"><span class="zh">需要量化分析或金融 AI 的夥伴？</span><span class="en">Need a quant / FinTech collaborator?</span></div>
+    <div style="font-size:13px;color:var(--ink-sec);line-height:1.6;"><span class="zh">量化選股、供應鏈分析、競賽研究——我有資管的技術底子，也懂金融市場的語言。</span><span class="en">Quant stock selection, supply chain analysis, competition research — I speak both code and finance.</span></div>
+  </div>
+  <div style="background:var(--paper);padding:1.5rem;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);letter-spacing:.1em;margin-bottom:.75rem;text-transform:uppercase;">03 · 社會創新</div>
+    <div style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.5rem;"><span class="zh">想用科技做有意義的事？</span><span class="en">Want to build tech with purpose?</span></div>
+    <div style="font-size:13px;color:var(--ink-sec);line-height:1.6;"><span class="zh">地方創生、USR、長照——我相信一個好的產品，可以同時解決問題和說一個讓人記住的故事。</span><span class="en">Community revitalization, USR, elder care — good products solve problems and tell stories worth remembering.</span></div>
+  </div>
+</div>
 
 <!-- PROJECTS -->
 <div id="projects">
@@ -391,16 +411,32 @@ main { padding-top:52px; }
           <span class="p-cat"><span class="zh">系統開發</span><span class="en">System Dev</span></span>
           <span>2025</span>
         </div>
-        <div class="p-title"><span class="zh">游泳隊排班管理系統</span><span class="en">Swim Team Scheduling System</span></div>
-        <div class="p-sub"><span class="zh">Google Apps Script 後端，全自動化簽到、請假、課表、訓練日誌</span><span class="en">Google Apps Script backend — automated sign-in, leave, schedules & training logs</span></div>
+        <div class="p-title"><span class="zh">排班管理系統</span><span class="en">Shift Scheduling System</span></div>
+        <div class="p-sub"><span class="zh">Google Apps Script 後端，全自動化排班、請假、通知流程</span><span class="en">Google Apps Script backend — automated shift scheduling, leave requests & notifications</span></div>
         <div class="p-tags"><span class="ptag">Google Apps Script</span><span class="ptag">Google Sheets</span><span class="ptag">LINE Bot</span></div>
         <div class="p-detail">
-          <p><span class="zh">為政大游泳隊量身打造的管理系統，以 Google Apps Script 串接 Google Sheets 作為後端資料庫，支援隊員簽到、課表發布、請假審核、訓練日誌四大功能，大幅降低教練與隊員的行政負擔。</span><span class="en">Built for NCCU's swim team. Google Apps Script + Sheets backend handles member check-in, schedule publishing, leave approval, and training logs — cutting admin overhead for coaches and members.</span></p>
+          <p><span class="zh">以 Google Apps Script 串接 Google Sheets 作為後端資料庫，打造輕量化排班管理解決方案，大幅降低人工行政負擔，實現即時同步的數位化管理。</span><span class="en">Google Apps Script + Sheets backend builds a lightweight shift management solution, eliminating manual admin work with real-time sync.</span></p>
           <div class="yt-wrap">
             <div class="yt-lbl">Demo</div>
-            <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/coc8i1O4XGU" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="游泳隊排班管理系統 Demo"></iframe></div>
+            <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/coc8i1O4XGU" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="排班管理系統 Demo"></iframe></div>
           </div>
           <a href="https://github.com/Frankfangcode/scheduling-system-final" target="_blank" rel="noopener" class="gh-link" onclick="event.stopPropagation()">⌥ GitHub →</a>
+        </div>
+        <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
+      </div>
+
+      <!-- 游泳隊管理系統 -->
+      <div class="pcard" onclick="toggleP(this)">
+        <div class="p-issue">
+          <span class="p-cat"><span class="zh">數位化平台</span><span class="en">Digital Platform</span></span>
+          <span>2025</span>
+        </div>
+        <div class="p-title"><span class="zh">政治大學游泳隊管理系統</span><span class="en">NCCU Swim Team Management</span></div>
+        <div class="p-sub"><span class="zh">隊員簽到、課表發布、請假審核、訓練日誌——全數位化隊務管理</span><span class="en">Check-in, schedules, leave approval & training logs — fully digitized team ops</span></div>
+        <div class="p-tags"><span class="ptag">Google Apps Script</span><span class="ptag">Google Sheets</span></div>
+        <div class="p-detail">
+          <p><span class="zh">為政大游泳隊量身打造的數位化管理平台，以 Google Apps Script 搭配 Google Sheets 作為後端，提供即時同步的隊務管理方案，涵蓋隊員簽到、課表發布、請假審核、訓練日誌四大核心功能。</span><span class="en">Custom digital management platform for NCCU's swim team. Google Apps Script + Sheets backend provides real-time sync across four core modules: member check-in, schedule publishing, leave approval, and training logs.</span></p>
+          <a href="https://script.google.com/macros/s/AKfycbzIfhIGqvpgDw72G7pGafnvPALs7FvB4A_RBx4VKiKmNtqyW-jTrmNTDILpyvz7NBnK/exec" target="_blank" rel="noopener" class="gh-link" onclick="event.stopPropagation()"><span class="zh">系統入口 →</span><span class="en">Live System →</span></a>
         </div>
         <button class="p-cta" onclick="event.stopPropagation()"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
       </div>
@@ -429,17 +465,18 @@ main { padding-top:52px; }
         <div class="tl-year">2026</div>
         <div><div class="tl-rank"><span class="zh">全國第二名</span><span class="en">National 2nd</span></div><div class="tl-name"><span class="zh">禮來 RedSpark 商業競賽</span><span class="en">Eli Lilly RedSpark Business Competition</span></div></div>
       </div>
+      <div class="awards-more" id="awards-more">
       <div class="tl-item">
         <div class="tl-year">2025</div>
         <div><div class="tl-rank"><span class="zh">全國第二名</span><span class="en">National 2nd</span></div><div class="tl-name"><span class="zh">佛光大學三好AI創新應用競賽</span><span class="en">FGU Three-Good AI Innovation Competition</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">入圍決賽</span><span class="en">Finals</span></div><div class="tl-name"><span class="zh">教育部人文永續創新應用競賽</span><span class="en">MOE Humanities Sustainability Innovation</span></div></div>
+        <div><div class="tl-rank"><span class="zh">佳作</span><span class="en">Finals</span></div><div class="tl-name"><span class="zh">教育部人文永續創新應用競賽</span><span class="en">MOE Humanities Sustainability Innovation</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">入圍決賽</span><span class="en">Finals</span></div><div class="tl-name"><span class="zh">中鼎基金會永續生活實驗室</span><span class="en">CTCI Foundation Sustainability Lab</span></div></div>
+        <div><div class="tl-rank"><span class="zh">佳作</span><span class="en">Finals</span></div><div class="tl-name"><span class="zh">中鼎基金會永續生活實驗室</span><span class="en">CTCI Foundation Sustainability Lab</span></div></div>
       </div>
       <div class="tl-item">
         <div class="tl-year">2025</div>
@@ -449,6 +486,8 @@ main { padding-top:52px; }
         <div class="tl-year">2026</div>
         <div><div class="tl-rank"><span class="zh">獲選</span><span class="en">Selected</span></div><div class="tl-name"><span class="zh">國科會大專學生研究計畫 · 像素藝術遊戲於台灣地方創生之應用</span><span class="en">NSTC Undergraduate Research Grant · Pixel Art Games for Community Revitalization</span></div></div>
       </div>
+      </div>
+      <button class="more-btn" onclick="var m=document.getElementById('awards-more');m.classList.toggle('open');this.textContent=m.classList.contains('open')?'收起 ↑':'更多競賽 ↓'">更多競賽 ↓</button>
     </div>
     <div>
       <div class="sb-lbl" style="margin-bottom:1rem;"><span class="zh">獎學金</span><span class="en">Scholarships</span></div>
@@ -565,7 +604,7 @@ main { padding-top:52px; }
     <div class="contact-links">
       <a href="mailto:113306052@g.nccu.edu.tw" class="c-link">113306052@g.nccu.edu.tw</a>
       <a href="https://linkedin.com" class="c-link">LinkedIn →</a>
-      <a href="https://frankfangcode.github.io" class="c-link">GitHub →</a>
+      <a href="https://github.com/Frankfangcode" class="c-link">GitHub →</a>
     </div>
   </div>
   <div class="footer-meta">NCCU · INFORMATION MANAGEMENT · AI BACHELOR'S PROGRAM · FINTECH · ENTREPRENEURSHIP · TAIWAN · 2026</div>
