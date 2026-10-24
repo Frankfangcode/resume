@@ -1,6 +1,8 @@
 name = "frank-ai-twin"
 main = "worker.js"
 compatibility_date = "2026-10-01"
+workers_dev = true
+preview_urls = false
 
 # The Gemini API key is a secret, never committed:
 #   npx wrangler secret put GEMINI_API_KEY
