@@ -2,574 +2,1122 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Frank Fang 方澤享 — Builder, Thinker, Swimmer.</title>
 <meta name="description" content="方澤享 Frank Fang｜政治大學資訊管理、AI、金融科技與創業。探索我的開發專案、Google DevJam 黑客松冠軍與全大運游泳經歷。">
-<meta name="theme-color" content="#111310">
+<meta name="theme-color" content="#0B1712">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
 <style>
+/* Look: warm cream paper, deep forest green blocks, near-black green type, one warm gold. No outlined boxes — every block is a solid fill or a photo. */
+:root{
+  --cream:#FAF6EC;--grey:#EFEADF;--paper:#FFFFFF;--ink:#17352A;--text:#0E1C16;--accent:#F2BF47;
+  --leaf:#8A6418;--muted:#6B6A5C;--body:#44493F;
+  --shadow:0 18px 40px -18px rgba(23,53,42,.45);
+  --en:"Space Grotesk","Noto Sans TC",system-ui,sans-serif;
+  --zh:"Space Grotesk","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--cream);scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--cream);color:var(--text);font-family:var(--zh);font-size:15.5px;line-height:1.8;-webkit-font-smoothing:antialiased;line-break:strict}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+h1,h2,h3,b,strong{text-wrap:balance}
+p{text-wrap:pretty}
+main{overflow-x:clip}
+.nb{white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--accent);padding:8px 14px;border-radius:999px;font-weight:900}
+.skip:focus{left:8px}
 
-:root{--ink:#f0f1e9;--ink-sec:#c1c5ba;--ink-muted:#969e90;--paper:#111310;--paper-sec:#20241c;--red:#cbf765;--blue:#cbf765;--border:#3d4436;--border-lt:#30362b;--white:#1a1e17;--accent:#cbf765;--mono:'JetBrains Mono',monospace;--sans:'Inter','Noto Sans TC',sans-serif}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--paper);color:var(--ink);font:16px/1.75 var(--sans);overflow-x:clip}a{color:inherit}button{font:inherit;cursor:pointer}button,a{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,img[tabindex]:focus-visible{outline:3px solid #86ad35;outline-offset:6px}::selection{background:var(--accent);color:#111310}.lang-en .zh,.lang-zh .en{display:none!important}img{max-width:100%;display:block}button{color:inherit}h1,h2,h3{line-height:1.1}section,[id]{scroll-margin-top:100px}.skip-link{position:fixed;top:-100px;left:20px;z-index:1000;background:var(--accent);color:#111;padding:12px}.skip-link:focus{top:15px}
-nav{height:80px;padding:0 5%;position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;background:#111310eb;backdrop-filter:blur(16px)}.nav-brand{font-weight:900;font-size:22px;letter-spacing:-1px;text-decoration:none}.nav-brand span{color:var(--accent)}.nav-right,.nav-links,.lang-toggle{display:flex;align-items:center}.nav-right{gap:30px}.nav-links{list-style:none;gap:28px}.nav-links a{font-size:14px;text-decoration:none;color:#c1c5ba;transition:color .2s}.nav-links a:hover,.nav-links a.active{color:var(--accent)}.lang-toggle{gap:2px}.lang-btn{border:0;background:none;padding:8px;color:#a6ad9e;font:12px var(--mono);min-height:40px}.lang-btn.active{color:var(--accent);border-bottom:1px solid var(--accent)}.motion-toggle{border:1px solid #4a5142;border-radius:50%;background:none;width:38px;height:38px;font-size:15px}.menu-toggle{display:none}.reading-progress{position:fixed;top:79px;left:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;z-index:110;pointer-events:none}
-main{padding-top:80px}.hero{position:relative;max-width:1440px;margin:auto;padding:50px 5% 0;isolation:isolate;overflow:hidden}.hero-eyebrow{display:flex;justify-content:space-between;gap:20px;font:12px/1.6 var(--mono);letter-spacing:.08em;color:var(--ink-sec);text-transform:uppercase}.eyebrow-status{display:flex;align-items:center;gap:8px}.status-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px #cbf76566}.hero-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:32px;align-items:center;padding-top:36px}.hero-copy{position:relative;z-index:2;padding:24px 0 50px}.hero-intro{font-size:16px;color:var(--ink-sec);margin-bottom:22px}.hero-name{font-size:clamp(80px,11.5vw,170px);font-weight:900;letter-spacing:-.085em;line-height:.8}.hero-name span{display:block}.hero-name .name-outline{color:var(--accent);padding-top:12px}.hero-caption{margin:28px 0 16px;display:flex;gap:18px;align-items:center}.hero-caption strong{font-size:22px;letter-spacing:.18em}.hero-caption span{font:12px var(--mono);color:var(--ink-muted)}.hero-tagline{max-width:460px;color:var(--ink-sec);font-size:17px;line-height:1.9}.hero-actions{display:flex;gap:24px;align-items:center;margin-top:28px}.primary-link{padding:13px 21px;background:var(--accent);color:#161d0b;font-weight:700;text-decoration:none;display:inline-flex;gap:24px;align-items:center;transition:background .2s,transform .2s}.primary-link:hover{background:#deff9c;transform:translateY(-3px)}.text-link{font-size:14px;text-decoration:none;border-bottom:1px solid #8a947e;padding:10px 0}.portrait-stage{position:relative;height:540px;transform:rotate(3deg);transition:transform .5s;z-index:1;margin:0 5px 40px 0}.portrait-frame{height:100%;overflow:hidden;background:#090a0d;border:1px solid #48523b;position:relative}.portrait-frame img{height:100%;width:100%;object-fit:cover;object-position:50% 28%;filter:saturate(.65);transform:scale(1.02);transition:filter .5s,transform .7s}.portrait-stage:hover img{filter:saturate(1);transform:scale(1.07)}.portrait-frame:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#080b08d9)}.portrait-caption{position:absolute;bottom:24px;left:24px;right:24px;z-index:2;display:flex;justify-content:space-between;align-items:end;font:12px/1.8 var(--mono);color:#e6ebdd}.portrait-caption b{font-size:36px;line-height:1;font-weight:400}.portrait-stamp{position:absolute;top:28px;left:-34px;background:var(--accent);color:#17200e;padding:12px 20px;font:700 13px/1.6 var(--sans);transform:rotate(-9deg);z-index:3;box-shadow:5px 5px 0 #111310}.portrait-stamp small{display:block;font:11px var(--mono);margin-bottom:4px}.portrait-coordinate{position:absolute;right:-25px;top:32px;writing-mode:vertical-rl;font:11px var(--mono);letter-spacing:.13em;color:#a3ad95}.hero-bottom{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid var(--border);padding:25px 0 30px;gap:20px;position:relative;z-index:2}.hero-stat{display:flex;align-items:center;gap:12px}.hstat-num{font-size:36px;line-height:1;letter-spacing:-.06em;font-weight:800}.hstat-lbl{font-size:12px;line-height:1.6;color:var(--ink-muted)}.scroll-cue{display:flex;align-items:center;justify-content:end;gap:20px;font:12px var(--mono);color:var(--ink-sec);text-decoration:none}.scroll-cue span:last-child{font-size:30px;color:var(--accent)}#lane-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.42;pointer-events:none}.ticker{background:var(--accent);color:#19210d;overflow:hidden;padding:15px 0;transform:rotate(-1.5deg);margin:22px -2% 70px;width:104%}.ticker-track{display:flex;width:max-content;animation:ticker 32s linear infinite}.ticker-group{display:flex;align-items:center;gap:42px;padding-right:42px;font-size:22px;font-weight:800;letter-spacing:-.04em;white-space:nowrap}.ticker-group i{font-style:normal;font-size:26px;font-weight:400}.ticker:hover .ticker-track{animation-play-state:paused}@keyframes ticker{to{transform:translateX(-50%)}}
-.sec-hdr{max-width:1320px;margin:auto;padding:70px 5% 34px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}.sec-hdr>span:first-child,.sec-hdr>.en{font-size:clamp(28px,4vw,50px);font-weight:800;letter-spacing:-.04em;line-height:1.2}.sec-hdr:before{content:attr(data-index);align-self:start;font:12px var(--mono);color:var(--red);padding-top:9px}.sec-hdr .div{flex:1;min-width:20px;height:1px;background:var(--border)}.sec-hdr .hint{font:12px var(--mono);color:var(--ink-muted)}.proj-wrap,.awards-wrap,.about-wrap,.skills-wrap{max-width:1320px;margin:auto;padding:0 5% 80px}#projects{--ink:#1b2016;--ink-sec:#48503f;--ink-muted:#59614f;--paper:#ecefe6;--paper-sec:#e2e8d9;--white:#f3f5ed;--border:#b7c1a9;--border-lt:#cdd4c3;--red:#4c651c;--blue:#405b11;background:var(--paper);color:var(--ink);padding-bottom:15px}.proj-feat{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:start;margin-bottom:42px}.pcard{position:relative;transition:transform .35s;min-width:0}.pcard.feat{padding:0 0 22px;border-bottom:1px solid var(--border)}.pcard.feat:nth-child(2){margin-top:100px}.card-cover{height:310px;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:3px;overflow:hidden;margin-bottom:24px}.card-cover img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:transform .6s}.card-cover img:first-child{grid-row:1/3}.card-cover img:hover{transform:scale(1.06)}.p-issue{display:flex;justify-content:space-between;gap:12px;align-items:start;font:12px/1.5 var(--mono);margin:0 0 13px;color:var(--ink-muted)}.p-cat{color:var(--red)}.p-title{font-size:25px;font-weight:800;line-height:1.3;letter-spacing:-.04em;margin-bottom:10px}.feat .p-title{font-size:34px}.p-sub{font-size:16px;color:var(--ink-sec);line-height:1.8;margin-bottom:18px}.p-tags{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.ptag{padding:3px 8px;border:1px solid var(--border);font:12px/1.6 var(--mono);color:var(--ink-sec)}.p-cta{border:0;border-bottom:1px solid var(--ink);background:none;font-size:14px;font-weight:600;padding:10px 0;color:var(--ink);text-align:left}.p-cta:hover{color:var(--red)}.p-detail{display:none;padding:22px 0 10px;color:var(--ink-sec);font-size:16px;border-top:1px solid var(--border-lt);margin-top:18px}.p-detail.open{display:block;animation:detail-in .3s ease}.p-detail h4{font:600 14px/1.5 var(--sans);color:var(--ink);margin:22px 0 8px}.p-detail h4:first-child{margin-top:0}.p-detail p{margin-bottom:12px}.p-detail ul{list-style:none}.p-detail li{margin-bottom:10px}.p-detail li:before{content:'↗ ';color:var(--red)}.rbadge{display:inline-block;background:#d8e6bd;color:#344a10;padding:5px 8px;font-size:12px;margin:5px 4px 0 0}.proj-sec{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}.proj-sec .pcard{padding:30px 0;border-top:1px solid var(--border)}.project-number{font:12px var(--mono);display:block;color:var(--ink-muted);margin-bottom:22px}
-.award-spotlights{max-width:1320px;margin:auto;padding:0 5% 42px;display:grid;grid-template-columns:1fr 1fr;gap:20px}.award-feature{padding:30px 32px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:360px;border:1px solid var(--border)}.award-feature.champion{background:var(--accent);color:#18230b;--ink-muted:#45592b}.award-feature.swimming{background:#20281b}.award-kicker{display:flex;justify-content:space-between;gap:12px;font:12px var(--mono);letter-spacing:.04em}.award-rank{font-size:100px;font-weight:900;line-height:1.15;letter-spacing:-.085em;margin:14px 0}.award-rank small{font-size:18px;letter-spacing:0;margin-left:12px;font-weight:500}.award-feature h3{font-size:21px;letter-spacing:-.03em;margin-bottom:10px;line-height:1.5}.award-feature p{font-size:14px;line-height:1.7}.award-meta{font-size:12px!important;color:var(--ink-muted);margin-top:auto;padding-top:20px}.swimming .award-rank{color:var(--accent)}.awards-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:70px}.tl-item{display:grid;grid-template-columns:60px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--border-lt)}.tl-year{font:12px/2 var(--mono);color:var(--ink-muted)}.tl-rank{font-size:19px;font-weight:700;color:var(--accent)}.tl-name{font-size:14px;color:var(--ink-sec);margin-top:5px;line-height:1.8}.schol{padding:24px 0;border-top:1px solid var(--border);margin-top:20px}.schol-name{font-size:20px;font-weight:700;margin-bottom:10px}.schol-desc{font-size:16px;color:var(--ink-sec)}.about-wrap{display:grid;grid-template-columns:1.6fr 1fr;gap:70px}.about-text{color:var(--ink-sec);font-size:17px;line-height:2}.about-text p{margin-bottom:22px}.about-text strong{color:var(--ink)}#about{border-top:1px solid var(--border)}.pull-quote{font-size:clamp(26px,3vw,38px);line-height:1.6;font-weight:700;letter-spacing:-.04em;color:var(--accent);margin:38px 0;padding-left:22px;border-left:3px solid var(--accent)}.sb-block{margin-bottom:36px}.sb-lbl{font:12px/1.6 var(--mono);color:var(--ink-muted);margin-bottom:14px;letter-spacing:.08em}.sb-item{display:flex;justify-content:space-between;align-items:start;gap:15px;padding:14px 0;border-bottom:1px solid var(--border-lt);font-size:14px}.sb-item-name{color:var(--ink);font-weight:500}.sb-item div[style]{font-size:12px!important;margin-top:5px}.sb-badge{border:1px solid var(--border);padding:3px 6px;font:12px/1.6 var(--mono);color:var(--ink-sec);flex-shrink:0}.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}.sg{padding:25px;border-right:1px solid var(--border)}.sg:first-child{padding-left:0}.sg:last-child{border-right:0}.sg-lbl{font:12px/1.6 var(--mono);color:var(--accent);margin-bottom:22px}.sk{font-size:16px;color:var(--ink-sec);padding:6px 0}.sk:hover{color:var(--accent)}
-#contact{max-width:none!important;background:var(--accent);color:#18230b;padding:60px 5% 0}.contact-heading{max-width:1188px;margin:0 auto 35px;font-size:clamp(48px,8.8vw,120px);font-weight:900;line-height:1;letter-spacing:-.07em}.contact-heading a{text-decoration:none;display:flex;justify-content:space-between;align-items:center;gap:20px}.contact-heading a span:last-child{transition:transform .3s}.contact-heading a:hover span:last-child{transform:translate(8px,-8px)}.contact-bar{max-width:1188px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:25px;border-top:1px solid #34431e55;padding:30px 0}.contact-name{font-size:18px;font-weight:800}.contact-links{display:flex;flex-wrap:wrap;gap:24px}.c-link{font:13px/1.6 var(--mono);text-decoration:none}.c-link:hover{text-decoration:underline}.footer-meta{max-width:1188px;margin:auto;border-top:1px solid #34431e55;padding:20px 0;font:11px/1.8 var(--mono);color:#43532f}.yt-embed{position:relative;aspect-ratio:16/9;overflow:hidden;background:#111;margin-bottom:10px}.yt-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.yt-wrap{margin:20px 0}.yt-grid,.img-gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}.yt-lbl{font:12px/1.5 var(--mono);color:var(--ink-muted);margin-bottom:8px}.img-gallery img{width:100%;aspect-ratio:16/9;object-fit:cover;cursor:zoom-in}.gh-link{display:inline-block;border:1px solid var(--border);padding:6px 12px;margin:8px 6px 0 0;font:12px/1.6 var(--mono);text-decoration:none;color:var(--blue)}.lightbox{position:fixed;inset:0;background:#050704f2;z-index:500;display:none;align-items:center;justify-content:center;padding:5%;cursor:zoom-out}.lightbox.open{display:flex}.lightbox img{max-width:92vw;max-height:85vh;object-fit:contain}.lightbox-close{position:absolute;top:20px;right:24px;width:46px;height:46px;background:#22291d;border:1px solid #747c6b;border-radius:50%;font-size:28px}.cursor-ring{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid #cbf765aa;border-radius:50%;pointer-events:none;z-index:400;opacity:0;transition:width .2s,height .2s,border-color .2s;mix-blend-mode:difference}.cursor-ring.over-link{width:56px;height:56px;border-color:#cbf765}.reveal.ready{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}.reveal.ready.visible{opacity:1;transform:none}.motion-paused *,.motion-paused *:before,.motion-paused *:after{animation-play-state:paused!important}.motion-paused .reveal.ready{opacity:1;transform:none;transition:none}.motion-paused{scroll-behavior:auto}.motion-paused .cursor-ring{display:none}@keyframes detail-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@media(min-width:1500px){.hero{padding-left:90px;padding-right:90px}}
-@media(max-width:1000px){.nav-right{gap:18px}.nav-links{gap:18px}.hero-name{font-size:12vw}.portrait-stage{height:470px}.hero-grid{gap:25px}.hero-caption{flex-wrap:wrap;gap:5px 15px}.hero-bottom{grid-template-columns:1fr 1fr 1fr}.scroll-cue{display:none}.awards-wrap,.about-wrap{gap:35px}.contact-links{gap:15px}.card-cover{height:260px}.hero-eyebrow{font-size:11px}.eyebrow-location{display:none}}
-@media(max-width:700px){nav{height:68px}.reading-progress{top:67px}main{padding-top:68px}.nav-brand{font-size:20px}.nav-right{gap:12px}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:#171c13;padding:20px 5%;border-bottom:1px solid #444e38;flex-wrap:wrap;gap:25px}.nav-links.open{display:flex}.menu-toggle{display:block;border:1px solid #4a5142;background:none;width:38px;height:38px;font-size:18px}.hero{padding-top:28px}.hero-eyebrow{font-size:10px;letter-spacing:0}.hero-grid{grid-template-columns:1fr;padding-top:10px;gap:0}.hero-copy{padding:22px 0 36px}.hero-name{font-size:clamp(85px,22vw,145px)}.hero-intro{font-size:14px;margin-bottom:26px}.hero-caption{margin-top:24px}.hero-caption strong{font-size:20px}.hero-tagline{font-size:16px}.hero-actions{margin-top:24px}.portrait-stage{height:400px;margin:20px 12px 40px 20px;transform:rotate(2deg)}.portrait-frame img{object-position:50% 32%}.portrait-stamp{left:-20px;top:20px}.portrait-coordinate{right:-18px}.hero-bottom{gap:10px;padding:24px 0}.hero-stat{display:block}.hstat-num{font-size:32px}.hstat-lbl{font-size:11px;margin-top:8px}.ticker{margin:10px -2% 35px;padding:12px 0}.ticker-group{font-size:18px;gap:25px;padding-right:25px}.sec-hdr{padding-top:45px;gap:12px}.sec-hdr .hint{display:none}.proj-feat,.proj-sec,.award-spotlights,.awards-wrap,.about-wrap{grid-template-columns:1fr}.proj-feat{gap:32px;margin-bottom:25px}.pcard.feat:nth-child(2){margin-top:0}.proj-wrap,.awards-wrap,.about-wrap,.skills-wrap{padding-bottom:45px}.card-cover{height:300px}.feat .p-title{font-size:30px}.award-feature{min-height:320px;padding:26px}.award-rank{font-size:85px}.awards-wrap{gap:35px}.about-wrap{gap:24px}.skills-grid{grid-template-columns:1fr 1fr}.sg{padding:22px 14px}.sg:nth-child(2){border-right:0}.sg:nth-child(3){padding-left:0;border-top:1px solid var(--border)}.sg:nth-child(4){border-top:1px solid var(--border)}.sg-lbl{font-size:11px}.contact-bar{align-items:start;flex-direction:column;gap:18px}.contact-links{gap:12px 20px}.c-link{font-size:12px;overflow-wrap:anywhere}.contact-links .c-link:first-child{flex-basis:100%}.footer-meta{font-size:10px}.cursor-ring{display:none}.yt-grid{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal.ready{opacity:1;transform:none}.cursor-ring{display:none}}
-.usr-release{margin:22px 0;padding:20px;background:#e0e9d2;border-left:3px solid #4c651c}
-.usr-release-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
-.usr-release h4{font-size:16px;line-height:1.5;color:var(--ink)}
-.usr-release-status{font:12px/1.6 var(--mono);color:#405b11}
-.usr-release p{font-size:14px;line-height:1.8;color:var(--ink-sec)}
-.usr-release-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.usr-release-links a{display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:44px;padding:9px 12px;border:1px solid #a1b38b;color:#344a10;text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,transform .2s}
-.usr-release-links a:first-child{background:#25361b;color:#f3f5ed;border-color:#25361b}
-.usr-release-links a:hover{background:#cbdcb4;transform:translateY(-2px)}
-.usr-release-links a:first-child:hover{background:#405b2e}
-@media(prefers-reduced-motion:reduce){.usr-release-links a{transition:none}.usr-release-links a:hover{transform:none}}
+/* language toggle */
+body.lang-zh .en,body.lang-en .zh{display:none!important}
 
-.coolpath-cover{padding:26px;margin-bottom:24px;background:#e8f1f5;color:#12354b;border:1px solid #bacfd8;overflow:hidden}
-.coolpath-cover-top{display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center;gap:12px;font:12px/1.6 var(--mono)}
-.coolpath-winner{padding:5px 9px;background:#164a38;color:#e7ffb9}
-.coolpath-wordmark{font-size:clamp(40px,5vw,68px);font-weight:800;line-height:1.1;letter-spacing:-.065em;margin:26px 0 8px;display:flex;justify-content:space-between;gap:12px}
-.coolpath-wordmark>span{color:#318159;transition:transform .4s}.coolpath-cover:hover .coolpath-wordmark>span{transform:translate(5px,-5px)}
-.coolpath-slogan{font-size:18px;font-weight:600;line-height:1.6}
-.coolpath-comparison{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
-.coolpath-route{background:#f7fbfc;border:1px solid #c2d4dd;border-top:3px solid #497dc3;padding:15px 12px;display:flex;flex-direction:column;gap:7px;min-width:0}
-.coolpath-route.cooler{border-color:#9fc6a7;border-top-color:#318159;background:#f0f8ed}.route-label{font-size:14px;font-weight:700}
-.coolpath-route strong{font-size:34px;line-height:1.2;letter-spacing:-.04em}.coolpath-route small{font-size:14px;font-weight:500;letter-spacing:0}.coolpath-route>span:last-child{font:12px/1.6 var(--mono)}
-.coolpath-example{font-size:12px;line-height:1.6;color:#506874;margin-top:12px}
-.coolpath-award{display:flex;align-items:center;gap:12px;background:#dceacb;border-left:3px solid #42602b;padding:14px;margin:18px 0}
-.coolpath-award>span{font-size:28px;color:#42602b}.coolpath-award strong{display:block;font-size:14px;line-height:1.7;color:#294516}.coolpath-award div>span{font:12px/1.6 var(--mono);color:#4b6040}
-@media(max-width:700px){.coolpath-cover{padding:20px}.coolpath-wordmark{font-size:clamp(38px,10vw,64px)}}
-@media(prefers-reduced-motion:reduce){.coolpath-wordmark>span{transition:none}.coolpath-cover:hover .coolpath-wordmark>span{transform:none}}
+.bar{position:sticky;top:0;z-index:50;background:var(--cream);box-shadow:0 1px 0 rgba(23,53,42,.08)}
+.bar .in{max-width:1240px;margin:0 auto;padding-inline:20px;display:flex;align-items:center;gap:28px;height:60px}
+.logo{font-family:var(--en);font-weight:900;font-size:20px;letter-spacing:-.03em;line-height:1;white-space:nowrap}
+.logo i{font-style:normal;display:inline-block;width:.42em;height:.42em;border-radius:50%;background:var(--accent);margin-left:2px}
+.nav-d{display:none;gap:26px;font-weight:900;font-size:14px;letter-spacing:.06em}
+.nav-d a{position:relative;white-space:nowrap;padding:4px 0}
+.nav-d a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:2px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .45s cubic-bezier(.7,0,.2,1)}
+.nav-d a:hover::after,.nav-d a.active::after{transform:scaleX(1);transform-origin:left}
+.bar .right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.lang{display:flex;background:var(--grey);border-radius:999px;padding:3px}
+.lang button{border:0;background:none;border-radius:999px;padding:4px 11px;font-family:var(--en);font-weight:800;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.lang button.active{background:var(--ink);color:var(--accent)}
+.burger{width:40px;height:40px;border:0;border-radius:50%;background:var(--ink);display:grid;place-content:center;gap:4px}
+.burger span{display:block;width:16px;height:2px;border-radius:2px;background:var(--accent)}
+
+/* dark header so it reads as one surface with the AI hero */
+.bar{background:#0B1712;box-shadow:0 1px 0 rgba(255,255,255,.07);color:#E8E2D2}
+.bar .logo{color:#fff}
+.bar .lang{background:rgba(255,255,255,.08)}
+.bar .lang button{color:#98A49D}
+.bar .lang button.active{background:var(--accent);color:var(--text)}
+.bar .pill.dark{background:var(--accent);color:var(--text)}
+.bar .burger{background:rgba(255,255,255,.1)}
+
+/* pills */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--zh);font-weight:900;font-size:16px;letter-spacing:.08em;border-radius:999px;padding:12px 30px;background:var(--accent);color:var(--text);border:0;transition:transform .15s;white-space:nowrap}
+.pill:hover{transform:translateY(-2px) rotate(-1deg)}
+.pill.dark{background:var(--ink);color:var(--accent)}
+.pill.ghost{background:rgba(255,255,255,.12);color:#fff}
+.pill.sm{font-size:13px;padding:7px 16px}
+
+/* mobile menu */
+.menu{position:fixed;inset:0;z-index:100;background:var(--ink);color:#fff;display:flex;flex-direction:column;padding:16px 20px 32px}
+.menu[hidden]{display:none}
+.menu .top{display:flex;justify-content:space-between;align-items:center;height:44px}
+.menu .logo{color:#fff}
+.menu .close{width:40px;height:40px;border:0;border-radius:50%;background:var(--accent);color:var(--text);font-size:22px;font-weight:900;line-height:1}
+.menu nav{display:grid;gap:4px;margin-top:40px}
+.menu nav a{font-weight:900;font-size:clamp(28px,8vw,40px);letter-spacing:.04em;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.menu nav a:hover{color:var(--accent)}
+
+/* ── hero: ChatGPT-style AI twin ── */
+.hero{--h-bg:#0B1712;--h-text:#EDE9DF;--h-muted:#98A49D;--h-line:rgba(255,255,255,.11);--h-surface:rgba(255,255,255,.045);
+  position:relative;background:var(--h-bg);color:var(--h-text);overflow:hidden;
+  background-image:radial-gradient(60% 45% at 50% -5%,rgba(242,191,71,.14),transparent 70%),radial-gradient(45% 55% at 95% 105%,rgba(63,175,91,.13),transparent 70%)}
+.hero-in{position:relative;width:min(780px,100%);margin:0 auto;padding:72px 20px 40px;min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center}
+.intro{text-align:center}
+.who{display:inline-flex;align-items:center;gap:8px;margin:0;padding:4px 14px 4px 4px;border:1px solid var(--h-line);border-radius:999px;background:var(--h-surface);font-size:13px;font-weight:500;color:var(--h-text)}
+.who img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:50% 25%}
+.who i{font-style:normal;color:var(--h-muted)}
+.hero h1{margin:22px 0 12px;font-weight:700;font-size:clamp(30px,6.4vw,52px);line-height:1.2;letter-spacing:.01em;color:#fff}
+.hero h1 .en{font-family:var(--en);letter-spacing:-.025em}
+.sub{margin:0 auto 34px;max-width:34em;color:var(--h-muted);font-size:clamp(15px,3.8vw,16.5px);line-height:1.8}
+.sub b{color:var(--h-text);font-weight:700}
+
+.thread{display:none}
+.hero.chatting .intro,.hero.chatting .sugg{display:none}
+.hero.chatting .hero-in{justify-content:flex-end;padding-top:32px}
+.hero.chatting .thread{display:flex;flex-direction:column;gap:26px;max-height:min(60svh,580px);overflow-y:auto;padding:8px 2px 24px;margin-bottom:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
+.m-user{align-self:flex-end;max-width:82%;background:rgba(255,255,255,.09);border-radius:22px;padding:10px 18px;font-size:15.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.m-ai{display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;align-items:start}
+.m-ai img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 25%;margin-top:2px}
+.m-ai .name{display:block;font-weight:700;font-size:13.5px;color:#fff;margin-bottom:4px}
+.m-ai .txt{white-space:pre-wrap;word-break:break-word;font-size:15.5px;line-height:1.9;color:var(--h-text)}
+.m-ai .txt.streaming::after{content:"";display:inline-block;width:.5em;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--accent);animation:blink 1s steps(2) infinite}
+.m-ai .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.m-ai .acts a{border:1px solid rgba(242,191,71,.45);color:var(--accent);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
+.m-ai .acts a:hover{background:var(--accent);color:var(--text)}
+.thinking{display:inline-flex;gap:5px;padding:10px 0}
+.thinking i{width:7px;height:7px;border-radius:50%;background:var(--h-muted);animation:pulse 1.1s infinite}
+.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
+@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.85)}40%{opacity:1;transform:none}}
+@keyframes blink{50%{opacity:0}}
+
+.composer{background:#14221C;border:1px solid var(--h-line);border-radius:26px;padding:14px 12px 10px 20px;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);transition:border-color .2s}
+.composer:focus-within{border-color:rgba(242,191,71,.55)}
+.composer textarea{display:block;width:100%;min-height:28px;max-height:160px;resize:none;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-size:16px;line-height:1.65;padding:4px 8px 0 0}
+.composer textarea::placeholder{color:var(--h-muted)}
+.c-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.model{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
+.model i{width:7px;height:7px;border-radius:50%;background:#4CC46A;box-shadow:0 0 0 3px rgba(76,196,106,.18)}
+.newchat{margin-left:auto;border:1px solid var(--h-line);background:none;color:var(--h-text);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700}
+.newchat[hidden]{display:none}
+.newchat:hover{background:rgba(255,255,255,.08)}
+.send{margin-left:auto;width:38px;height:38px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--text);transition:opacity .2s,transform .15s}
+.newchat:not([hidden])+.send{margin-left:0}
+.send:disabled{background:rgba(255,255,255,.12);color:var(--h-muted);cursor:default}
+.send:not(:disabled):hover{transform:scale(1.06)}
+.send svg{width:18px;height:18px}
+.sugg{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
+.sugg button{text-align:left;border:1px solid var(--h-line);background:var(--h-surface);border-radius:16px;padding:13px 16px;color:var(--h-text);transition:background .2s,border-color .2s}
+.sugg button:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+.sugg b{display:block;font-weight:700;font-size:14.5px;color:#fff}
+.sugg span{display:block;margin-top:2px;font-size:13px;color:var(--h-muted)}
+.note{margin:18px 0 0;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
+.note a{color:var(--h-text);text-decoration:underline;text-underline-offset:3px}
+.hint{display:block;margin:28px auto 0;width:max-content;font-size:13.5px;font-weight:700;color:var(--h-muted)}
+.hint:hover{color:var(--accent)}
+.hero.chatting .hint{display:none}
+
+/* proof strip */
+.proof{background:var(--cream);border-bottom:1px solid rgba(23,53,42,.12)}
+.proof .in{max-width:1240px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
+.proof .lbl{font-family:var(--mono);font-size:12px;color:var(--leaf)}
+.proof ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 26px}
+.proof li{font-family:var(--en);font-weight:700;font-size:15px;color:var(--text);opacity:.72}
+
+/* section titles: mono label above a left-aligned heading */
+.zt{margin:0 0 40px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.2;letter-spacing:.02em}
+.zt .sw{order:-1;display:block;font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.4;letter-spacing:.04em;color:var(--leaf);margin:0 0 10px}
+.zt .sw::before{content:"// "}
+.zt .sw{text-transform:lowercase}
+/* narrower blocks keep the container's left edge */
+.tline,.schol-h,.schols{margin-left:max(0px,calc((100% - 1180px)/2))!important}
+.zt.light{color:#fff}
+.zt.light .sw{color:var(--accent)}
+.sec-intro{margin:-24px 0 36px;max-width:40em;color:var(--body);font-size:16px;line-height:1.85}
+.plain{padding:84px 20px 88px}
+.band{padding:84px 20px 92px;background:var(--ink);color:#fff}
+.greyband{padding:84px 20px 88px;background:var(--grey)}
+.plain>*,.band>*,.greyband>*{max-width:1180px;margin-inline:auto}
+
+/* ── about ── */
+.split{max-width:1180px;margin:0 auto;padding:84px 20px 40px;display:grid;gap:36px;align-items:center}
+.split>img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:24px;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.split>img:hover{filter:none}
+.split .panel{min-width:0}
+.split .zt{margin-bottom:22px}
+.split p{margin:0 0 14px;color:var(--body);max-width:36em;font-size:15.5px;line-height:1.95}
+.split strong{color:var(--text);font-weight:900}
+.focus{margin:24px 0 0;display:flex;flex-wrap:wrap;gap:6px}
+.focus span{background:var(--grey);border-radius:999px;padding:4px 13px;font-weight:700;font-size:13.5px}
+.socs{display:flex;gap:10px;margin-top:24px}
+.soc{width:46px;height:46px;border-radius:14px;background:var(--ink);color:var(--accent);display:grid;place-items:center;transition:transform .2s}
+.soc:hover{transform:translateY(-3px)}
+.soc svg{width:20px;height:20px}
+
+/* ── services ── */
+.svc-grid{display:grid;gap:18px}
+.svc{background:var(--paper);border-radius:22px;padding:26px 24px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column;scroll-margin-top:90px}
+.svc .no{font-family:var(--mono);font-size:12.5px;color:var(--leaf)}
+.svc h3{margin:8px 0 8px;font-weight:900;font-size:clamp(20px,4.6vw,24px);line-height:1.35}
+.svc .what{margin:0;color:var(--body);font-size:15px;line-height:1.8}
+.svc .for{margin:12px 0 0;font-size:13.5px;color:var(--muted)}
+.svc .for b{color:var(--text)}
+.svc .proofs{list-style:none;margin:16px 0 18px;padding:14px 0 0;border-top:1px dashed rgba(23,53,42,.22);display:grid;gap:6px}
+.svc .proofs li{position:relative;padding-left:18px;font-size:14px;line-height:1.65;color:var(--text)}
+.svc .proofs li::before{content:"✓";position:absolute;left:0;color:var(--leaf);font-weight:900}
+.svc .go{margin-top:auto;align-self:flex-start;font-weight:900;font-size:14.5px;border-bottom:2px solid var(--accent);padding-bottom:2px}
+.svc .go:hover{color:var(--leaf)}
+.flow{list-style:none;margin-top:44px;margin-bottom:0;padding:0;display:grid;gap:12px;counter-reset:f}
+.flow li{counter-increment:f;background:var(--grey);border-radius:18px;padding:16px 18px}
+.flow li::before{content:counter(f,decimal-leading-zero);display:block;font-family:var(--mono);font-size:12px;color:var(--leaf)}
+.flow b{display:block;font-weight:900;font-size:16px;margin-top:2px}
+.flow span{font-size:14px;color:var(--body)}
+.cta-bar{margin-top:20px;background:var(--ink);color:#fff;border-radius:22px;padding:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.cta-bar p{margin:0;font-weight:900;font-size:clamp(17px,4.4vw,21px);line-height:1.5}
+.cta-bar p span{display:block;font-weight:500;font-size:14.5px;color:#CFC8B6}
+.cta-bar div{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ── projects ── */
+.proj-feat{display:grid;gap:28px}
+.card{position:relative;background:var(--paper);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.card-body{padding:26px 24px 28px}
+.cover{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:6px;height:clamp(220px,46vw,360px);background:var(--ink)}
+.cover img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:transform .5s}
+.cover img:first-child{grid-row:span 2}
+.cover img:hover{transform:scale(1.03)}
+.cp-cover{background:var(--ink);color:#fff;padding:26px 24px 24px}
+.cp-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:var(--en);font-weight:700;font-size:12.5px;letter-spacing:.14em}
+.cp-win{background:var(--accent);color:var(--text);border-radius:999px;padding:3px 12px}
+.cp-word{margin:22px 0 4px;font-family:var(--en);font-weight:900;font-size:clamp(44px,9vw,76px);line-height:1;letter-spacing:-.05em}
+.cp-word span{color:var(--accent)}
+.cp-slogan{margin:0;font-weight:700;font-size:17px;color:#E8E2D2}
+.cp-routes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.cp-route{background:rgba(255,255,255,.08);border-radius:16px;padding:14px 14px 12px;display:grid;gap:4px}
+.cp-route.cool{background:var(--accent);color:var(--text)}
+.cp-route .lbl{font-weight:900;font-size:13.5px}
+.cp-route strong{font-family:var(--en);font-weight:900;font-size:34px;line-height:1.1}
+.cp-route strong small{font-family:var(--zh);font-size:14px;font-weight:700}
+.cp-route .meta{font-family:var(--en);font-size:12.5px;font-weight:600;opacity:.8}
+.cp-note{margin:12px 0 0;font-size:12px;color:#A9A792}
+.meta-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--leaf)}
+.meta-row .yr{font-family:var(--en);color:var(--muted)}
+.card h3{margin:10px 0 8px;font-weight:900;font-size:clamp(22px,5vw,30px);line-height:1.3;letter-spacing:.02em}
+.card .sub{margin:0;color:var(--body);font-size:15.5px;line-height:1.8}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.tag{background:var(--grey);border-radius:999px;padding:3px 12px;font-family:var(--en);font-weight:600;font-size:12.5px;color:var(--text)}
+.win{display:flex;align-items:center;gap:12px;margin:18px 0 0;background:var(--accent);border-radius:16px;padding:12px 16px}
+.win b{display:block;font-weight:900;font-size:14.5px;line-height:1.5}
+.win span{font-family:var(--en);font-size:12px;font-weight:600}
+.win .trophy{font-size:26px;line-height:1}
+.live{margin-top:20px;background:var(--grey);border-radius:18px;padding:18px}
+.live-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;align-items:center}
+.live-h b{font-weight:900;font-size:15.5px}
+.live-h span{font-family:var(--en);font-weight:700;font-size:12px;color:var(--leaf);letter-spacing:.08em}
+.live p{margin:8px 0 14px;font-size:14.5px;color:var(--body)}
+.live-links{display:flex;flex-wrap:wrap;gap:8px}
+.live-links .pill{font-size:13.5px;padding:9px 18px}
+
+.detail{display:none;margin-top:22px;padding-top:20px;border-top:2px solid var(--text)}
+.detail.open{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.detail h4{margin:22px 0 6px;font-weight:900;font-size:16.5px}
+.detail h4:first-child{margin-top:0}
+.detail p,.detail li{color:var(--body);font-size:15px;line-height:1.85}
+.detail p{margin:0 0 8px}
+.detail ul{margin:0 0 8px;padding-left:1.1em}
+.detail li{margin-bottom:4px}
+.detail li::marker{color:var(--accent)}
+.detail strong{color:var(--text);font-weight:900}
+.detail a{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.yt-grid{display:grid;gap:14px;margin-top:8px}
+.yt-lbl{font-weight:700;font-size:13px;color:var(--muted);margin:0 0 6px}
+.yt{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--ink)}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{background:var(--ink);color:var(--accent);border-radius:999px;padding:4px 14px;font-weight:900;font-size:13px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.more{margin-top:22px;border:0}
+
+.proj-sec{display:grid;gap:22px;margin-top:52px;padding-top:30px}
+.proj-sec .card{overflow:visible}
+.proj-sec .num{position:absolute;top:-26px;left:24px;width:54px;height:54px;border-radius:50%;background:var(--ink);color:var(--accent);display:grid;place-items:center;font-family:var(--en);font-weight:900;font-size:21px;box-shadow:0 10px 18px -8px rgba(0,0,0,.5)}
+.proj-sec .card-body{padding-top:40px}
+.proj-sec h3{font-size:clamp(20px,4.6vw,24px)}
+
+/* ── awards (ink band) ── */
+.spots{display:grid;gap:18px;margin-bottom:56px}
+.spot{border-radius:24px;padding:28px 26px 30px;background:#fff;color:var(--text);position:relative;overflow:hidden}
+.spot.y{background:var(--accent)}
+.spot .k{display:flex;justify-content:space-between;gap:10px;font-family:var(--en);font-weight:700;font-size:12.5px;letter-spacing:.14em}
+.spot .rank{margin:18px 0 6px;font-family:var(--en);font-weight:900;font-size:clamp(72px,16vw,120px);line-height:.9;letter-spacing:-.05em}
+.spot .rank small{display:block;margin-top:8px;font-family:var(--zh);font-size:15px;letter-spacing:.2em;font-weight:900}
+.spot h3{margin:16px 0 4px;font-weight:900;font-size:20px;line-height:1.4}
+.spot p{margin:0;font-size:14.5px;line-height:1.7;opacity:.85}
+.spot a{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+
+.tline{list-style:none;margin:0;padding:0 0 0 30px;max-width:820px;position:relative}
+.tline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:rgba(255,255,255,.18)}
+.tl{position:relative;padding:0 0 26px}
+.tl::before{content:"";position:absolute;left:-27px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--ink)}
+.tl .yr{font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.14em;color:#A9A792}
+.tl b{display:block;font-weight:900;font-size:19px;line-height:1.45;color:var(--accent)}
+.tl span.n{display:block;color:#EEE8DA;font-size:15px;line-height:1.7}
+.schol-h{margin:48px 0 18px;max-width:820px;font-family:var(--en);font-weight:600;font-size:13px;letter-spacing:.32em;color:var(--accent)}
+.schols{display:grid;gap:14px;max-width:820px}
+.schol{background:rgba(255,255,255,.07);border-radius:20px;padding:20px 22px}
+.schol b{display:block;font-weight:900;font-size:17px;margin-bottom:4px}
+.schol p{margin:0;color:#CFC8B6;font-size:14.5px;line-height:1.75}
+
+/* ── experience list ── */
+.exp-grid{display:grid;gap:44px}
+.exp-h{margin:0 0 10px;font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.28em;color:var(--leaf)}
+.exp-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--text)}
+.exp-list li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:baseline;padding:15px 4px;border-bottom:1px solid rgba(23,53,42,.18)}
+.exp-list b{font-weight:900;font-size:17.5px;line-height:1.5}
+.exp-list small{grid-column:1/-1;color:var(--body);font-size:14.5px;line-height:1.6}
+.exp-list .kind{font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+
+/* teaching list (reference: 講師經歷) */
+.tch-list{list-style:none;margin-top:0;margin-bottom:0;padding:0;border-top:2px solid var(--text)}
+.tch-list li{display:grid;grid-template-columns:1fr;gap:4px;padding:18px 4px;border-bottom:1px solid rgba(23,53,42,.18)}
+.tch-list .kind{font-weight:700;font-size:13.5px;letter-spacing:.12em;color:var(--leaf)}
+.tch-list b{font-weight:900;font-size:18.5px;line-height:1.5}
+.tch-list .what span{display:block;color:var(--body);font-size:15.5px;line-height:1.7}
+.tch-list .when{font-family:var(--en);font-weight:700;font-size:13px;color:var(--muted)}
+.exp-list small a,.exp-list small a:visited{text-decoration:underline;text-underline-offset:3px;font-weight:700;color:var(--text)}
+.exp-list ul{grid-column:1/-1;margin:4px 0 0;padding-left:1.1em;color:var(--body);font-size:14.5px;line-height:1.75}
+.exp-list ul li{display:list-item;padding:0;border:0}
+.exp-list ul li::marker{color:var(--accent)}
+.exp-list ul a{text-decoration:underline;text-underline-offset:3px;font-weight:700;color:var(--text)}
+.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chips em{font-style:normal;background:var(--accent);border-radius:999px;padding:2px 12px;font-family:var(--en);font-weight:700;font-size:12.5px}
+.chips em.k{background:var(--ink);color:var(--accent)}
+.soon{display:inline-block;margin-left:6px;background:var(--accent);border-radius:999px;padding:0 8px;font-size:11.5px;font-weight:900;color:var(--text);vertical-align:2px}
+.role{margin:-2px 0 10px;font-weight:900;font-size:14px;color:var(--text)}
+.role span.k{background:var(--ink);color:var(--accent);border-radius:999px;padding:2px 10px;margin-right:6px;font-size:12.5px}
+.global{background:var(--accent);border-radius:24px;padding:28px 26px 30px;margin-bottom:14px;display:grid;gap:18px}
+.global .k{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--en);font-weight:700;font-size:12.5px;letter-spacing:.14em}
+.global h3{margin:0;font-weight:900;font-size:clamp(22px,5vw,32px);line-height:1.3}
+.global h3 small{display:block;font-family:var(--en);font-weight:700;font-size:.5em;letter-spacing:.02em;margin-top:4px}
+.global ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.global li{background:rgba(255,255,255,.55);border-radius:16px;padding:12px 16px;font-size:15px;line-height:1.7}
+.global li b{display:block;font-size:12.5px;letter-spacing:.12em;color:var(--text);opacity:.7}
+
+/* skills */
+.skills{display:grid;gap:16px}
+.sk-g{background:var(--paper);border-radius:22px;padding:22px 22px 24px}
+.sk-g p{margin:0 0 12px;font-weight:900;font-size:16px}
+.sk-g p span{color:var(--leaf)}
+.sk-g div{display:flex;flex-wrap:wrap;gap:7px}
+.sk-g em{font-style:normal;background:var(--grey);border-radius:999px;padding:4px 13px;font-family:var(--en);font-weight:600;font-size:13px}
+
+/* on-the-ground photo wall */
+.rec-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.rec-grid figure{position:relative;margin:0;overflow:hidden;border-radius:20px;background:#E3DCCD}
+.rec-grid img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:transform .5s,filter .5s}
+.rec-grid figure:hover img{transform:scale(1.03);filter:none}
+.rec-grid .r1 img{aspect-ratio:3/4;object-position:50% 40%}
+.rec-grid .r2 img{aspect-ratio:4/3}
+.rec-grid figcaption{position:absolute;left:14px;bottom:14px;right:14px;display:flex}
+.rec-grid figcaption span{background:var(--accent);color:var(--text);border-radius:999px;padding:5px 14px;font-weight:900;font-size:13px;line-height:1.4}
+
+/* closing CTA */
+.final{background:var(--grey);padding:84px 20px}
+.final .in{max-width:1180px;margin:0 auto}
+.final h2{margin:0 0 14px;font-weight:900;font-size:clamp(30px,7vw,56px);line-height:1.2}
+.final h2 em{font-style:normal;background:linear-gradient(transparent 62%,var(--accent) 62%)}
+.final p{margin:0 0 28px;max-width:36em;color:var(--body);font-size:16px;line-height:1.85}
+.final .row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* footer */
+.foot{background:var(--ink);color:#fff}
+.foot .in{max-width:1180px;margin:0 auto;padding:64px 24px 40px;display:grid;gap:36px}
+.f-big{font-family:var(--en);font-weight:900;font-size:clamp(48px,11vw,112px);line-height:.95;letter-spacing:-.025em;display:inline-flex;gap:.2em;align-items:baseline}
+.f-big span{color:var(--accent);transition:transform .3s}
+.f-big:hover span{transform:translate(6px,-6px)}
+.foot .lbl{margin:0 0 12px;font-weight:700;font-size:12.5px;letter-spacing:.2em;color:var(--accent)}
+.f-nav{display:grid;gap:8px;align-content:start;font-weight:500;font-size:15px}
+.f-nav a:hover,.f-bottom a:hover{color:var(--accent)}
+.f-note{margin:0 0 10px;color:#CFC8B6;font-size:14.5px}
+.f-mail{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-family:var(--en);font-weight:600;font-size:17px;word-break:break-all}
+.copy{border:0;border-radius:999px;background:var(--accent);color:var(--text);font-weight:900;font-size:12px;padding:4px 12px}
+.f-bottom{max-width:1180px;margin:0 auto;padding:18px 24px 28px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-family:var(--en);font-size:12.5px;color:#A9A792}
+
+/* lightbox + toast */
+.lightbox{position:fixed;inset:0;z-index:150;background:rgba(12,30,23,.94);display:grid;place-items:center;padding:24px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-height:86vh;border-radius:16px}
+.lightbox button{position:absolute;top:16px;right:16px;width:44px;height:44px;border:0;border-radius:50%;background:var(--accent);color:var(--text);font-size:24px;font-weight:900}
+.toast{visibility:hidden;position:fixed;left:50%;bottom:24px;z-index:160;transform:translate(-50%,140%);background:var(--ink);color:var(--accent);border-radius:999px;padding:10px 22px;font-weight:900;font-size:14px;transition:transform .35s}
+.toast.show{visibility:visible;transform:translate(-50%,0)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (min-width:720px){
+  .sugg{grid-template-columns:1fr 1fr}
+  .proj-sec{grid-template-columns:1fr 1fr;gap:52px 24px}
+  .yt-grid{grid-template-columns:1fr 1fr}
+  .spots{grid-template-columns:1fr 1fr}
+  .skills{grid-template-columns:1fr 1fr}
+  .foot .in{grid-template-columns:1.6fr 1fr 1.2fr;align-items:start}
+  .foot .f-brand{grid-column:1/-1}
+}
+@media (min-width:960px){
+  .nav-d{display:flex}
+  .burger{display:none}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:repeat(4,1fr)}
+  .cta-bar{padding:28px 32px}
+  .rec-grid{grid-template-columns:.75fr 1.25fr;align-items:stretch}
+  .rec-grid .r1 img,.rec-grid .r2 img{aspect-ratio:auto;height:100%;min-height:460px}
+  .split{grid-template-columns:.8fr 1.2fr;gap:64px}
+  .proj-feat{grid-template-columns:1fr 1fr;align-items:start}
+  .exp-grid{grid-template-columns:1fr 1fr;gap:44px 56px}
+  .tch-list li{grid-template-columns:150px 1fr auto;gap:20px;align-items:baseline}
+  .global{grid-template-columns:1fr 1.1fr;align-items:center;padding:36px 36px}
+  .skills{grid-template-columns:repeat(4,1fr)}
+  .card-body{padding:30px 30px 32px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
 </style>
 </head>
 <body class="lang-zh">
-<a href="#main" class="skip-link"><span class="zh">跳至主要內容</span><span class="en">Skip to content</span></a>
-<div class="reading-progress" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"></div>
-
-<nav aria-label="主選單 Main navigation">
-  <a class="nav-brand" href="#main" aria-label="Frank Fang 首頁">FF<span>↗</span></a>
-  <div class="nav-right">
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#projects"><span class="zh">專案</span><span class="en">Projects</span></a></li>
-      <li><a href="#awards"><span class="zh">競賽</span><span class="en">Awards</span></a></li>
-      <li><a href="#about"><span class="zh">關於</span><span class="en">About</span></a></li>
-      <li><a href="#contact"><span class="zh">聯絡</span><span class="en">Contact</span></a></li>
-    </ul>
-    <button class="motion-toggle" id="motion-toggle" aria-label="暫停動畫" aria-pressed="false" title="暫停動畫">Ⅱ</button>
-    <div class="lang-toggle" aria-label="Language">
-      <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中</button>
-      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+<a class="skip" href="#main"><span class="zh">跳到主要內容</span><span class="en">Skip to content</span></a>
+<header class="bar">
+  <div class="in">
+    <a href="#main" class="logo" aria-label="Frank Fang 首頁">FRANK FANG<i aria-hidden="true"></i></a>
+    <nav class="nav-d" aria-label="主選單 Main navigation">
+      <a href="#services"><span class="zh">服務</span><span class="en">Services</span></a>
+      <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
+      <a href="#projects"><span class="zh">專案</span><span class="en">Projects</span></a>
+      <a href="#teaching"><span class="zh">講師</span><span class="en">Teaching</span></a>
+      <a href="#awards"><span class="zh">獎項</span><span class="en">Awards</span></a>
+      <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
+    </nav>
+    <div class="right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="btn-zh" onclick="setLang('zh')">中</button>
+        <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="pill sm dark" href="#contact"><span class="zh">預約聊聊</span><span class="en">Let's talk</span></a>
+      <button class="burger" id="menuOpen" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
-    <button class="menu-toggle" aria-label="開啟選單" aria-expanded="false" aria-controls="nav-links">☰</button>
   </div>
-</nav>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <div class="top"><span class="logo">FRANK FANG<i aria-hidden="true"></i></span><button class="close" id="menuClose" type="button" aria-label="關閉選單">×</button></div>
+  <nav aria-label="選單">
+    <a href="#services"><span class="zh">我能幫你什麼</span><span class="en">Services</span></a>
+    <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
+    <a href="#projects"><span class="zh">精選專案</span><span class="en">Projects</span></a>
+    <a href="#awards"><span class="zh">競賽獎項</span><span class="en">Awards</span></a>
+    <a href="#teaching"><span class="zh">講師與教學</span><span class="en">Teaching</span></a>
+    <a href="#records"><span class="zh">國際經驗</span><span class="en">Global</span></a>
+    <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
+    <a href="#skills"><span class="zh">技能</span><span class="en">Skills</span></a>
+    <a href="#contact"><span class="zh">聯絡我</span><span class="en">Contact</span></a>
+  </nav>
+</div>
 
 <main id="main">
 
 <!-- HERO -->
-<section class="hero" aria-labelledby="hero-title">
-  <canvas id="lane-canvas" aria-hidden="true"></canvas>
-  <div class="hero-eyebrow"><span class="eyebrow-status"><i class="status-dot" aria-hidden="true"></i> THE PERSONAL SIDE OF BUILDING</span><span class="eyebrow-location">NCCU, TAIWAN · PORTFOLIO / 2026</span></div>
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <p class="hero-intro"><span class="zh">寫程式、做研究，也在泳道裡全力以赴。</span><span class="en">Building things. Asking questions. Swimming hard.</span></p>
-      <h1 class="hero-name" id="hero-title"><span>FRANK</span><span class="name-outline">FANG.</span></h1>
-      <div class="hero-caption"><strong>方澤享</strong><span>BUILDER / THINKER / SWIMMER</span></div>
-      <p class="hero-tagline"><span class="zh">從一個「這能不能更好？」開始。<br>把資訊、金融與生活裡的問題，做成真正能用的東西。</span><span class="en">It starts with “could this be better?”<br>I turn questions in tech, finance and everyday life into things people can use.</span></p>
-      <div class="hero-actions"><a class="primary-link" href="#projects"><span class="zh">探索我的作品</span><span class="en">Explore my work</span><span aria-hidden="true">↗</span></a><a class="text-link" href="#about"><span class="zh">認識我 ↓</span><span class="en">A little about me ↓</span></a></div>
+<section class="hero" id="ask" aria-labelledby="hero-title">
+  <div class="hero-in">
+    <div class="intro">
+      <p class="who"><img src="./images/frank-field.jpg" alt="" width="768" height="1024"><span>方澤享 Frank Fang</span><i>·</i><span class="zh">AI 分身</span><span class="en">AI twin</span></p>
+      <h1 id="hero-title"><span class="zh">想用 AI 解決什麼問題？</span><span class="en">What do you want AI to solve?</span></h1>
+      <p class="sub"><span class="zh">我是方澤享的 AI 分身。他做 <b>RAG</b>、<b>Agentic AI</b> 與 <b>LINE Bot</b>，也幫團隊導入 AI，Google DevJam 2026 冠軍。問我他能幫你做什麼。</span><span class="en">I'm Frank Fang's AI twin. He builds <b>RAG</b>, <b>agentic AI</b> and <b>LINE Bots</b>, helps teams adopt AI, and won Google DevJam 2026. Ask me what he can do for you.</span></p>
     </div>
-    <figure class="portrait-stage">
-      <div class="portrait-frame"><img src="./personal photo big.jpg" alt="方澤享 Frank Fang 的個人照片" width="1168" height="1402" fetchpriority="high"><figcaption class="portrait-caption"><span>NOT JUST A RESUME.<br>A WORK IN PROGRESS.</span><b aria-hidden="true">↗</b></figcaption></div>
-      <a class="portrait-stamp" href="#awards"><small>2026 / LATEST WIN</small>Google DevJam<br><span class="zh">黑客松冠軍 ↗</span><span class="en">Hackathon Champion ↗</span></a>
-      <span class="portrait-coordinate" aria-hidden="true">25° N / 121° E — TAIWAN</span>
-    </figure>
-  </div>
-  <div class="hero-bottom">
-    <div class="hero-stat"><div class="hstat-num">7+</div><div class="hstat-lbl"><span class="zh">獨立開發<br>專案</span><span class="en">Self-built<br>projects</span></div></div>
-    <div class="hero-stat"><div class="hstat-num">01</div><div class="hstat-lbl"><span class="zh">Google DevJam<br>冠軍</span><span class="en">Google DevJam<br>Champion</span></div></div>
-    <div class="hero-stat"><div class="hstat-num">07</div><div class="hstat-lbl"><span class="zh">全大運<br>自由式接力第七</span><span class="en">University Games<br>Freestyle relay</span></div></div>
-    <a class="scroll-cue" href="#projects">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a>
+    <div class="thread" id="thread" role="log" aria-live="polite"></div>
+    <form class="composer" id="composer">
+      <label class="skip" for="prompt"><span class="zh">問 AI 分身</span><span class="en">Ask the AI twin</span></label>
+      <textarea id="prompt" rows="1" maxlength="300"></textarea>
+      <div class="c-row">
+        <span class="model"><i aria-hidden="true"></i>Frank AI · demo</span>
+        <button type="button" class="newchat" id="newChat" hidden><span class="zh">新對話</span><span class="en">New chat</span></button>
+        <button type="submit" class="send" id="send" aria-label="送出 Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+      </div>
+    </form>
+    <div class="sugg" id="sugg"></div>
+    <p class="note"><span class="zh">示範版 · 回覆為 Frank 預先寫好的內容 · <a href="#contact">直接聯絡本人</a></span><span class="en">Demo · replies are pre-written by Frank · <a href="#contact">contact him directly</a></span></p>
+    <a class="hint" href="#services"><span class="zh">或往下看他能幫你做什麼 ↓</span><span class="en">or scroll to see what he can do ↓</span></a>
   </div>
 </section>
-<div class="ticker" aria-hidden="true"><div class="ticker-track"><span class="ticker-group">CREATIVE CODING <i>↗</i> FINTECH <i>✳</i> REAL-WORLD IMPACT <i>↗</i> KEEP SWIMMING <i>✳</i> ALWAYS BUILDING <i>↗</i> </span><span class="ticker-group">CREATIVE CODING <i>↗</i> FINTECH <i>✳</i> REAL-WORLD IMPACT <i>↗</i> KEEP SWIMMING <i>✳</i> ALWAYS BUILDING <i>↗</i> </span></div></div>
 
-<!-- PROJECTS -->
-<div id="projects">
-  <h2 class="sec-hdr">
-    <span class="zh">精選專案</span><span class="en">Featured Projects</span>
-    <span class="div"></span>
-    <span class="hint"><span class="zh">SELECTED WORK / 2025–2026</span><span class="en">SELECTED WORK / 2025–2026</span></span>
-  </h2>
-  <div class="proj-wrap">
-    <div class="proj-feat">
-
-      <!-- GaiaCraft -->
-      <div class="pcard feat">
-        <div class="card-cover">
-          <img src="./images/gaia-village.jpg" alt="GaiaCraft — 失落村莊美景" onclick="event.stopPropagation();openLB(this.src)">
-          <img src="./images/gaia-underwater.jpg" alt="GaiaCraft — 水中廢墟場景" onclick="event.stopPropagation();openLB(this.src)">
-          <img src="./images/gaia-nccu.webp" alt="GaiaCraft — 政大校園像素地圖" onclick="event.stopPropagation();openLB(this.src)">
-        </div>
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">永續 × 遊戲 × 地方創生</span><span class="en">ESG × Gaming × Community</span></span>
-          <span>2024–2026</span>
-        </div>
-        <h3 class="p-title"><span class="zh">蓋亞造界 GaiaCraft</span><span class="en">GaiaCraft</span></h3>
-        <div class="p-sub">
-          <span class="zh">用像素RPG驅動真實永續行為，並以AI將耆老記憶化為遊戲資產永久保存</span>
-          <span class="en">Pixel RPG that converts real sustainability actions into game progress, while AI preserves elder oral memory as game assets</span>
-        </div>
-        <div class="p-tags">
-          <span class="ptag">Python</span><span class="ptag">LLM</span><span class="ptag">ASR</span>
-          <span class="ptag">LINE Bot</span><span class="ptag">ESG</span>
-          <span class="ptag"><span class="zh">3D列印</span><span class="en">3D Print</span></span>
-        </div>
-        <div class="usr-release">
-          <div class="usr-release-header">
-            <h4><span class="zh">永安 USR｜已完成成果</span><span class="en">Yong'an USR · Completed work</span></h4>
-            <span class="usr-release-status"><span class="zh">已公開，可體驗 ↗</span><span class="en">LIVE / TRY IT ↗</span></span>
-          </div>
-          <p><span class="zh">永安的地方故事，已做成可以親自探索的作品：AR 版、宣傳影片與《永安探險記》遊戲。</span><span class="en">Yong'an's local stories are now ready to explore through an AR experience, a promotional video, and the Yong'an Adventure game.</span></p>
-          <div class="usr-release-links">
-            <a href="https://frankfangcode.itch.io/gaiacraftyongan" target="_blank" rel="noopener noreferrer"><span class="zh">玩永安探險記</span><span class="en">Play the game</span><span aria-hidden="true">↗</span></a>
-            <a href="https://frankfangcode.github.io/lost_village/" target="_blank" rel="noopener noreferrer"><span class="zh">體驗 AR 版</span><span class="en">Try the AR version</span><span aria-hidden="true">↗</span></a>
-            <a href="https://youtube.com/shorts/KDQs7SRRQW4?feature=share" target="_blank" rel="noopener noreferrer"><span class="zh">觀看宣傳影片</span><span class="en">Watch the promo</span><span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="p-detail">
-          <h4><span class="zh">三版迭代</span><span class="en">Three Iterations</span></h4>
-          <ul>
-            <li><span class="zh"><strong>V1 永續循環</strong>：執行永續行為 → 點數 → 企業ESG數據回流</span><span class="en"><strong>V1 Circular</strong>: Actions → points → corporate ESG data loop</span></li>
-            <li><span class="zh"><strong>V2 文化科技</strong>：LLM+ASR 將耆老口述轉為像素RPG資產</span><span class="en"><strong>V2 Cultural Tech</strong>: LLM+ASR converts elder oral history into pixel RPG assets</span></li>
-            <li><span class="zh"><strong>V3 校園版</strong>：LINE-based行為驗證＋實體Dashboard，已與信義書院合作</span><span class="en"><strong>V3 Campus</strong>: LINE verification + physical dashboard, live with Shinsyi Academy</span></li>
-          </ul>
-          <h4><span class="zh">薪火計畫 — 阿嬤記憶公仔</span><span class="en">GaiaCraft Spark — Memory Doll</span></h4>
-          <p><span class="zh">深坑炮仔崙的90歲阿嬤是整座山的活記憶庫。我們用AI記錄她的聲音，3D列印她的樣貌，製成會說話的記憶公仔——擔任景點導覽與無人商店引導，讓記憶在薪盡前留存。</span><span class="en">A 90-year-old grandma in Shenkeng holds the living memory of an entire hill. We captured her voice with AI and 3D-printed her likeness into a talking memory doll — for tourist guidance and unmanned store interaction, before the memory fades.</span></p>
-          <h4><span class="zh">USR數位孿生地圖</span><span class="en">USR Digital Twin Maps</span></h4>
-          <p><span class="zh">永安、深坑兩個USR場域製作像素地圖，遊客可在虛擬空間走動探索在地文史，實現數位孿生的地方創生。</span><span class="en">Pixel maps of Yong'an and Shenkeng USR sites let visitors explore local history in virtual space — digital twin community revitalization.</span></p>
-          <h4><span class="zh">影片展示</span><span class="en">Demo Videos</span></h4>
-          <div class="yt-grid">
-            <div>
-              <div class="yt-lbl"><span class="zh">薪火計畫 — 阿嬤記憶公仔</span><span class="en">GaiaCraft Spark</span></div>
-              <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/t5pAcjZBMBA" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造界 薪火"></iframe></div>
-            </div>
-            <div>
-              <div class="yt-lbl"><span class="zh">蓋亞造鎮 · 永安篇</span><span class="en">GaiaCraft · Yong'an</span></div>
-              <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/e7reQ-8bgtc" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造鎮 永安篇"></iframe></div>
-            </div>
-          </div>
-          <div class="yt-wrap">
-            <div class="yt-lbl"><span class="zh">2026 商學院永續行動提案競賽</span><span class="en">2026 Business School Sustainability Competition</span></div>
-            <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/JW3XR1Qz6cM" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造界 競賽簡報"></iframe></div>
-          </div>
-          <h4><span class="zh">成果</span><span class="en">Results</span></h4>
-          <span class="rbadge"><span class="zh">教育部人文永續 佳作</span><span class="en">MOE Humanities Merit Award</span></span>
-          <span class="rbadge"><span class="zh">中鼎基金會 佳作</span><span class="en">CTCI Foundation Merit Award</span></span>
-          <span class="rbadge"><span class="zh">政大AI競賽 佳作</span><span class="en">NCCU AI Merit Award</span></span>
-          <span class="rbadge"><span class="zh">國科會計畫 獲選</span><span class="en">NSTC Grant Selected</span></span>
-        </div>
-        <button class="p-cta" type="button">
-          <span class="zh">看專案細節 ↗</span><span class="en">Explore project ↗</span>
-        </button>
-      </div>
-
-      <!-- CoolPath -->
-      <div class="pcard feat" id="coolpath">
-        <div class="coolpath-cover">
-          <div class="coolpath-cover-top"><span>COOLPATH / 2026</span><span class="coolpath-winner">Google DevJam · 1st</span></div>
-          <div class="coolpath-wordmark">CoolPath<span>↗</span></div>
-          <p class="coolpath-slogan"><span class="zh">涼路，找一條更涼的路。</span><span class="en">Find a cooler way.</span></p>
-          <div class="coolpath-comparison" aria-label="路線比較範例 Route comparison example">
-            <div class="coolpath-route cooler"><span class="route-label"><span class="zh">涼爽路線</span><span class="en">Cooler route</span></span><strong>7 <small><span class="zh">分鐘</span><span class="en">min</span></small></strong><span>1.9 km · 36.7°C</span></div>
-            <div class="coolpath-route fastest"><span class="route-label"><span class="zh">最快路線</span><span class="en">Fastest route</span></span><strong>6 <small><span class="zh">分鐘</span><span class="en">min</span></small></strong><span>1.5 km · 36.8°C</span></div>
-          </div>
-          <p class="coolpath-example"><span class="zh">專案畫面範例 · 溫度為沿線平均地表溫度</span><span class="en">Project example · Mean land surface temperature along each route</span></p>
-        </div>
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">城市降溫 × 路線規劃 × ESG</span><span class="en">Urban Cooling × Routing × ESG</span></span>
-          <span>2026</span>
-        </div>
-        <h3 class="p-title"><span class="zh">CoolPath 涼路</span><span class="en">CoolPath</span></h3>
-        <div class="p-sub">
-          <span class="zh">找一條更涼的路。比較最快與涼爽路線，把沿途熱環境納入步行選擇，串聯可以吹冷氣、喝水、休息的城市涼點。</span>
-          <span class="en">Find a cooler way. Compare fast and cooler walking routes, consider heat along the way, and discover cooling stops for air conditioning, drinking water, and rest.</span>
-        </div>
-        <div class="coolpath-award"><span aria-hidden="true">↗</span><div><strong><span class="zh">Google DevJam 黑客松 TW 2026 冠軍</span><span class="en">Google DevJam Hackathon TW 2026 · 1st Place</span></strong><span>GDG on Campus · <time datetime="2026-08-18">2026.08.18</time></span></div></div>
-        <div class="p-tags">
-          <span class="ptag"><span class="zh">路線比較</span><span class="en">Route Comparison</span></span>
-          <span class="ptag"><span class="zh">地表溫度</span><span class="en">Land Surface Temperature</span></span>
-          <span class="ptag">Google Maps</span><span class="ptag">ESG / CSR</span>
-        </div>
-        <div class="p-detail">
-          <h4><span class="zh">從「最快到達」到「更涼地抵達」</span><span class="en">A cooler journey, alongside a faster option</span></h4>
-          <p><span class="zh">炎熱天氣下，步行路線的選擇也需要考慮沿途熱環境。CoolPath 將路線與地表溫度資訊放在一起，讓使用者比較時間、距離與溫度，再選擇適合自己的走法。</span><span class="en">In hot weather, walking decisions also depend on the heat along the way. CoolPath brings routes and land surface temperature information together so people can compare travel time, distance, and temperature before choosing their route.</span></p>
-          <h4><span class="zh">路線比較與導航</span><span class="en">Route comparison and navigation</span></h4>
-          <ul>
-            <li><span class="zh"><strong>兩條路，一起比較</strong>：並列最快路線與涼爽路線，呈現步行時間、距離及沿線平均地表溫度。</span><span class="en"><strong>Two routes, side by side</strong>: compare the fastest and cooler options by walking time, distance, and mean land surface temperature.</span></li>
-            <li><span class="zh"><strong>看見沿途熱環境</strong>：在地圖上疊加溫度資訊與路線，讓不同走法的差異更直觀。</span><span class="en"><strong>See the heat along the way</strong>: temperature overlays and route lines make the options easier to understand.</span></li>
-            <li><span class="zh"><strong>接續 Google Maps 導航</strong>：完成路線比較後，可進入 Google Maps 導航。</span><span class="en"><strong>Continue in Google Maps</strong>: move from comparing options to navigation.</span></li>
-          </ul>
-          <h4><span class="zh">商業模式｜讓企業 ESG 預算支持城市涼點</span><span class="en">Business model · Corporate ESG funding for cooling stops</span></h4>
-          <p><span class="zh">規劃由企業認養涼點、提供資源與獎勵，串聯免費加入的合作店家，讓民眾沿途找到冷氣、飲水與休息空間，並透過點數與獎勵帶動參與。</span><span class="en">The proposed model connects corporate sponsorship and rewards with shops that join for free. People can discover places to cool down, drink water, and rest, with points and rewards encouraging participation.</span></p>
-          <ul>
-            <li><span class="zh"><strong>企業</strong>：以 ESG / CSR 預算認養涼點，支持資源與獎勵，取得使用人次、使用量等影響力資料。</span><span class="en"><strong>Companies</strong>: fund cooling stops and rewards through ESG / CSR budgets, with usage and participation data to track impact.</span></li>
-            <li><span class="zh"><strong>店家</strong>：提供冷氣、飲水或休息空間，換取人流、品牌互動與潛在消費機會。</span><span class="en"><strong>Local shops</strong>: offer cooling, water, or rest space in exchange for foot traffic, engagement, and potential purchases.</span></li>
-            <li><span class="zh"><strong>民眾</strong>：尋找涼爽路線與沿途涼點，累積點數並兌換企業提供的獎勵。</span><span class="en"><strong>People</strong>: find cooler routes and cooling stops, earn points, and redeem sponsor-funded rewards.</span></li>
-          </ul>
-          <p><span class="zh">商業設計以企業贊助為核心，合作店家免費加入；後續也規劃延伸政府合作，支持城市熱傷害防治。</span><span class="en">Corporate sponsorship is the core of the model, with free participation for shops. Future plans also include government partnerships for urban heat-injury prevention.</span></p>
-        </div>
-        <button class="p-cta" type="button"><span class="zh">看專案細節 ↗</span><span class="en">Explore project ↗</span></button>
-      </div>
-    </div>
-
-    <div class="proj-sec">
-
-      <!-- 論文查核 -->
-      <div class="pcard">
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">學術AI</span><span class="en">Academic AI</span></span>
-          <span>2026</span>
-        </div>
-        <h3 class="p-title"><span class="zh">智慧論文引用查核</span><span class="en">Citation Verification AI</span></h3>
-        <div class="p-sub"><span class="zh">雙重RAG＋LLM裁判，自動偵測學術引用錯誤，準確率72%</span><span class="en">Dual-RAG + LLM judge detects citation errors automatically. 72% accuracy.</span></div>
-        <div class="p-detail">
-          <p><span class="zh">指導：政大AI中心陳昭伶老師。生醫文獻中39.18%的引用存在錯誤。系統透過GROBID萃取、動態微型向量庫，Citing RAG（chunk=1500）＋ Reference RAG（chunk=1000），LLM裁判比對後輸出Excel查核報告。Gemma & Qwen 72%最高，Claude 60%，Llama 56%。</span><span class="en">Supervised by Prof. Chen, NCCU AI Center. 39.18% of biomedical citations contain errors. GROBID extraction, dual RAG layers, LLM judge outputs Excel reports. Gemma & Qwen 72%, Claude 60%, Llama 56%.</span></p>
-          <div class="yt-wrap">
-            <div class="yt-lbl">Demo · CiteGuard</div>
-            <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/P1wXEafgkwI" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="CiteGuard 論文引用查核系統"></iframe></div>
-          </div>
-        </div>
-        <button class="p-cta" type="button"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
-      </div>
-
-      <!-- X調查 -->
-      <div class="pcard">
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">創業 · X創業家金牌</span><span class="en">Startup · Gold Medal</span></span>
-          <span>2026</span>
-        </div>
-        <h3 class="p-title"><span class="zh">X調查 銀髮微物流</span><span class="en">Silver-Age Micro-Logistics</span></h3>
-        <div class="p-sub"><span class="zh">以55–69歲退休族為核心配送人力，解決都市低價短程配送痛點</span><span class="en">55–69 age retirees as core delivery workforce for urban low-cost short-haul logistics</span></div>
-        <div class="p-detail">
-          <p><span class="zh">服務「不急的日常配送」——物流成本最高、效率最低的市場。SAM約28萬人，Phase 1 C2C捷運沿線社區驗證，Phase 2 B2B成為電商最後一哩路夥伴。ESG：綠色里程轉為企業資產，打造共融就業社會。合作：勞動部發展署、銀髮人才資源中心。</span><span class="en">Targets non-urgent daily delivery — highest cost, lowest efficiency segment. SAM 280k. Phase 1: metro-adjacent C2C; Phase 2: B2B e-commerce last-mile. ESG: green mileage as corporate asset. Partners: MOL, Silver Talent Center.</span></p>
-        </div>
-        <button class="p-cta" type="button"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
-      </div>
-
-      <!-- 公車 -->
-      <div class="pcard">
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">工具開發</span><span class="en">Tool Dev</span></span>
-          <span>2026</span>
-        </div>
-        <h3 class="p-title"><span class="zh">政大公車時刻表</span><span class="en">NCCU Bus Scheduler</span></h3>
-        <div class="p-sub"><span class="zh">Threads爆紅：522讚 · 290分享 · 51轉發</span><span class="en">Viral on Threads: 522 likes · 290 shares · 51 reposts</span></div>
-        <div class="p-detail">
-          <p><span class="zh">發現政大公車App即時資訊不準，真正的訣竅是「發車時間+5分鐘才到山上」。獨自開發網頁顯示距當前最近班次，支援加入Safari主畫面成PWA App。一篇Threads貼文引爆校園討論。</span><span class="en">NCCU's bus app was inaccurate. The real trick: add 5 min to departure time for uphill arrival. Built a page showing nearest departure, with PWA install support. One Threads post went viral campus-wide.</span></p>
-          <a href="https://github.com/Frankfangcode/nccu-bus" target="_blank" rel="noopener" class="gh-link" >⌥ GitHub →</a>
-          <a href="https://frankfangcode.github.io/nccu-bus" target="_blank" rel="noopener" class="gh-link" ><span class="zh">網站 →</span><span class="en">Live →</span></a>
-        </div>
-        <button class="p-cta" type="button"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
-      </div>
-
-      <!-- 排班系統 -->
-      <div class="pcard">
-        <div class="p-issue">
-          <span class="p-cat"><span class="zh">系統開發</span><span class="en">System Dev</span></span>
-          <span>2025</span>
-        </div>
-        <h3 class="p-title"><span class="zh">游泳隊排班管理系統</span><span class="en">Swim Team Scheduling System</span></h3>
-        <div class="p-sub"><span class="zh">Google Apps Script 後端，全自動化簽到、請假、課表、訓練日誌</span><span class="en">Google Apps Script backend — automated sign-in, leave, schedules & training logs</span></div>
-        <div class="p-tags"><span class="ptag">Google Apps Script</span><span class="ptag">Google Sheets</span><span class="ptag">LINE Bot</span></div>
-        <div class="p-detail">
-          <p><span class="zh">為政大游泳隊量身打造的管理系統，以 Google Apps Script 串接 Google Sheets 作為後端資料庫，支援隊員簽到、課表發布、請假審核、訓練日誌四大功能，大幅降低教練與隊員的行政負擔。</span><span class="en">Built for NCCU's swim team. Google Apps Script + Sheets backend handles member check-in, schedule publishing, leave approval, and training logs — cutting admin overhead for coaches and members.</span></p>
-          <div class="yt-wrap">
-            <div class="yt-lbl">Demo</div>
-            <div class="yt-embed"><iframe src="https://www.youtube-nocookie.com/embed/coc8i1O4XGU" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="游泳隊排班管理系統 Demo"></iframe></div>
-          </div>
-          <a href="https://github.com/Frankfangcode/scheduling-system-final" target="_blank" rel="noopener" class="gh-link" >⌥ GitHub →</a>
-        </div>
-        <button class="p-cta" type="button"><span class="zh">展開 →</span><span class="en">Expand →</span></button>
-      </div>
-
-    </div>
+<div class="proof">
+  <div class="in">
+    <span class="lbl"><span class="zh">// 曾合作與登台</span><span class="en">// worked with &amp; spoke at</span></span>
+    <ul>
+      <li><span class="zh">政大 AI 研究中心</span><span class="en">NCCU AI Center</span></li>
+      <li>Google DevJam 2026 · 1st</li>
+      <li><span class="zh">永平高中</span><span class="en">Yongping High School</span></li>
+      <li><span class="zh">政大 IMBA</span><span class="en">NCCU IMBA</span></li>
+      <li><span class="zh">政大 EMBA</span><span class="en">NCCU EMBA</span></li>
+      <li>Canton Foundation</li>
+      <li><span class="zh">北海道大學</span><span class="en">Hokkaido University</span></li>
+    </ul>
   </div>
 </div>
 
-<!-- AWARDS -->
-<div id="awards">
-  <h2 class="sec-hdr">
-    <span class="zh">競賽與獎學金</span><span class="en">Awards & Scholarships</span>
-    <span class="div"></span>
-  </h2>
-  <div class="award-spotlights">
-    <article class="award-feature champion">
-      <div class="award-kicker"><span>01 / HACKATHON</span><time datetime="2026-08-18">2026.08.18</time></div>
-      <div class="award-rank">1st<small><span class="zh">冠軍</span><span class="en">CHAMPION</span></small></div>
-      <h3><span class="zh">Google DevJam 黑客松 TW 2026</span><span class="en">Google DevJam Hackathon TW 2026</span></h3>
-      <p><span class="zh">得獎專案：<a href="#coolpath">CoolPath 涼路 ↗</a></span><span class="en">Winning project: <a href="#coolpath">CoolPath ↗</a></span><br>GDG on Campus</p>
-      <p class="award-meta"><span class="zh">臺灣，中華民國 · 校外競賽</span><span class="en">Taiwan, Republic of China · External competition</span></p>
+<!-- SERVICES -->
+<section class="plain" id="services">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">what I can do for you</span><span class="zh">我可以幫你做什麼</span><span class="en">What I can do for you</span></h2>
+  <p class="sec-intro rv"><span class="zh">從「想用 AI 但不知道從哪開始」，到「已經有想法、需要有人做出來」，下面四件事是我最常幫人解決的。</span><span class="en">Whether you're wondering where AI even fits or already know exactly what you want built, these are the four things I help with most.</span></p>
+  <div class="svc-grid">
+    <article class="svc rv" id="svc-teach">
+      <span class="no">01 / TEACH</span>
+      <h3><span class="zh">AI 導入教學與工作坊</span><span class="en">AI adoption workshops</span></h3>
+      <p class="what"><span class="zh">從零帶團隊把 AI 用進日常工作：提示詞、AI 工作流程到 AI Agent 實作，內容依對象客製。</span><span class="en">Hands-on sessions that get teams using AI in real work — prompting, AI workflows, all the way to building an AI agent — tailored to the audience.</span></p>
+      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">學校、社團、企業內訓</span><span class="en">schools, student groups, company training</span></p>
+      <ul class="proofs">
+        <li><span class="zh">永平高中新生 AI 自主學習工作坊（帶領助教團隊）</span><span class="en">Yongping High School freshman AI workshop (led a TA team)</span></li>
+        <li><span class="zh">政大 IMBA 課堂講課</span><span class="en">Guest session, NCCU IMBA</span></li>
+        <li><span class="zh">EMBA「金融科技趨勢與創新」課程助教</span><span class="en">TA, EMBA "FinTech Trends &amp; Innovation"</span></li>
+      </ul>
+      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=AI%20%E5%B7%A5%E4%BD%9C%E5%9D%8A%E6%B4%BD%E8%A9%A2"><span class="zh">洽詢工作坊 →</span><span class="en">Book a workshop →</span></a>
     </article>
-    <article class="award-feature swimming">
-      <div class="award-kicker"><span>02 / SWIMMING</span><time datetime="2026-05-04">2026.05.04</time></div>
-      <div class="award-rank">7th<small><span class="zh">決賽第七</span><span class="en">IN THE FINAL</span></small></div>
-      <h3><span class="zh">115年全大運</span><span class="en">2026 National Intercollegiate Athletic Games</span></h3>
-      <p><span class="zh">一般男生組 4 × 100 公尺自由式接力</span><span class="en">General Men's 4 × 100 m Freestyle Relay</span></p>
-      <p class="award-meta"><span class="zh">教育部 · 臺灣，中華民國 · 校外競賽</span><span class="en">Ministry of Education · Taiwan, Republic of China · External competition</span></p>
+    <article class="svc rv" id="svc-rag">
+      <span class="no">02 / RAG</span>
+      <h3><span class="zh">RAG 知識庫與文件問答</span><span class="en">RAG knowledge bases</span></h3>
+      <p class="what"><span class="zh">把你的規章、手冊、講義或論文變成可以直接問答的 AI，回答附上出處，不亂講。</span><span class="en">Turn your policies, handbooks, course notes or papers into an AI you can question — with sources attached to every answer.</span></p>
+      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">文件多、常被問同樣問題的單位</span><span class="en">teams drowning in documents and repeat questions</span></p>
+      <ul class="proofs">
+        <li><span class="zh">CiteGuard 論文引用查核：雙層 RAG ＋ LLM 裁判，準確率 72%</span><span class="en">CiteGuard citation checker: dual RAG + LLM judge, 72% accuracy</span></li>
+        <li><span class="zh">政大 AI 研究中心研究助理（三個計畫）</span><span class="en">Research assistant on three NCCU AI Center projects</span></li>
+      </ul>
+      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=RAG%20%E7%9F%A5%E8%AD%98%E5%BA%AB%E6%B4%BD%E8%A9%A2"><span class="zh">聊聊你的資料 →</span><span class="en">Talk about your data →</span></a>
+    </article>
+    <article class="svc rv" id="svc-line">
+      <span class="no">03 / AUTOMATE</span>
+      <h3><span class="zh">LINE Bot 與流程自動化</span><span class="en">LINE Bots &amp; automation</span></h3>
+      <p class="what"><span class="zh">報名、簽到、請假、通知、名單管理這些重複工作，交給 LINE Bot 加 Google Sheets 自動跑。</span><span class="en">Sign-ups, check-ins, leave requests, reminders, member lists — hand the repetitive admin to a LINE Bot and Google Sheets.</span></p>
+      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">社團、競賽主辦、小型團隊</span><span class="en">clubs, competition organizers, small teams</span></p>
+      <ul class="proofs">
+        <li><span class="zh">社團 LINE 社員自動化管理</span><span class="en">LINE-based member management for a student club</span></li>
+        <li><span class="zh">商學院永續競賽 LINE Bot</span><span class="en">LINE Bot for the Business School sustainability competition</span></li>
+        <li><span class="zh">游泳隊排班管理系統（簽到、請假、課表、訓練日誌）</span><span class="en">Swim team scheduling system (check-in, leave, schedules, logs)</span></li>
+      </ul>
+      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=LINE%20Bot%20/%20%E8%87%AA%E5%8B%95%E5%8C%96%E6%B4%BD%E8%A9%A2"><span class="zh">把麻煩事交給我 →</span><span class="en">Automate it →</span></a>
+    </article>
+    <article class="svc rv" id="svc-agent">
+      <span class="no">04 / BUILD</span>
+      <h3><span class="zh">Agentic AI 與 AI 系統開發</span><span class="en">Agentic AI &amp; AI systems</span></h3>
+      <p class="what"><span class="zh">需要多輪對話、多步驟推理或會呼叫工具的 AI 系統，從原型、串接到部署上線。</span><span class="en">AI systems with multi-turn conversation, multi-step reasoning or tool use — from prototype and integration to deployment.</span></p>
+      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">研究實驗、新創原型、內部工具</span><span class="en">research studies, startup prototypes, internal tools</span></p>
+      <ul class="proofs">
+        <li><span class="zh">葉玉珠老師實驗室：批判思考推理遊戲實驗系統（Express ＋ Zeabur，多輪 AI 互動）</span><span class="en">Prof. Yeh's lab: critical-thinking reasoning game (Express + Zeabur, multi-turn AI)</span></li>
+        <li><span class="zh">CoolPath 涼路：Google DevJam 2026 冠軍</span><span class="en">CoolPath: Google DevJam 2026 winner</span></li>
+      </ul>
+      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=AI%20%E7%B3%BB%E7%B5%B1%E9%96%8B%E7%99%BC%E6%B4%BD%E8%A9%A2"><span class="zh">討論你的點子 →</span><span class="en">Pitch me your idea →</span></a>
     </article>
   </div>
-  <div class="awards-wrap">
+  <ol class="flow rv" aria-label="合作流程 How we'd work">
+    <li><b><span class="zh">聊需求</span><span class="en">Talk</span></b><span><span class="zh">先了解你的問題和現在的流程</span><span class="en">Understand the problem and your current workflow</span></span></li>
+    <li><b><span class="zh">做原型</span><span class="en">Prototype</span></b><span><span class="zh">先做出能試用的小版本</span><span class="en">Ship a small version you can try</span></span></li>
+    <li><b><span class="zh">開發上線</span><span class="en">Build</span></b><span><span class="zh">串接你的資料與工具</span><span class="en">Connect your data and tools</span></span></li>
+    <li><b><span class="zh">交接與教學</span><span class="en">Hand over</span></b><span><span class="zh">教會團隊自己用、自己改</span><span class="en">Teach your team to run and tweak it</span></span></li>
+  </ol>
+  <div class="cta-bar rv">
+    <p><span class="zh">不確定 AI 能幫上什麼？</span><span class="en">Not sure where AI fits?</span><span><span class="zh">先問問我的 AI 分身，或直接寄信給我。</span><span class="en">Ask my AI twin first, or just email me.</span></span></p>
     <div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">全國第二名</span><span class="en">National 2nd</span></div><div class="tl-name"><span class="zh">全國大專國際經貿競賽 · 半導體AI供應鏈重組</span><span class="en">National College Int'l Trade Competition · AI Supply Chain</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">金牌</span><span class="en">Gold Medal</span></div><div class="tl-name"><span class="zh">X創業家 · 政大科智所×創新創造力研究中心</span><span class="en">X Entrepreneur · NCCU GMBA × CCIS</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">全國第二名</span><span class="en">National 2nd</span></div><div class="tl-name"><span class="zh">禮來 RedSpark 商業競賽</span><span class="en">Eli Lilly RedSpark Business Competition</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2025</div>
-        <div><div class="tl-rank"><span class="zh">全國第二名</span><span class="en">National 2nd</span></div><div class="tl-name"><span class="zh">佛光大學三好AI創新應用競賽</span><span class="en">FGU Three-Good AI Innovation Competition</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">佳作</span><span class="en">Merit Award</span></div><div class="tl-name"><span class="zh">教育部人文永續創新應用競賽</span><span class="en">MOE Humanities Sustainability Innovation</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">佳作</span><span class="en">Merit Award</span></div><div class="tl-name"><span class="zh">中鼎基金會永續生活實驗室</span><span class="en">CTCI Foundation Sustainability Lab</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2025</div>
-        <div><div class="tl-rank"><span class="zh">佳作</span><span class="en">Merit Award</span></div><div class="tl-name"><span class="zh">政大 AI×永續創新競賽</span><span class="en">NCCU AI × Sustainability Competition</span></div></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2026</div>
-        <div><div class="tl-rank"><span class="zh">獲選</span><span class="en">Selected</span></div><div class="tl-name"><span class="zh">國科會大專學生研究計畫 · 像素藝術遊戲於台灣地方創生之應用</span><span class="en">NSTC Undergraduate Research Grant · Pixel Art Games for Community Revitalization</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="sb-lbl" style="margin-bottom:1rem;"><span class="zh">獎學金</span><span class="en">Scholarships</span></div>
-      <div class="schol">
-        <div class="schol-name"><span class="zh">沈錡大使獎學金</span><span class="en">Ambassador Shen Memorial Scholarship</span></div>
-        <div class="schol-desc"><span class="zh">赴日本九州實地考察台積電供應鏈佈局，第一手掌握半導體產業國際動態</span><span class="en">Field study in Kyushu — first-hand investigation of TSMC's supply chain strategy in Japan</span></div>
-      </div>
-      <div class="schol" style="margin-top:1rem;">
-        <div class="schol-name"><span class="zh">商學院何麗梅校友獎學金</span><span class="en">Ho Li-Mei Alumni Scholarship</span></div>
-        <div class="schol-desc"><span class="zh">全校每年僅4位獲選。何麗梅女士前任台積電人資長，建立深度業界指導關係</span><span class="en">4 recipients university-wide annually. Ho Li-Mei is former CHRO of TSMC — built direct mentorship through this honor</span></div>
-      </div>
+      <a class="pill" href="#ask" data-ask><span class="zh">問 AI 分身</span><span class="en">Ask the AI twin</span></a>
+      <a class="pill ghost" href="mailto:113306052@g.nccu.edu.tw?subject=%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2"><span class="zh">寄信給我</span><span class="en">Email me</span></a>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ABOUT -->
-<div id="about">
-  <h2 class="sec-hdr">
-    <span class="zh">關於我</span><span class="en">About</span>
-    <span class="div"></span>
-  </h2>
-  <div class="about-wrap">
-    <div class="about-text">
-      <p><span class="zh">企管、統計、資管，三個系，每一個我都是自己選的。現在回頭看，那些拼起來剛剛好：商業的直覺、數字的嚴謹、程式的執行力，加上金融的視角，讓我可以在不同語言之間自由切換，<strong>真正把東西做出來</strong>。</span><span class="en">Business, Statistics, Information Management — three majors, each one I chose myself. Looking back, the pieces fit: business intuition, statistical rigor, engineering execution, and financial perspective. Together, they let me switch between different languages of thinking and <strong>actually build things</strong>.</span></p>
-      <div class="pull-quote">
-        <span class="zh">「科技不只是技術，而是一種解決問題、創造新機會的工具。」</span>
-        <span class="en">"Technology isn't just code — it's a tool for solving real problems and creating new possibilities."</span>
+<section class="split" id="about">
+  <img src="./images/frank-sweater.jpg" alt="方澤享 Frank Fang 坐著微笑" loading="lazy" width="613" height="1089">
+  <div class="panel">
+    <h2 class="zt"><span class="sw" aria-hidden="true">about me</span><span class="zh">嗨，我是方澤享</span><span class="en">Hi, I'm Frank</span></h2>
+    <p><span class="zh">企管、統計、資管，三個系，每一個都是我自己選的。現在回頭看，那些拼起來剛剛好：商業的直覺、數字的嚴謹、程式的執行力，加上金融的視角，讓我可以在不同語言之間切換，<strong>真正把東西做出來</strong>。</span><span class="en">Business, Statistics, Information Management — three majors, each one I chose myself. The pieces fit: business intuition, statistical rigor, engineering execution and a financial lens let me switch between ways of thinking and <strong>actually build things</strong>.</span></p>
+    <p><span class="zh">我創辦了<strong>政大金融科技創新實驗室</strong>，以 <strong>CoolPath 涼路</strong>拿下 <strong>Google DevJam 黑客松 TW 2026 冠軍</strong>，也帶著沈錡大使獎學金赴<strong>日本九州</strong>考察台積電供應鏈。</span><span class="en">I founded <strong>NCCU's FinTech Innovation Lab</strong>, won <strong>Google DevJam Hackathon TW 2026</strong> with <strong>CoolPath</strong>, and flew to <strong>Kyushu</strong> on scholarship to study TSMC's supply chain.</span></p>
+    <p><span class="zh">我也站上講台：帶助教團隊開 AI 工作坊、在 IMBA 講課、擔任 EMBA 金融科技課程助教；今年夏天拿獎助到<strong>北海道大學</strong>修課，帶領小組報告。</span><span class="en">I teach too — AI workshops with my own TA team, a guest session for IMBA, and TA for an EMBA FinTech course. This summer a scholarship took me to <strong>Hokkaido University</strong>, where I led my group's presentation.</span></p>
+    <p><span class="zh">我也游泳，代表政大參加<strong>全大運</strong>，自由式接力全國第七。泳道和程式碼教我同一件事：持續推進，就能突破。</span><span class="en">I also swim — 7th in the freestyle relay at the <strong>National University Games</strong> for NCCU. The lane and the codebase teach the same thing: keep moving forward and you'll break through.</span></p>
+    <div class="focus"><span>AI 應用開發</span><span>RAG</span><span>Agentic AI</span><span>LINE Bot</span><span>金融科技</span><span>永續創新</span></div>
+    <nav class="socs" aria-label="社群連結 Social links">
+      <a class="soc" href="https://github.com/Frankfangcode" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
+      <a class="soc" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.83v1.54h.06c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5c0-1.2-.02-2.73-1.66-2.73-1.67 0-1.92 1.3-1.92 2.65V21h-4V9.75Z"/></svg></a>
+      <a class="soc" href="mailto:113306052@g.nccu.edu.tw" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg></a>
+    </nav>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="plain" id="projects">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">Featured Projects</span><span class="zh">精選專案</span><span class="en">Featured Projects</span></h2>
+  <div class="proj-feat">
+
+    <!-- GaiaCraft -->
+    <article class="card rv">
+      <div class="cover">
+        <img src="./images/gaia-village.jpg" alt="GaiaCraft — 失落村莊美景" loading="lazy">
+        <img src="./images/gaia-underwater.jpg" alt="GaiaCraft — 水中廢墟場景" loading="lazy">
+        <img src="./images/gaia-nccu.webp" alt="GaiaCraft — 政大校園像素地圖" loading="lazy">
       </div>
-      <p><span class="zh">我創辦了<strong>政大金融科技創新實驗室</strong>，邀請政大金融科技研究中心主任王儷玲擔任指導老師；以<strong>CoolPath 涼路</strong>拿下<strong>Google DevJam 黑客松 TW 2026 冠軍</strong>；帶著沈錡大使獎學金赴<strong>日本九州</strong>實地考察台積電供應鏈；在2026全國大專國際經貿競賽以供應鏈重組研究拿下<strong>全國第二</strong>。</span><span class="en">I founded <strong>NCCU's FinTech Innovation Lab</strong>, secured Prof. Wang Li-Ling as advisor. Won <strong>Google DevJam Hackathon TW 2026</strong> with <strong>CoolPath</strong>. Flew to <strong>Kyushu on scholarship</strong> to investigate TSMC's supply chain. Won <strong>National 2nd</strong> at the 2026 Int'l Trade Competition with supply chain research.</span></p>
-      <p><span class="zh">但讓我最難忘的，是在深坑山上遇到那位90歲的阿嬤。她是整座山的活記憶庫。我們把她的聲音用AI留下來，把她的樣貌用3D印出來，讓記憶公仔繼續說話在薪燼之前。</span><span class="en">But what stays with me most: meeting a 90-year-old grandma on a mountain in Shenkeng. She was the living memory of the whole hill. We captured her voice with AI, 3D-printed her likeness, so the memory doll keeps talking — before the fire goes out.</span></p>
-      <p><span class="zh">我也游泳，代表政大參加<strong>全國大專運動會</strong>，自由式接力全國第七。泳道和程式碼教我同樣的事：只要持續推進，就能突破。</span><span class="en">I also swim — representing NCCU at the <strong>National University Games</strong>, 7th in freestyle relay. The lane and the codebase teach the same thing: keep moving forward, and you'll break through.</span></p>
-    </div>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">永續 × 遊戲 × 地方創生</span><span class="en">ESG × GAMING × COMMUNITY</span></span><span class="yr">2024–2026</span></div>
+        <h3><span class="zh">蓋亞造界 GaiaCraft</span><span class="en">GaiaCraft</span></h3>
+        <p class="role"><span class="k"><span class="zh">我的角色</span><span class="en">My role</span></span><span class="zh">技術總監</span><span class="en">Technical Director</span></p>
+        <p class="sub"><span class="zh">用像素 RPG 驅動真實永續行為，並以 AI 將耆老記憶化為遊戲資產永久保存。</span><span class="en">A pixel RPG that turns real sustainability actions into game progress, while AI preserves elders' oral memory as game assets.</span></p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">LLM</span><span class="tag">ASR</span><span class="tag">LINE Bot</span><span class="tag">ESG</span><span class="tag"><span class="zh">3D 列印</span><span class="en">3D Print</span></span></div>
+        <div class="links">
+          <a class="pill dark sm" href="https://gaiacraft.tw" target="_blank" rel="noopener">gaiacraft.tw ↗</a>
+          <a class="pill sm" href="https://play.gaiacraft.tw" target="_blank" rel="noopener"><span class="zh">玩 3D 校園版</span><span class="en">Play the 3D version</span> ↗</a>
+        </div>
+        <div class="live">
+          <div class="live-h"><b><span class="zh">永安 USR｜已完成成果</span><span class="en">Yong'an USR · Completed</span></b><span><span class="zh">已公開，可體驗 ↗</span><span class="en">LIVE / TRY IT ↗</span></span></div>
+          <p><span class="zh">永安的地方故事，已做成可以親自探索的作品：AR 版、宣傳影片與《永安探險記》遊戲。</span><span class="en">Yong'an's local stories, ready to explore: an AR experience, a promo video and the Yong'an Adventure game.</span></p>
+          <div class="live-links">
+            <a class="pill dark" href="https://frankfangcode.itch.io/gaiacraftyongan" target="_blank" rel="noopener noreferrer"><span class="zh">玩永安探險記</span><span class="en">Play the game</span> ↗</a>
+            <a class="pill" href="https://frankfangcode.github.io/lost_village/" target="_blank" rel="noopener noreferrer"><span class="zh">體驗 AR 版</span><span class="en">Try AR</span> ↗</a>
+            <a class="pill" href="https://youtube.com/shorts/KDQs7SRRQW4?feature=share" target="_blank" rel="noopener noreferrer"><span class="zh">宣傳影片</span><span class="en">Promo video</span> ↗</a>
+          </div>
+        </div>
+        <div class="detail">
+          <h4><span class="zh">從 2D 到 3D 的演進</span><span class="en">From 2D to 3D</span></h4>
+          <ul>
+            <li><span class="zh"><strong>V1 永續循環</strong>：執行永續行為 → 點數 → 企業 ESG 數據回流</span><span class="en"><strong>V1 Circular</strong>: actions → points → corporate ESG data loop</span></li>
+            <li><span class="zh"><strong>V2 文化科技</strong>：LLM + ASR 將耆老口述轉為像素 RPG 資產</span><span class="en"><strong>V2 Cultural tech</strong>: LLM + ASR turn elders' oral history into pixel RPG assets</span></li>
+            <li><span class="zh"><strong>V3 校園版</strong>：LINE 行為驗證＋實體 Dashboard，已與信義書院合作</span><span class="en"><strong>V3 Campus</strong>: LINE verification + physical dashboard, live with Shinsyi Academy</span></li>
+            <li><span class="zh"><strong>V4 政大百年校園 3D 遊戲（nccu100）</strong>：從像素地圖走進 3D，我負責建築模型；正式遊玩版本就是 <a href="https://play.gaiacraft.tw" target="_blank" rel="noopener">play.gaiacraft.tw</a></span><span class="en"><strong>V4 NCCU Centennial 3D campus (nccu100)</strong>: from pixel maps to 3D — I built the architecture models. Play it at <a href="https://play.gaiacraft.tw" target="_blank" rel="noopener">play.gaiacraft.tw</a></span></li>
+          </ul>
+          <h4><span class="zh">薪火計畫 — 阿嬤記憶公仔</span><span class="en">GaiaCraft Spark — memory doll</span></h4>
+          <p><span class="zh">深坑炮仔崙的 90 歲阿嬤是整座山的活記憶庫。我們用 AI 記錄她的聲音，3D 列印她的樣貌，製成會說話的記憶公仔——擔任景點導覽與無人商店引導，讓記憶在薪盡前留存。</span><span class="en">A 90-year-old grandma in Shenkeng holds the living memory of a whole hill. We captured her voice with AI and 3D-printed her likeness into a talking memory doll for tourist guidance and an unmanned store.</span></p>
+          <h4><span class="zh">USR 數位孿生地圖</span><span class="en">USR digital twin maps</span></h4>
+          <p><span class="zh">為永安、深坑兩個 USR 場域製作像素地圖，遊客可在虛擬空間走動探索在地文史。</span><span class="en">Pixel maps of the Yong'an and Shenkeng USR sites let visitors walk through local history in virtual space.</span></p>
+          <h4><span class="zh">影片展示</span><span class="en">Demo videos</span></h4>
+          <div class="yt-grid">
+            <div><p class="yt-lbl"><span class="zh">薪火計畫 — 阿嬤記憶公仔</span><span class="en">GaiaCraft Spark</span></p><div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/t5pAcjZBMBA" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造界 薪火"></iframe></div></div>
+            <div><p class="yt-lbl"><span class="zh">蓋亞造鎮 · 永安篇</span><span class="en">GaiaCraft · Yong'an</span></p><div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/e7reQ-8bgtc" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造鎮 永安篇"></iframe></div></div>
+          </div>
+          <p class="yt-lbl" style="margin-top:14px"><span class="zh">2026 商學院永續行動提案競賽</span><span class="en">2026 Business School Sustainability Competition</span></p>
+          <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/JW3XR1Qz6cM" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="蓋亞造界 競賽簡報"></iframe></div>
+          <h4><span class="zh">成果</span><span class="en">Results</span></h4>
+          <div class="badges">
+            <span class="badge"><span class="zh">教育部人文永續 佳作</span><span class="en">MOE Humanities Merit</span></span>
+            <span class="badge"><span class="zh">中鼎基金會 佳作</span><span class="en">CTCI Foundation Merit</span></span>
+            <span class="badge"><span class="zh">政大 AI 競賽 佳作</span><span class="en">NCCU AI Merit</span></span>
+            <span class="badge"><span class="zh">國科會計畫 獲選</span><span class="en">NSTC Grant</span></span>
+          </div>
+        </div>
+        <button class="pill dark more" type="button"></button>
+      </div>
+    </article>
+
+    <!-- CoolPath -->
+    <article class="card rv" id="coolpath">
+      <div class="cp-cover">
+        <div class="cp-top"><span>COOLPATH / 2026</span><span class="cp-win">GOOGLE DEVJAM · 1ST</span></div>
+        <p class="cp-word">CoolPath<span>↗</span></p>
+        <p class="cp-slogan"><span class="zh">涼路，找一條更涼的路。</span><span class="en">Find a cooler way.</span></p>
+        <div class="cp-routes" aria-label="路線比較範例 Route comparison example">
+          <div class="cp-route cool"><span class="lbl"><span class="zh">涼爽路線</span><span class="en">Cooler route</span></span><strong>7 <small><span class="zh">分鐘</span><span class="en">min</span></small></strong><span class="meta">1.9 km · 36.7°C</span></div>
+          <div class="cp-route"><span class="lbl"><span class="zh">最快路線</span><span class="en">Fastest route</span></span><strong>6 <small><span class="zh">分鐘</span><span class="en">min</span></small></strong><span class="meta">1.5 km · 36.8°C</span></div>
+        </div>
+        <p class="cp-note"><span class="zh">專案畫面範例 · 溫度為沿線平均地表溫度</span><span class="en">Project example · mean land surface temperature along each route</span></p>
+      </div>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">城市降溫 × 路線規劃 × ESG</span><span class="en">URBAN COOLING × ROUTING × ESG</span></span><span class="yr">2026</span></div>
+        <h3><span class="zh">CoolPath 涼路</span><span class="en">CoolPath</span></h3>
+        <p class="sub"><span class="zh">比較最快與涼爽路線，把沿途熱環境納入步行選擇，串聯可以吹冷氣、喝水、休息的城市涼點。</span><span class="en">Compare fast and cooler walking routes, factor in heat along the way, and discover stops for air conditioning, water and rest.</span></p>
+        <div class="win"><span class="trophy" aria-hidden="true">🏆</span><div><b><span class="zh">Google DevJam 黑客松 TW 2026 冠軍</span><span class="en">Google DevJam Hackathon TW 2026 · 1st Place</span></b><span>GDG on Campus · <time datetime="2026-08-18">2026.08.18</time></span></div></div>
+        <div class="tags"><span class="tag"><span class="zh">路線比較</span><span class="en">Route comparison</span></span><span class="tag"><span class="zh">地表溫度</span><span class="en">Land surface temp</span></span><span class="tag">Google Maps</span><span class="tag">ESG / CSR</span></div>
+        <div class="detail">
+          <h4><span class="zh">從「最快到達」到「更涼地抵達」</span><span class="en">A cooler journey, alongside a faster one</span></h4>
+          <p><span class="zh">炎熱天氣下，步行路線也要考慮沿途熱環境。CoolPath 將路線與地表溫度資訊放在一起，讓使用者比較時間、距離與溫度，再選擇適合自己的走法。</span><span class="en">In hot weather, walking decisions depend on the heat along the way. CoolPath puts routes and land surface temperature together so people can compare time, distance and temperature before choosing.</span></p>
+          <h4><span class="zh">路線比較與導航</span><span class="en">Route comparison and navigation</span></h4>
+          <ul>
+            <li><span class="zh"><strong>兩條路，一起比較</strong>：並列最快與涼爽路線，呈現步行時間、距離及沿線平均地表溫度。</span><span class="en"><strong>Two routes, side by side</strong>: walking time, distance and mean land surface temperature.</span></li>
+            <li><span class="zh"><strong>看見沿途熱環境</strong>：在地圖上疊加溫度資訊與路線。</span><span class="en"><strong>See the heat</strong>: temperature overlays on the route map.</span></li>
+            <li><span class="zh"><strong>接續 Google Maps 導航</strong>：比較完直接進入導航。</span><span class="en"><strong>Continue in Google Maps</strong>: go straight from comparing to navigating.</span></li>
+          </ul>
+          <h4><span class="zh">商業模式｜讓企業 ESG 預算支持城市涼點</span><span class="en">Business model · ESG funding for cooling stops</span></h4>
+          <ul>
+            <li><span class="zh"><strong>企業</strong>：以 ESG / CSR 預算認養涼點與獎勵，取得使用人次等影響力資料。</span><span class="en"><strong>Companies</strong>: fund cooling stops and rewards through ESG / CSR budgets, with usage data to track impact.</span></li>
+            <li><span class="zh"><strong>店家</strong>：免費加入，提供冷氣、飲水或休息空間，換取人流與消費機會。</span><span class="en"><strong>Shops</strong>: join free, offer cooling, water or rest in exchange for foot traffic.</span></li>
+            <li><span class="zh"><strong>民眾</strong>：找涼爽路線與涼點，累積點數兌換獎勵。</span><span class="en"><strong>People</strong>: find cooler routes and stops, earn points, redeem rewards.</span></li>
+          </ul>
+          <p><span class="zh">後續也規劃延伸政府合作，支持城市熱傷害防治。</span><span class="en">Future plans include government partnerships for urban heat-injury prevention.</span></p>
+        </div>
+        <button class="pill dark more" type="button"></button>
+      </div>
+    </article>
+  </div>
+
+  <div class="proj-sec">
+    <article class="card rv">
+      <span class="num" aria-hidden="true">03</span>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">學術 AI</span><span class="en">ACADEMIC AI</span></span><span class="yr">2026</span></div>
+        <h3><span class="zh">智慧論文引用查核</span><span class="en">Citation Verification AI</span></h3>
+        <p class="sub"><span class="zh">雙重 RAG ＋ LLM 裁判，自動偵測學術引用錯誤，準確率 72%。</span><span class="en">Dual RAG + LLM judge detects citation errors automatically — 72% accuracy.</span></p>
+        <div class="detail">
+          <p><span class="zh">指導：政大 AI 中心陳昭伶老師。生醫文獻中 39.18% 的引用存在錯誤。系統透過 GROBID 萃取、動態微型向量庫，Citing RAG（chunk=1500）＋ Reference RAG（chunk=1000），LLM 裁判比對後輸出 Excel 查核報告。Gemma 與 Qwen 72% 最高，Claude 60%，Llama 56%。</span><span class="en">Supervised by Prof. Chen, NCCU AI Center. 39.18% of biomedical citations contain errors. GROBID extraction, dual RAG layers and an LLM judge output Excel reports. Gemma & Qwen 72%, Claude 60%, Llama 56%.</span></p>
+          <p class="yt-lbl">Demo · CiteGuard</p>
+          <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/P1wXEafgkwI" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="CiteGuard 論文引用查核系統"></iframe></div>
+        </div>
+        <button class="pill more" type="button"></button>
+      </div>
+    </article>
+
+    <article class="card rv">
+      <span class="num" aria-hidden="true">04</span>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">研究系統 · 葉玉珠老師實驗室</span><span class="en">RESEARCH SYSTEM · PROF. YEH'S LAB</span></span><span class="yr">2026</span></div>
+        <h3><span class="zh">批判思考推理遊戲實驗系統</span><span class="en">Critical-Thinking Reasoning Game</span></h3>
+        <p class="sub"><span class="zh">為批判思考研究架設的實驗平台，讓受試者與 AI 進行多輪推理對話。</span><span class="en">An experiment platform for critical-thinking research, where participants reason with an AI over multiple turns.</span></p>
+        <div class="tags"><span class="tag">Express</span><span class="tag">Zeabur</span><span class="tag">LLM</span><span class="tag"><span class="zh">多輪對話</span><span class="en">Multi-turn</span></span></div>
+        <div class="detail">
+          <p><span class="zh">以 Express 撰寫後端、部署在 Zeabur，負責管理實驗流程與多輪 AI 互動的狀態，並記錄每一輪對話供研究分析。</span><span class="en">Express backend deployed on Zeabur, managing the experiment flow and multi-turn AI conversation state, and logging every turn for analysis.</span></p>
+        </div>
+        <button class="pill more" type="button"></button>
+      </div>
+    </article>
+
+    <article class="card rv">
+      <span class="num" aria-hidden="true">05</span>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">創業 · X 創業家金牌</span><span class="en">STARTUP · GOLD MEDAL</span></span><span class="yr">2026</span></div>
+        <h3><span class="zh">X 調查 銀髮微物流</span><span class="en">Silver-Age Micro-Logistics</span></h3>
+        <p class="sub"><span class="zh">以 55–69 歲退休族為核心配送人力，解決都市低價短程配送痛點。</span><span class="en">Retirees aged 55–69 as the core delivery workforce for low-cost, short-haul urban logistics.</span></p>
+        <div class="detail">
+          <p><span class="zh">服務「不急的日常配送」——物流成本最高、效率最低的市場。SAM 約 28 萬人，Phase 1 在捷運沿線社區驗證 C2C，Phase 2 以 B2B 成為電商最後一哩路夥伴。ESG：綠色里程轉為企業資產，打造共融就業。合作：勞動部發展署、銀髮人才資源中心。</span><span class="en">Targets non-urgent daily delivery — the highest-cost, lowest-efficiency segment. SAM 280k. Phase 1: metro-adjacent C2C; Phase 2: B2B e-commerce last mile. ESG: green mileage as a corporate asset. Partners: MOL, Silver Talent Center.</span></p>
+        </div>
+        <button class="pill more" type="button"></button>
+      </div>
+    </article>
+
+    <article class="card rv">
+      <span class="num" aria-hidden="true">06</span>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">工具開發</span><span class="en">TOOL DEV</span></span><span class="yr">2026</span></div>
+        <h3><span class="zh">政大公車時刻表</span><span class="en">NCCU Bus Scheduler</span></h3>
+        <p class="sub"><span class="zh">Threads 爆紅：522 讚 · 290 分享 · 51 轉發。</span><span class="en">Viral on Threads: 522 likes · 290 shares · 51 reposts.</span></p>
+        <div class="detail">
+          <p><span class="zh">發現政大公車 App 即時資訊不準，真正的訣竅是「發車時間 +5 分鐘才到山上」。獨自開發網頁顯示距當前最近班次，支援加入 Safari 主畫面成 PWA。一篇 Threads 貼文引爆校園討論。</span><span class="en">NCCU's bus app was inaccurate; the real trick is adding 5 minutes to departure for uphill arrival. I built a page showing the nearest departure, installable as a PWA. One Threads post went viral campus-wide.</span></p>
+          <div class="links">
+            <a class="pill dark sm" href="https://github.com/Frankfangcode/nccu-bus" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="pill sm" href="https://frankfangcode.github.io/nccu-bus" target="_blank" rel="noopener"><span class="zh">網站</span><span class="en">Live</span> ↗</a>
+          </div>
+        </div>
+        <button class="pill more" type="button"></button>
+      </div>
+    </article>
+
+    <article class="card rv">
+      <span class="num" aria-hidden="true">07</span>
+      <div class="card-body">
+        <div class="meta-row"><span><span class="zh">系統開發</span><span class="en">SYSTEM DEV</span></span><span class="yr">2025</span></div>
+        <h3><span class="zh">游泳隊排班管理系統</span><span class="en">Swim Team Scheduling System</span></h3>
+        <p class="sub"><span class="zh">Google Apps Script 後端，自動化簽到、請假、課表與訓練日誌。</span><span class="en">Google Apps Script backend automating sign-in, leave, schedules and training logs.</span></p>
+        <div class="tags"><span class="tag">Google Apps Script</span><span class="tag">Google Sheets</span><span class="tag">LINE Bot</span></div>
+        <div class="detail">
+          <p><span class="zh">為政大游泳隊量身打造，以 Google Apps Script 串接 Google Sheets 作為後端資料庫，支援隊員簽到、課表發布、請假審核、訓練日誌四大功能，大幅降低教練與隊員的行政負擔。</span><span class="en">Built for NCCU's swim team. Apps Script + Sheets handle check-in, schedule publishing, leave approval and training logs — cutting admin work for coaches and members.</span></p>
+          <p class="yt-lbl">Demo</p>
+          <div class="yt"><iframe src="https://www.youtube-nocookie.com/embed/coc8i1O4XGU" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title="游泳隊排班管理系統 Demo"></iframe></div>
+          <div class="links"><a class="pill dark sm" href="https://github.com/Frankfangcode/scheduling-system-final" target="_blank" rel="noopener">GitHub ↗</a></div>
+        </div>
+        <button class="pill more" type="button"></button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- TEACHING -->
+<section class="plain" id="teaching" style="padding-top:8px">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">Teaching</span><span class="zh">講師與教學經歷</span><span class="en">Teaching &amp; Workshops</span></h2>
+  <ul class="tch-list rv">
+    <li><span class="kind"><span class="zh">校園工作坊</span><span class="en">WORKSHOP</span></span><span class="what"><b><span class="zh">永平高中</span><span class="en">Yongping High School</span></b><span><span class="zh">新生 AI 自主學習工作坊 · 帶領助教團隊</span><span class="en">AI self-directed learning workshop for freshmen · led a TA team</span></span></span><span class="when">2026.08</span></li>
+    <li><span class="kind"><span class="zh">課堂講課</span><span class="en">GUEST LECTURE</span></span><span class="what"><b><span class="zh">政大 IMBA</span><span class="en">NCCU IMBA</span></b><span><span class="zh">國際企業管理碩士學程課堂講課</span><span class="en">Guest session in the International MBA program</span></span></span><span class="when">2026</span></li>
+    <li><span class="kind"><span class="zh">課程助教</span><span class="en">TEACHING ASSISTANT</span></span><span class="what"><b><span class="zh">政大 EMBA「金融科技趨勢與創新」</span><span class="en">NCCU EMBA · FinTech Trends &amp; Innovation</span></b><span><span class="zh">王儷玲、謝明華老師</span><span class="en">Prof. Wang Li-Ling &amp; Prof. Hsieh Ming-Hua</span></span></span><span class="when">2026.09–2027.01</span></li>
+  </ul>
+</section>
+
+<!-- AWARDS -->
+<section class="band" id="awards">
+  <h2 class="zt light rv"><span class="sw" aria-hidden="true">Awards &amp; Scholarships</span><span class="zh">競賽與獎學金</span><span class="en">Awards &amp; Scholarships</span></h2>
+  <div class="spots">
+    <article class="spot y rv">
+      <div class="k"><span>01 / HACKATHON</span><time datetime="2026-08-18">2026.08.18</time></div>
+      <p class="rank">1st<small><span class="zh">冠軍</span><span class="en">CHAMPION</span></small></p>
+      <h3><span class="zh">Google DevJam 黑客松 TW 2026</span><span class="en">Google DevJam Hackathon TW 2026</span></h3>
+      <p><span class="zh">得獎專案：<a href="#coolpath">CoolPath 涼路</a> · GDG on Campus</span><span class="en">Winning project: <a href="#coolpath">CoolPath</a> · GDG on Campus</span></p>
+    </article>
+    <article class="spot rv">
+      <div class="k"><span>02 / SWIMMING</span><time datetime="2026-05-04">2026.05.04</time></div>
+      <p class="rank">7th<small><span class="zh">決賽第七</span><span class="en">IN THE FINAL</span></small></p>
+      <h3><span class="zh">115 年全大運</span><span class="en">2026 National Intercollegiate Athletic Games</span></h3>
+      <p><span class="zh">一般男生組 4 × 100 公尺自由式接力 · 教育部</span><span class="en">General Men's 4 × 100 m Freestyle Relay · Ministry of Education</span></p>
+    </article>
+  </div>
+  <ol class="tline">
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">全國第二名</span><span class="en">National 2nd</span></b><span class="n"><span class="zh">全國大專國際經貿競賽 · 半導體 AI 供應鏈重組</span><span class="en">National College Int'l Trade Competition · AI supply chain</span></span></li>
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">金牌</span><span class="en">Gold Medal</span></b><span class="n"><span class="zh">X 創業家 · 政大科智所 × 創新創造力研究中心</span><span class="en">X Entrepreneur · NCCU GMBA × CCIS</span></span></li>
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">全國第二名</span><span class="en">National 2nd</span></b><span class="n"><span class="zh">禮來 RedSpark 商業競賽</span><span class="en">Eli Lilly RedSpark Business Competition</span></span></li>
+    <li class="tl rv"><span class="yr">2025</span><b><span class="zh">全國第二名</span><span class="en">National 2nd</span></b><span class="n"><span class="zh">佛光大學三好 AI 創新應用競賽</span><span class="en">FGU Three-Good AI Innovation Competition</span></span></li>
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">佳作</span><span class="en">Merit Award</span></b><span class="n"><span class="zh">教育部人文永續創新應用競賽</span><span class="en">MOE Humanities Sustainability Innovation</span></span></li>
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">佳作</span><span class="en">Merit Award</span></b><span class="n"><span class="zh">中鼎基金會永續生活實驗室</span><span class="en">CTCI Foundation Sustainability Lab</span></span></li>
+    <li class="tl rv"><span class="yr">2025</span><b><span class="zh">佳作</span><span class="en">Merit Award</span></b><span class="n"><span class="zh">政大 AI × 永續創新競賽</span><span class="en">NCCU AI × Sustainability Competition</span></span></li>
+    <li class="tl rv"><span class="yr">2026</span><b><span class="zh">獲選</span><span class="en">Selected</span></b><span class="n"><span class="zh">國科會大專學生研究計畫 · 像素藝術遊戲於台灣地方創生之應用</span><span class="en">NSTC Undergraduate Research Grant · Pixel art games for community revitalization</span></span></li>
+  </ol>
+  <p class="schol-h">SCHOLARSHIPS</p>
+  <div class="schols">
+    <div class="schol rv"><b><span class="zh">沈錡大使獎學金</span><span class="en">Ambassador Shen Memorial Scholarship</span></b><p><span class="zh">赴日本九州實地考察台積電供應鏈佈局，第一手掌握半導體產業國際動態。</span><span class="en">Field study in Kyushu — first-hand look at TSMC's supply chain strategy in Japan.</span></p></div>
+    <div class="schol rv"><b><span class="zh">商學院何麗梅校友獎學金</span><span class="en">Ho Li-Mei Alumni Scholarship</span></b><p><span class="zh">全校每年僅 4 位獲選。何麗梅女士為前台積電人資長，透過此獎建立深度業界指導關係。</span><span class="en">4 recipients university-wide each year. Ho Li-Mei is TSMC's former CHRO — this honor came with direct mentorship.</span></p></div>
+  </div>
+</section>
+
+<!-- ON THE GROUND -->
+<section class="plain" id="records" aria-label="現場紀錄 On the ground">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">Global &amp; On the Ground</span><span class="zh">國際經驗與現場紀錄</span><span class="en">Global &amp; On the Ground</span></h2>
+  <article class="global rv">
     <div>
-      <div class="sb-block">
-        <div class="sb-lbl"><span class="zh">學歷</span><span class="en">Education</span></div>
-        <div class="sb-item">
-          <div><div class="sb-item-name"><span class="zh">國立政治大學</span><span class="en">NCCU</span></div><div style="font-size:11px;color:var(--ink-muted)"><span class="zh">資管 · AI學士學位學程 · 金融科技 · 創業 · 日文輔系</span><span class="en">IM · AI Bachelor's · FinTech · Entrepreneurship</span></div></div>
-          <span class="sb-badge">2024–</span>
-        </div>
-        <div class="sb-item">
-          <div><div class="sb-item-name"><span class="zh">國立臺北大學</span><span class="en">NTPU</span></div><div style="font-size:11px;color:var(--ink-muted)"><span class="zh">企業管理 · 系排第四</span><span class="en">Business Mgmt · 4th in class</span></div></div>
-          <span class="sb-badge">2023–24</span>
-        </div>
-        <div class="sb-item">
-          <div><div class="sb-item-name"><span class="zh">桃園市立武陵高中</span><span class="en">Wuling Senior High School</span></div><div style="font-size:11px;color:var(--ink-muted)"><span class="zh">桃園市</span><span class="en">Taoyuan</span></div></div>
-          <span class="sb-badge">2021–23</span>
-        </div>
-      </div>
-      <div class="sb-block">
-        <div class="sb-lbl"><span class="zh">組織領導</span><span class="en">Leadership</span></div>
-        <div class="sb-item">
-          <div><div class="sb-item-name"><span class="zh">金融科技創新實驗室</span><span class="en">FinTech Innovation Lab</span></div></div>
-          <span class="sb-badge"><span class="zh">創辦人</span><span class="en">Founder</span></span>
-        </div>
-        <div class="sb-item">
-          <div class="sb-item-name"><span class="zh">政大國合處</span><span class="en">OIA, NCCU</span></div>
-          <span class="sb-badge"><span class="zh">社群編輯</span><span class="en">Social Editor</span></span>
-        </div>
-        <div class="sb-item">
-          <div class="sb-item-name"><span class="zh">政大游泳隊</span><span class="en">NCCU Swim Team</span></div>
-          <span class="sb-badge"><span class="zh">公關 · 全國第七</span><span class="en">PR · Natl 7th</span></span>
-        </div>
-        <div class="sb-item">
-          <div class="sb-item-name"><span class="zh">資管系學會</span><span class="en">IM Student Assoc.</span></div>
-          <span class="sb-badge"><span class="zh">公關</span><span class="en">PR</span></span>
-        </div>
-      </div>
-      <div class="sb-block">
-        <div class="sb-lbl"><span class="zh">語言</span><span class="en">Languages</span></div>
-        <div class="sb-item"><span class="sb-item-name"><span class="zh">中文</span><span class="en">Mandarin</span></span><span class="sb-badge"><span class="zh">母語</span><span class="en">Native</span></span></div>
-        <div class="sb-item"><span class="sb-item-name"><span class="zh">英文</span><span class="en">English</span></span><span class="sb-badge">IELTS 6.5</span></div>
-        <div class="sb-item"><span class="sb-item-name"><span class="zh">日文</span><span class="en">Japanese</span></span><span class="sb-badge"><span class="zh">輔系</span><span class="en">Minor</span></span></div>
-      </div>
+      <div class="k"><span>GLOBAL / JAPAN</span><span>2026.08</span></div>
+      <h3 style="margin-top:14px"><span class="zh">北海道大學 暑期研修</span><span class="en">Hokkaido University</span><small>Hokkaido Summer Institute 2026</small></h3>
+    </div>
+    <ul>
+      <li><b><span class="zh">課程</span><span class="en">COURSE</span></b>National Heritage Tourism: The Case of Hokkaido（U003）</li>
+      <li><b><span class="zh">獎助</span><span class="en">SCHOLARSHIP</span></b><span class="zh">政大「全球 Top 1000 學生研修獎助」</span><span class="en">NCCU Global Top 1000 Study Grant</span></li>
+      <li><b><span class="zh">小組報告 · 擔任組長</span><span class="en">GROUP PRESENTATION · LEAD</span></b><span class="zh">札幌農學校校友對台灣近代發展的影響</span><span class="en">How Sapporo Agricultural College alumni shaped modern Taiwan</span></li>
+    </ul>
+  </article>
+  <div class="rec-grid">
+    <figure class="r1 rv"><img src="./images/frank-devjam.jpg" alt="方澤享在 Google DevJam 會場拿著 Google 看板" loading="lazy" width="768" height="1024"><figcaption><span><span class="zh">Google DevJam 2026 會場</span><span class="en">At Google DevJam 2026</span></span></figcaption></figure>
+    <figure class="r2 rv"><img src="./images/shenkeng-fieldwork.jpg" alt="蓋亞造界團隊在深坑老屋前合照" loading="lazy" width="1600" height="1200"><figcaption><span><span class="zh">蓋亞造界 · 深坑田野調查</span><span class="en">GaiaCraft fieldwork in Shenkeng</span></span></figcaption></figure>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="plain" id="experience">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">Experience</span><span class="zh">學歷與經歷</span><span class="en">Education &amp; Leadership</span></h2>
+  <div class="exp-grid">
+    <div class="rv">
+      <p class="exp-h">EDUCATION</p>
+      <ul class="exp-list">
+        <li><b><span class="zh">國立政治大學</span><span class="en">National Chengchi University</span></b><span class="kind">2024–</span><small><span class="zh">資管 · AI 學士學位學程 · 金融科技 · 創業 · 日文輔系</span><span class="en">IM · AI Bachelor's · FinTech · Entrepreneurship · Japanese minor</span></small><span class="chips"><em class="k">GPA 91.40</em><em><span class="zh">深度學習</span><span class="en">Deep Learning</span> 99</em><em><span class="zh">生成式 AI</span><span class="en">Generative AI</span> 97</em><em><span class="zh">資料結構</span><span class="en">Data Structures</span> 97.4</em></span></li>
+        <li><b><span class="zh">國立陽明交通大學</span><span class="en">NYCU</span></b><span class="kind"><span class="zh">學分學程</span><span class="en">Program</span></span><small><span class="zh">數位醫療學分學程</span><span class="en">Digital Health Credit Program</span></small></li>
+        <li><b><span class="zh">國立臺北大學</span><span class="en">National Taipei University</span></b><span class="kind">2023–24</span><small><span class="zh">企業管理 · 系排第四</span><span class="en">Business Management · 4th in class</span></small></li>
+        <li><b><span class="zh">桃園市立武陵高中</span><span class="en">Wuling Senior High School</span></b><span class="kind">2021–23</span><small><span class="zh">桃園市</span><span class="en">Taoyuan</span></small></li>
+      </ul>
+      <p class="exp-h" style="margin-top:36px">RESEARCH</p>
+      <ul class="exp-list">
+        <li><b><span class="zh">政大 AI 研究中心 · 研究助理</span><span class="en">NCCU AI Center · Research Assistant</span></b>
+          <ul>
+            <li><span class="zh">陳昭伶老師：智慧論文引用查核（CiteGuard）</span><span class="en">Prof. Chen: citation verification AI (CiteGuard)</span></li>
+            <li><span class="zh">王淑琴老師：LLM 語用學計畫「當 AI 讀不懂空氣」</span><span class="en">Prof. Wang: LLM pragmatics — "When AI can't read the room"</span></li>
+            <li><span class="zh">葉玉珠老師實驗室：批判思考推理遊戲實驗（Express＋Zeabur 實驗系統）</span><span class="en">Prof. Yeh's lab: critical-thinking reasoning game (Express + Zeabur)</span></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="rv">
+      <p class="exp-h">LEADERSHIP</p>
+      <ul class="exp-list">
+        <li><b><span class="zh">政大金融科技創新實驗室 FTL</span><span class="en">NCCU FinTech Innovation Lab</span></b><span class="kind"><span class="zh">創辦人</span><span class="en">Founder</span></span>
+          <ul>
+            <li><span class="zh">首場說明會 52 人參加</span><span class="en">52 attendees at the launch info session</span></li>
+            <li><span class="zh">與 Canton Foundation 簽署 MOU</span><span class="en">Signed an MOU with the Canton Foundation</span></li>
+            <li><span class="zh">FTL × TABEI 公開課：<a href="https://www.nccu.edu.tw/p/406-1000-24143,r206.php?Lang=zh-tw" target="_blank" rel="noopener">Canton：華爾街真正在用的 Web3 金融基礎設施</a>（10/21）</span><span class="en">FTL × TABEI public lecture: <a href="https://www.nccu.edu.tw/p/406-1000-24143,r206.php?Lang=zh-tw" target="_blank" rel="noopener">Canton — the Web3 infrastructure Wall Street actually uses</a> (Oct 21)</span></li>
+            <li><span class="zh">FinTech 交流會（12/9）</span><span class="en">FinTech networking night (Dec 9)</span><span class="soon"><span class="zh">即將舉行</span><span class="en">UPCOMING</span></span></li>
+          </ul>
+        </li>
+        <li><b><span class="zh">政大國合處</span><span class="en">OIA, NCCU</span></b><span class="kind"><span class="zh">社群編輯</span><span class="en">Social Editor</span></span>
+          <ul>
+            <li><span class="zh">Reels 製作：<a href="https://www.instagram.com/reels/DdWRim0paGS/" target="_blank" rel="noopener">#1</a>、<a href="https://www.instagram.com/reels/De0p8OsJg20/" target="_blank" rel="noopener">#2</a>、<a href="https://www.instagram.com/reels/DXWXEwqDw7H/" target="_blank" rel="noopener">#3</a></span><span class="en">Reels I made: <a href="https://www.instagram.com/reels/DdWRim0paGS/" target="_blank" rel="noopener">#1</a>, <a href="https://www.instagram.com/reels/De0p8OsJg20/" target="_blank" rel="noopener">#2</a>, <a href="https://www.instagram.com/reels/DXWXEwqDw7H/" target="_blank" rel="noopener">#3</a></span></li>
+            <li><span class="zh">國際生訪談企劃</span><span class="en">International student interview series</span></li>
+            <li><span class="zh">獎學金資訊 carousel 貼文</span><span class="en">Scholarship info carousels</span></li>
+          </ul>
+        </li>
+        <li><b><span class="zh">政大游泳隊</span><span class="en">NCCU Swim Team</span></b><span class="kind"><span class="zh">公關 · 全國第七</span><span class="en">PR · Natl 7th</span></span></li>
+        <li><b><span class="zh">資管系學會</span><span class="en">IM Student Association</span></b><span class="kind"><span class="zh">公關</span><span class="en">PR</span></span></li>
+      </ul>
+      <p class="exp-h" style="margin-top:36px">LANGUAGES</p>
+      <ul class="exp-list">
+        <li><b><span class="zh">中文</span><span class="en">Mandarin</span></b><span class="kind"><span class="zh">母語</span><span class="en">Native</span></span></li>
+        <li><b><span class="zh">英文</span><span class="en">English</span></b><span class="kind">IELTS 6.5</span></li>
+        <li><b><span class="zh">日文</span><span class="en">Japanese</span></b><span class="kind"><span class="zh">輔系</span><span class="en">Minor</span></span></li>
+      </ul>
     </div>
   </div>
-</div>
+</section>
 
 <!-- SKILLS -->
-<div>
-  <h2 class="sec-hdr">
-    <span class="zh">技術能力</span><span class="en">Skills</span>
-    <span class="div"></span>
-  </h2>
-  <div class="skills-wrap">
-    <div class="skills-grid">
-      <div class="sg">
-        <div class="sg-lbl"><span class="zh">程式語言</span><span class="en">Languages</span></div>
-        <div class="sk">Python</div><div class="sk">JavaScript</div>
-        <div class="sk">Java</div><div class="sk">HTML / CSS</div><div class="sk">SQL</div>
-      </div>
-      <div class="sg">
-        <div class="sg-lbl">AI / ML</div>
-        <div class="sk">Claude API</div><div class="sk">RAG</div>
-        <div class="sk">LLM Prompting</div><div class="sk">ASR</div><div class="sk">GROBID</div>
-      </div>
-      <div class="sg">
-        <div class="sg-lbl"><span class="zh">量化 / 數據</span><span class="en">Quant / Data</span></div>
-        <div class="sk">vectorbt</div><div class="sk">pandas-ta</div>
-        <div class="sk">yfinance / FRED</div><div class="sk">R / SPSS</div><div class="sk">SQLite</div>
-      </div>
-      <div class="sg">
-        <div class="sg-lbl"><span class="zh">自動化 / 工具</span><span class="en">Automation</span></div>
-        <div class="sk">Google Apps Script</div><div class="sk">APScheduler</div>
-        <div class="sk">Telegram Bot</div><div class="sk">LINE Bot</div><div class="sk">Zeabur</div>
-      </div>
-    </div>
+<section class="greyband" id="skills">
+  <h2 class="zt rv"><span class="sw" aria-hidden="true">Skills</span><span class="zh">技術能力</span><span class="en">Skills</span></h2>
+  <div class="skills">
+    <div class="sk-g rv"><p><span>01</span> <span class="zh">程式語言</span><span class="en">Languages</span></p><div><em>Python</em><em>JavaScript</em><em>Java</em><em>HTML / CSS</em><em>SQL</em></div></div>
+    <div class="sk-g rv"><p><span>02</span> AI / ML</p><div><em>Claude API</em><em>RAG</em><em>LLM Prompting</em><em>ASR</em><em>GROBID</em></div></div>
+    <div class="sk-g rv"><p><span>03</span> <span class="zh">量化 / 數據</span><span class="en">Quant / Data</span></p><div><em>vectorbt</em><em>pandas-ta</em><em>yfinance / FRED</em><em>R / SPSS</em><em>SQLite</em></div></div>
+    <div class="sk-g rv"><p><span>04</span> <span class="zh">自動化 / 工具</span><span class="en">Automation</span></p><div><em>Google Apps Script</em><em>APScheduler</em><em>Telegram Bot</em><em>LINE Bot</em><em>Zeabur</em></div></div>
   </div>
-</div>
+</section>
 
-<!-- CONTACT -->
-<div id="contact" style="max-width:1100px;margin:0 auto;">
-  <div class="contact-heading"><a href="mailto:113306052@g.nccu.edu.tw"><span>LET’S TALK.</span><span aria-hidden="true">↗</span></a></div>
-  <div class="contact-bar">
-    <div class="contact-name">Frank Fang · 方澤享</div>
-    <div class="contact-links">
-      <a href="mailto:113306052@g.nccu.edu.tw" class="c-link">113306052@g.nccu.edu.tw</a>
-      <a href="https://linkedin.com" class="c-link">LinkedIn →</a>
-      <a href="https://frankfangcode.github.io" class="c-link">GitHub →</a>
+<!-- CLOSING CTA -->
+<section class="final">
+  <div class="in">
+    <h2 class="rv"><span class="zh">有想用 AI <em>解決的問題</em>嗎？</span><span class="en">Got a problem <em>AI could solve</em>?</span></h2>
+    <p class="rv"><span class="zh">不管是一場工作坊、一個 LINE Bot，還是一套 AI 系統，寫信告訴我你想解決什麼，我會回覆可行的做法。</span><span class="en">A workshop, a LINE Bot or a full AI system — tell me what you want to solve and I'll reply with how we could do it.</span></p>
+    <div class="row rv">
+      <a class="pill dark" href="mailto:113306052@g.nccu.edu.tw?subject=%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2"><span class="zh">寄信給我</span><span class="en">Email me</span> ↗</a>
+      <a class="pill" href="#ask" data-ask><span class="zh">先問 AI 分身</span><span class="en">Ask the AI twin first</span></a>
     </div>
   </div>
-  <div class="footer-meta">NCCU · INFORMATION MANAGEMENT · AI BACHELOR'S PROGRAM · FINTECH · ENTREPRENEURSHIP · TAIWAN · 2026</div>
-</div>
+</section>
 
 </main>
 
-<!-- Lightbox -->
+<footer class="foot" id="contact">
+  <div class="in">
+    <div class="f-brand"><a class="f-big" href="mailto:113306052@g.nccu.edu.tw">Let's build it<span aria-hidden="true">↗</span></a></div>
+    <nav class="f-nav" aria-label="頁尾選單 Footer">
+      <p class="lbl"><span class="zh">網站導覽</span><span class="en">SITE</span></p>
+      <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
+      <a href="#projects"><span class="zh">精選專案</span><span class="en">Projects</span></a>
+      <a href="#awards"><span class="zh">競賽獎項</span><span class="en">Awards</span></a>
+      <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
+    </nav>
+    <nav class="f-nav" aria-label="社群 Social">
+      <p class="lbl"><span class="zh">社群</span><span class="en">ELSEWHERE</span></p>
+      <a href="https://github.com/Frankfangcode" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://frankfangcode.itch.io/gaiacraftyongan" target="_blank" rel="noopener">itch.io ↗</a>
+    </nav>
+    <div>
+      <p class="lbl"><span class="zh">聯絡我</span><span class="en">CONTACT</span></p>
+      <p class="f-note"><span class="zh">AI 工作坊、系統開發、實習機會，歡迎來信。</span><span class="en">Workshops, AI builds, internships — say hi.</span></p>
+      <p class="f-mail"><span id="email">113306052@g.nccu.edu.tw</span><button class="copy" id="copyBtn" type="button"><span class="zh">複製</span><span class="en">Copy</span></button></p>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Frank Fang 方澤享</span>
+    <span>NCCU · TAIWAN</span>
+  </div>
+</footer>
+
 <div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="圖片預覽 Image preview" hidden>
-  <button class="lightbox-close" aria-label="關閉圖片 Close image">×</button>
+  <button type="button" aria-label="關閉圖片 Close image">×</button>
   <img id="lb-img" alt="">
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
-let paused = reducedMotion.matches;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let language = 'zh';
-const motionButton = document.getElementById('motion-toggle');
-function updateMotionButton(){
-  motionButton.textContent = paused ? '▶' : 'Ⅱ';
-  motionButton.setAttribute('aria-pressed', String(paused));
-  const label = language === 'zh' ? (paused ? '播放動畫' : '暫停動畫') : (paused ? 'Play animations' : 'Pause animations');
-  motionButton.setAttribute('aria-label',label);motionButton.title=label;
-}
+const T = {
+  more:{zh:'看專案細節 ↓',en:'Explore project ↓'},
+  less:{zh:'收起細節 ↑',en:'Close details ↑'},
+  copied:{zh:'已複製 Email',en:'Email copied'}
+};
 function setLang(l){
   language = l === 'en' ? 'en' : 'zh';
   document.body.classList.remove('lang-zh','lang-en');document.body.classList.add('lang-'+language);
-  document.documentElement.lang=language==='zh'?'zh-TW':'en';
-  ['zh','en'].forEach(code=>{const button=document.getElementById('btn-'+code);button.classList.toggle('active',code===language);button.setAttribute('aria-pressed',String(code===language));});
-  updateMotionButton();
+  document.documentElement.lang = language === 'zh' ? 'zh-TW' : 'en';
+  ['zh','en'].forEach(code=>{const b=document.getElementById('btn-'+code);b.classList.toggle('active',code===language);b.setAttribute('aria-pressed',String(code===language));});
+  document.querySelectorAll('.more').forEach(b=>b.textContent=T[b.getAttribute('aria-expanded')==='true'?'less':'more'][language]);
 }
-setLang('zh');
-document.querySelectorAll('.sec-hdr').forEach((heading,index)=>heading.dataset.index=String(index+1).padStart(2,'0'));
-document.querySelectorAll('.pcard').forEach((card,index)=>{
-  const detail=card.querySelector('.p-detail');const button=card.querySelector('.p-cta');
+
+// project detail toggles
+document.querySelectorAll('.card').forEach((card,i)=>{
+  const detail=card.querySelector('.detail'),button=card.querySelector('.more');
   if(!detail||!button)return;
-  detail.id='project-detail-'+index;button.setAttribute('aria-controls',detail.id);button.setAttribute('aria-expanded','false');
+  detail.id='detail-'+i;button.setAttribute('aria-controls',detail.id);button.setAttribute('aria-expanded','false');
   button.addEventListener('click',()=>{
     const open=detail.classList.toggle('open');button.setAttribute('aria-expanded',String(open));
-    button.innerHTML=open?'<span class="zh">收起細節 ↑</span><span class="en">Close details ↑</span>':'<span class="zh">看專案細節 ↗</span><span class="en">Explore project ↗</span>';
+    button.textContent=T[open?'less':'more'][language];
   });
 });
-const menuButton=document.querySelector('.menu-toggle');const navLinks=document.querySelector('.nav-links');
-function closeMenu(){navLinks.classList.remove('open');menuButton.setAttribute('aria-expanded','false');}
-menuButton.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});
-navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
-let previousFocus=null;const lightbox=document.getElementById('lb');const closeButton=lightbox.querySelector('button');
-function openLB(src,alt){previousFocus=document.activeElement;document.getElementById('lb-img').src=src;document.getElementById('lb-img').alt=alt||'';lightbox.hidden=false;lightbox.classList.add('open');document.body.style.overflow='hidden';document.querySelector('main').inert=true;document.querySelector('nav').inert=true;closeButton.focus();}
-function closeLB(){if(lightbox.hidden)return;lightbox.classList.remove('open');lightbox.hidden=true;document.body.style.overflow='';document.querySelector('main').inert=false;document.querySelector('nav').inert=false;if(previousFocus)previousFocus.focus();}
-lightbox.addEventListener('click',e=>{if(e.target!==document.getElementById('lb-img'))closeLB();});
-lightbox.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();closeButton.focus();}});
+setLang('zh');
+
+// mobile menu
+const menu=document.getElementById('menu'),menuOpen=document.getElementById('menuOpen');
+function closeMenu(){if(menu.hidden)return;menu.hidden=true;document.body.classList.remove('lock');menuOpen.setAttribute('aria-expanded','false');menuOpen.focus();}
+menuOpen.addEventListener('click',()=>{menu.hidden=false;document.body.classList.add('lock');menuOpen.setAttribute('aria-expanded','true');document.getElementById('menuClose').focus();});
+document.getElementById('menuClose').addEventListener('click',closeMenu);
+menu.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',closeMenu));
+
+// lightbox
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),lbClose=lb.querySelector('button');let prevFocus=null;
+function openLB(img){prevFocus=document.activeElement;lbImg.src=img.src;lbImg.alt=img.alt;lb.hidden=false;document.body.classList.add('lock');lbClose.focus();}
+function closeLB(){if(lb.hidden)return;lb.hidden=true;document.body.classList.remove('lock');if(prevFocus)prevFocus.focus();}
+lb.addEventListener('click',e=>{if(e.target!==lbImg)closeLB();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeMenu();}});
-document.querySelectorAll('.card-cover img,.img-gallery img').forEach(img=>{
-  img.removeAttribute('onclick');img.loading='lazy';img.setAttribute('tabindex','0');img.setAttribute('role','button');img.setAttribute('aria-label','放大圖片 / Enlarge: '+img.alt);
-  img.addEventListener('click',()=>openLB(img.src,img.alt));img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLB(img.src,img.alt);}});
+document.querySelectorAll('.cover img').forEach(img=>{
+  img.tabIndex=0;img.setAttribute('role','button');img.setAttribute('aria-label','放大圖片 / Enlarge: '+img.alt);
+  img.addEventListener('click',()=>openLB(img));
+  img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLB(img);}});
 });
-const revealElements=document.querySelectorAll('.sec-hdr,.pcard,.award-feature,.tl-item,.about-text,.sb-block,.sg');
-if('IntersectionObserver' in window){
-  const reveals=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');reveals.unobserve(entry.target);}});},{threshold:.05});
-  revealElements.forEach(el=>{el.classList.add('reveal','ready');reveals.observe(el);});
-  const sections=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)navLinks.querySelectorAll('a').forEach(a=>a.classList.toggle('active',a.hash==='#'+entry.target.id));});},{rootMargin:'-15% 0px -65% 0px',threshold:0});
-  document.querySelectorAll('#projects,#awards,#about,#contact').forEach(el=>sections.observe(el));
+
+// copy email
+const toast=document.getElementById('toast');
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  try{await navigator.clipboard.writeText(document.getElementById('email').textContent);}catch(e){}
+  toast.textContent=T.copied[language];toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800);
+});
+
+// AI twin (demo): keyword-matched, pre-written replies
+const MAIL='113306052@g.nccu.edu.tw';
+const mail=(subject,body)=>'mailto:'+MAIL+'?subject='+encodeURIComponent(subject)+(body?'&body='+encodeURIComponent(body):'');
+const KB=[
+ {k:['價格','報價','費用','多少錢','收費','預算','price','cost','quote','budget','rate'],
+  zh:'費用會依範圍、時程和要串接的系統而定。最快的方式是寄信簡單說明你的需求，Frank 會回覆可行做法和初步估算。',
+  en:'It depends on scope, timeline and what needs to be integrated. The fastest way is to email a short description — Frank will reply with an approach and a rough estimate.',
+  a:[{zh:'寄信詢價',en:'Ask for a quote',href:mail('報價詢問')}]},
+ {k:['導入','教學','工作坊','內訓','上課','講課','講師','課程','培訓','教','workshop','teach','training','adopt','lecture'],
+  zh:'可以！Frank 帶過永平高中新生的 AI 自主學習工作坊（含助教團隊），在政大 IMBA 講過課，也是 EMBA「金融科技趨勢與創新」的課程助教。\n內容會依對象調整，從提示詞、AI 工作流程到 AI Agent 實作都可以。',
+  en:'Yes! Frank ran an AI self-directed learning workshop for Yongping High School freshmen (with his own TA team), gave a session at NCCU IMBA, and TAs the EMBA course "FinTech Trends & Innovation".\nContent is tailored — from prompting and AI workflows to building an AI agent.',
+  a:[{zh:'看工作坊服務',en:'Workshop details',href:'#svc-teach'},{zh:'寄信洽詢',en:'Email to book',href:mail('AI 工作坊洽詢'),alt:1}]},
+ {k:['rag','知識庫','文件','問答','檢索','論文','引用','查核','knowledge','document','citation','search'],
+  zh:'RAG 就是讓 AI 先從你的資料裡找答案、再回答，所以答案有出處，比較不會亂講。\nFrank 做過 CiteGuard 論文引用查核：雙層 RAG 加 LLM 裁判，自動檢查引用錯誤，最佳模型準確率 72%。你的規章、手冊、講義也能做成這種問答 AI。',
+  en:'RAG means the AI looks things up in your own documents before answering, so answers come with sources and far less making things up.\nFrank built CiteGuard, a citation checker using dual RAG plus an LLM judge — 72% accuracy with the best model. Your policies, handbooks or course notes can work the same way.',
+  a:[{zh:'看 RAG 服務',en:'RAG service',href:'#svc-rag'},{zh:'看專案',en:'See projects',href:'#projects',alt:1}]},
+ {k:['line','bot','機器人','自動化','社員','社團','簽到','請假','排班','sheets','apps script','automation','automate'],
+  zh:'Frank 做過好幾個 LINE Bot：社團的 LINE 社員自動化管理、商學院永續競賽的 LINE Bot，還有游泳隊的排班管理系統（簽到、請假、課表、訓練日誌，用 Google Apps Script ＋ Sheets）。\n重複的行政工作很適合交給它。',
+  en:'Frank has built several LINE Bots: automated member management for a student club, a bot for the Business School sustainability competition, and the swim team scheduling system (check-in, leave, schedules, training logs on Google Apps Script + Sheets).\nRepetitive admin is exactly what they are good at.',
+  a:[{zh:'看自動化服務',en:'Automation service',href:'#svc-line'},{zh:'寄信聊聊',en:'Email Frank',href:mail('LINE Bot / 自動化洽詢'),alt:1}]},
+ {k:['agent','agentic','代理','多輪','推理','實驗','葉玉珠','系統','開發','做一個','build','develop','prototype','原型'],
+  zh:'Agentic AI 是能多步驟思考、呼叫工具、跟人多輪互動的 AI。\nFrank 幫葉玉珠老師實驗室架了批判思考推理遊戲的實驗系統，用 Express ＋ Zeabur 處理多輪 AI 互動；Google DevJam 冠軍作品 CoolPath 也是他做的。',
+  en:'Agentic AI can reason in steps, call tools and hold multi-turn conversations.\nFrank built the critical-thinking reasoning game platform for Prof. Yeh\'s lab — Express + Zeabur handling multi-turn AI interaction — and CoolPath, his Google DevJam winner.',
+  a:[{zh:'看系統開發服務',en:'AI systems service',href:'#svc-agent'},{zh:'討論點子',en:'Pitch an idea',href:mail('AI 系統開發洽詢'),alt:1}]},
+ {k:['coolpath','涼路','devjam','冠軍','黑客松','hackathon','google'],
+  zh:'CoolPath 涼路拿下 Google DevJam 黑客松 TW 2026 冠軍：比較最快路線和涼爽路線，把沿途地表溫度放進步行選擇，還規劃讓企業用 ESG 預算認養城市涼點。',
+  en:'CoolPath won Google DevJam Hackathon TW 2026. It compares the fastest and the coolest walking routes using land surface temperature, with a model where companies fund city cooling stops from ESG budgets.',
+  a:[{zh:'看 CoolPath',en:'See CoolPath',href:'#coolpath'}]},
+ {k:['蓋亞','gaiacraft','遊戲','game','usr','3d','nccu100','阿嬤','永續','sustainab'],
+  zh:'蓋亞造界用像素 RPG 驅動真實的永續行為，也用 AI 把耆老記憶保存成遊戲資產。Frank 是技術總監，作品已經從 2D 進化到政大百年校園 3D 版。',
+  en:'GaiaCraft uses a pixel RPG to drive real sustainability actions and uses AI to preserve elders\' memories as game assets. Frank is Technical Director — it has grown from 2D into a 3D NCCU centennial campus.',
+  a:[{zh:'玩 3D 版',en:'Play 3D',href:'https://play.gaiacraft.tw'},{zh:'看專案',en:'See project',href:'#projects',alt:1}]},
+ {k:['金融','fintech','canton','區塊鏈','web3','blockchain','實驗室','ftl'],
+  zh:'Frank 創辦了政大金融科技創新實驗室（FTL）：說明會 52 人參加，和 Canton Foundation 簽了 MOU，也和 TABEI 合辦了 Canton 公開課。',
+  en:'Frank founded NCCU\'s FinTech Innovation Lab (FTL): 52 people at the launch session, an MOU with the Canton Foundation, and a public lecture on Canton co-hosted with TABEI.',
+  a:[{zh:'看經歷',en:'See experience',href:'#experience'}]},
+ {k:['北海道','日本','國際','海外','hokkaido','japan','global','abroad'],
+  zh:'2026 年 8 月 Frank 拿政大「全球 Top 1000 學生研修獎助」去北海道大學 Hokkaido Summer Institute 修課，並帶領小組報告「札幌農學校校友對台灣近代發展的影響」。',
+  en:'In August 2026 Frank went to Hokkaido Summer Institute on NCCU\'s Global Top 1000 grant and led his group\'s presentation on how Sapporo Agricultural College alumni shaped modern Taiwan.',
+  a:[{zh:'看國際經驗',en:'See global',href:'#records'}]},
+ {k:['游泳','swim','全大運'],
+  zh:'對，他也游泳！代表政大參加 115 年全大運，4×100 公尺自由式接力決賽第七。',
+  en:'Yes, he swims! 7th in the 4×100 m freestyle relay final at the 2026 National Intercollegiate Games for NCCU.',
+  a:[{zh:'看獎項',en:'See awards',href:'#awards'}]},
+ {k:['合作','聯絡','找你','email','信箱','mail','約','contact','hire','reach','work with'],
+  zh:'直接寄信到 '+MAIL+' 就好，寫一下你想解決的問題、時程和對象，Frank 會親自回覆。',
+  en:'Email '+MAIL+' with the problem you want to solve, your timeline and audience — Frank replies personally.',
+  a:[{zh:'寄信給 Frank',en:'Email Frank',href:mail('合作洽詢')},{zh:'看服務',en:'See services',href:'#services',alt:1}]},
+ {k:['你是誰','介紹','自己','who','about','frank','方澤享','學校','科系','gpa','成績'],
+  zh:'我是方澤享的 AI 分身。他是政大資管與 AI 學士學程的學生（GPA 91.40），Google DevJam 2026 冠軍，平常在做 RAG、Agentic AI 和 LINE Bot，也在政大 AI 研究中心當研究助理。',
+  en:'I\'m Frank Fang\'s AI twin. He studies Information Management and AI at NCCU (GPA 91.40), won Google DevJam 2026, builds RAG, agentic AI and LINE Bots, and works as a research assistant at the NCCU AI Center.',
+  a:[{zh:'他能幫你什麼',en:'What he can do',href:'#services'},{zh:'認識他',en:'About him',href:'#about',alt:1}]}
+];
+const SUGG={
+ zh:[{t:'幫我們導入 AI',d:'工作坊怎麼進行？',q:'你能幫我們導入 AI 嗎？'},
+     {t:'把文件變成問答 AI',d:'RAG 能做到什麼？',q:'RAG 是什麼？你做過嗎？'},
+     {t:'LINE Bot 自動化',d:'社員管理、報名、簽到',q:'你做過哪些 LINE Bot？'},
+     {t:'Agentic AI 系統',d:'多輪對話與工具呼叫',q:'你的 Agentic AI 經驗？'}],
+ en:[{t:'Help us adopt AI',d:'How do the workshops work?',q:'Can you help us adopt AI?'},
+     {t:'Turn documents into a Q&A AI',d:'What can RAG do?',q:'What is RAG — have you built one?'},
+     {t:'Automate with a LINE Bot',d:'Members, sign-ups, check-ins',q:'What LINE Bots have you built?'},
+     {t:'Agentic AI systems',d:'Multi-turn chat and tool use',q:'Any agentic AI experience?'}]};
+const PH={zh:'問 Frank 的 AI 分身任何問題…',en:'Ask Frank\'s AI twin anything…'};
+const hero=document.getElementById('ask'),thread=document.getElementById('thread'),composer=document.getElementById('composer'),
+      prompt=document.getElementById('prompt'),send=document.getElementById('send'),sugg=document.getElementById('sugg'),newChat=document.getElementById('newChat');
+const AV='./images/frank-field.jpg';
+let busy=false;
+function answerFor(q){
+  const t=q.toLowerCase();
+  const hit=KB.find(e=>e.k.some(k=>t.includes(k)));
+  if(hit)return{text:hit[language],acts:hit.a};
+  return{text:language==='zh'?'這題我的分身還答不太出來。\n把問題直接寄給 Frank 本人，他會親自回覆你。':'My twin can\'t answer that one yet.\nSend it to the real Frank — he\'ll reply personally.',
+         acts:[{zh:'把問題寄給 Frank',en:'Send it to Frank',href:mail('來自網站 AI 分身的問題',q)}]};
 }
-const progress=document.querySelector('.reading-progress');let scrollScheduled=false;
-function updateScroll(){const distance=document.documentElement.scrollHeight-innerHeight;progress.style.transform='scaleX('+(distance>0?Math.min(1,scrollY/distance):0)+')';scrollScheduled=false;}
-addEventListener('scroll',()=>{if(!scrollScheduled){scrollScheduled=true;requestAnimationFrame(updateScroll);}},{passive:true});addEventListener('resize',updateScroll);updateScroll();
-const ring=document.querySelector('.cursor-ring');const portrait=document.querySelector('.portrait-stage');
-let pointerX=0,pointerY=0;
-document.addEventListener('pointermove',e=>{
-  if(!finePointer.matches||paused)return;
-  ring.style.opacity='1';ring.style.transform=`translate(${e.clientX-ring.offsetWidth/2}px,${e.clientY-ring.offsetHeight/2}px)`;
-  ring.classList.toggle('over-link',Boolean(e.target.closest('a,button,img[role="button"]')));
-  pointerX=(e.clientX/innerWidth-.5)*2;pointerY=(e.clientY/innerHeight-.5)*2;
-},{passive:true});
-document.documentElement.addEventListener('pointerleave',()=>ring.style.opacity='0');
-portrait.addEventListener('pointermove',e=>{if(!finePointer.matches||paused)return;const r=portrait.getBoundingClientRect();portrait.style.transform=`perspective(1000px) rotateY(${(e.clientX-r.left-r.width/2)/35}deg) rotateX(${-(e.clientY-r.top-r.height/2)/45}deg) rotate(2deg)`;});
-portrait.addEventListener('pointerleave',()=>portrait.style.transform='');
-// Lightweight mathematical lane lines connect the visual identity to swimming.
-const canvas=document.getElementById('lane-canvas');const ctx=canvas.getContext('2d');let width=0,height=0,frame=0,time=0,last=0,heroVisible=true;
-function resizeCanvas(){const rect=canvas.getBoundingClientRect();width=rect.width;height=rect.height;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);if(ctx){ctx.setTransform(dpr,0,0,dpr,0,0);drawLanes();}}
-function drawLanes(){if(!ctx)return;ctx.clearRect(0,0,width,height);ctx.lineWidth=1;for(let lane=0;lane<9;lane++){ctx.beginPath();ctx.strokeStyle=`rgba(168,200,119,${.12+lane*.013})`;for(let x=0;x<=width+12;x+=12){const y=height*.65+lane*24+Math.sin(x/260+time*.3+lane*.14)*45+Math.cos(x/460-time*.2)*50+pointerY*8+(x/width)*pointerX*15;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();}}
-function animate(now){frame=0;if(paused||document.hidden||!heroVisible)return;if(last)time+=Math.min((now-last)/1000,.05);last=now;drawLanes();frame=requestAnimationFrame(animate);}
-function syncAnimation(){cancelAnimationFrame(frame);frame=0;last=0;if(!paused&&!document.hidden&&heroVisible)frame=requestAnimationFrame(animate);else drawLanes();}
-function applyMotion(){document.documentElement.classList.toggle('motion-paused',paused);if(paused)portrait.style.transform='';updateMotionButton();syncAnimation();}
-motionButton.addEventListener('click',()=>{paused=!paused;applyMotion();});
-reducedMotion.addEventListener('change',e=>{paused=e.matches;applyMotion();});
-document.addEventListener('visibilitychange',syncAnimation);
-if('IntersectionObserver' in window)new IntersectionObserver(entries=>{heroVisible=entries[0].isIntersecting;syncAnimation();}).observe(document.querySelector('.hero'));
-addEventListener('resize',resizeCanvas);resizeCanvas();applyMotion();
+const scrollThread=()=>{thread.scrollTop=thread.scrollHeight;};
+function addActs(box,acts){
+  if(!acts||!acts.length)return;
+  const row=document.createElement('div');row.className='acts';
+  acts.forEach(a=>{const l=document.createElement('a');l.href=a.href;l.textContent=a[language];
+    if(/^https?:/.test(a.href)){l.target='_blank';l.rel='noopener';}row.appendChild(l);});
+  box.appendChild(row);
+}
+function aiMessage(){
+  const m=document.createElement('div');m.className='m-ai';
+  m.innerHTML='<img src="'+AV+'" alt=""><div><span class="name">Frank AI</span><div class="txt"><span class="thinking" aria-label="thinking"><i></i><i></i><i></i></span></div></div>';
+  thread.appendChild(m);scrollThread();return m;
+}
+function stream(m,text,acts){
+  const txt=m.querySelector('.txt'),box=txt.parentNode;
+  return new Promise(res=>{
+    const done=()=>{txt.classList.remove('streaming');txt.textContent=text;addActs(box,acts);scrollThread();res();};
+    if(reduced){done();return;}
+    setTimeout(()=>{
+      txt.textContent='';txt.classList.add('streaming');let i=0;
+      const tick=setInterval(()=>{i+=2;txt.textContent=text.slice(0,i);scrollThread();if(i>=text.length){clearInterval(tick);done();}},18);
+    },700);
+  });
+}
+async function ask(q){
+  q=q.trim();if(!q||busy)return;busy=true;
+  hero.classList.add('chatting');newChat.hidden=false;
+  const u=document.createElement('div');u.className='m-user';u.textContent=q;thread.appendChild(u);
+  prompt.value='';fit();
+  const r=answerFor(q);await stream(aiMessage(),r.text,r.acts);
+  busy=false;fit();
+}
+function fit(){prompt.style.height='auto';prompt.style.height=Math.min(prompt.scrollHeight,160)+'px';send.disabled=!prompt.value.trim()||busy;}
+function renderSugg(){
+  sugg.innerHTML='';
+  SUGG[language].forEach(c=>{const b=document.createElement('button');b.type='button';
+    b.innerHTML='<b></b><span></span>';b.querySelector('b').textContent=c.t;b.querySelector('span').textContent=c.d;
+    b.addEventListener('click',()=>ask(c.q));sugg.appendChild(b);});
+  prompt.placeholder=PH[language];
+}
+prompt.addEventListener('input',fit);
+prompt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask(prompt.value);}});
+composer.addEventListener('submit',e=>{e.preventDefault();ask(prompt.value);});
+newChat.addEventListener('click',()=>{if(busy)return;thread.innerHTML='';hero.classList.remove('chatting');newChat.hidden=true;prompt.focus();});
+document.querySelectorAll('[data-ask]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();hero.scrollIntoView({behavior:reduced?'auto':'smooth'});setTimeout(()=>prompt.focus({preventScroll:true}),reduced?0:500);}));
+const _setLang=setLang;setLang=function(l){_setLang(l);renderSugg();};
+renderSugg();fit();
+
+// scroll reveal + active nav
+if('IntersectionObserver' in window && !reduced){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+}else document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+const navLinks=document.querySelectorAll('.nav-d a');
+if('IntersectionObserver' in window){
+  const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id));}),{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('#services,#about,#projects,#teaching,#awards,#experience').forEach(s=>spy.observe(s));
+}
 </script>
 </body>
 </html>
