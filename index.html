@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Frank Fang 方澤享 — Builder, Thinker, Swimmer.</title>
 <meta name="description" content="方澤享 Frank Fang｜政治大學資訊管理、AI、金融科技與創業。探索我的開發專案、Google DevJam 黑客松冠軍與全大運游泳經歷。">
-<meta name="theme-color" content="#0B1712">
+<meta name="theme-color" content="#FAF6EC">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 /* Look: warm cream paper, deep forest green blocks, near-black green type, one warm gold. No outlined boxes — every block is a solid fill or a photo. */
@@ -16,9 +16,8 @@
   --cream:#FAF6EC;--grey:#EFEADF;--paper:#FFFFFF;--ink:#17352A;--text:#0E1C16;--accent:#F2BF47;
   --leaf:#8A6418;--muted:#6B6A5C;--body:#44493F;
   --shadow:0 18px 40px -18px rgba(23,53,42,.45);
-  --en:"Space Grotesk","Noto Sans TC",system-ui,sans-serif;
-  --zh:"Space Grotesk","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --en:"Poppins","Noto Sans TC",system-ui,sans-serif;
+  --zh:"Poppins","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -39,6 +38,9 @@ main{overflow-x:clip}
 /* language toggle */
 body.lang-zh .en,body.lang-en .zh{display:none!important}
 
+/* ── announce + bar ── */
+.announce{display:block;background:var(--ink);color:#fff;text-align:center;font-size:13px;font-weight:700;letter-spacing:.06em;padding:9px 16px}
+.announce span{color:var(--accent)}
 .bar{position:sticky;top:0;z-index:50;background:var(--cream);box-shadow:0 1px 0 rgba(23,53,42,.08)}
 .bar .in{max-width:1240px;margin:0 auto;padding-inline:20px;display:flex;align-items:center;gap:28px;height:60px}
 .logo{font-family:var(--en);font-weight:900;font-size:20px;letter-spacing:-.03em;line-height:1;white-space:nowrap}
@@ -53,15 +55,6 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .lang button.active{background:var(--ink);color:var(--accent)}
 .burger{width:40px;height:40px;border:0;border-radius:50%;background:var(--ink);display:grid;place-content:center;gap:4px}
 .burger span{display:block;width:16px;height:2px;border-radius:2px;background:var(--accent)}
-
-/* dark header so it reads as one surface with the AI hero */
-.bar{background:#0B1712;box-shadow:0 1px 0 rgba(255,255,255,.07);color:#E8E2D2}
-.bar .logo{color:#fff}
-.bar .lang{background:rgba(255,255,255,.08)}
-.bar .lang button{color:#98A49D}
-.bar .lang button.active{background:var(--accent);color:var(--text)}
-.bar .pill.dark{background:var(--accent);color:var(--text)}
-.bar .burger{background:rgba(255,255,255,.1)}
 
 /* pills */
 .pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--zh);font-weight:900;font-size:16px;letter-spacing:.08em;border-radius:999px;padding:12px 30px;background:var(--accent);color:var(--text);border:0;transition:transform .15s;white-space:nowrap}
@@ -80,124 +73,67 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .menu nav a{font-weight:900;font-size:clamp(28px,8vw,40px);letter-spacing:.04em;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.12)}
 .menu nav a:hover{color:var(--accent)}
 
-/* ── hero: ChatGPT-style AI twin ── */
-.hero{--h-bg:#0B1712;--h-text:#EDE9DF;--h-muted:#98A49D;--h-line:rgba(255,255,255,.11);--h-surface:rgba(255,255,255,.045);
-  position:relative;background:var(--h-bg);color:var(--h-text);overflow:hidden;
-  background-image:radial-gradient(60% 45% at 50% -5%,rgba(242,191,71,.14),transparent 70%),radial-gradient(45% 55% at 95% 105%,rgba(63,175,91,.13),transparent 70%)}
-.hero-in{position:relative;width:min(780px,100%);margin:0 auto;padding:72px 20px 40px;min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center}
-.intro{text-align:center}
-.who{display:inline-flex;align-items:center;gap:8px;margin:0;padding:4px 14px 4px 4px;border:1px solid var(--h-line);border-radius:999px;background:var(--h-surface);font-size:13px;font-weight:500;color:var(--h-text)}
-.who img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:50% 25%}
-.who i{font-style:normal;color:var(--h-muted)}
-.hero h1{margin:22px 0 12px;font-weight:700;font-size:clamp(30px,6.4vw,52px);line-height:1.2;letter-spacing:.01em;color:#fff}
-.hero h1 .en{font-family:var(--en);letter-spacing:-.025em}
-.sub{margin:0 auto 34px;max-width:34em;color:var(--h-muted);font-size:clamp(15px,3.8vw,16.5px);line-height:1.8}
-.sub b{color:var(--h-text);font-weight:700}
+/* ── hero: text panel + photo, so the type never sits on the face ── */
+.hero{display:grid;background:var(--ink);color:#fff;overflow:hidden}
+.hero-photo{position:relative;margin:0;min-height:0}
+.hero-photo img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;filter:grayscale(1) contrast(1.08);transition:filter .6s}
+.hero-photo:hover img{filter:none}
+.sticker{position:absolute;left:18px;bottom:18px;width:108px;height:108px;border-radius:50%;background:var(--accent);color:var(--text);display:grid;place-content:center;text-align:center;transform:rotate(-12deg);box-shadow:0 12px 22px -10px rgba(0,0,0,.55);font-weight:900;line-height:1.2}
+.sticker b{display:block;font-family:var(--en);font-size:30px;line-height:1}
+.sticker span{display:block;font-size:11.5px;letter-spacing:.04em;margin-top:2px}
+.hero-in{padding:44px 20px 52px}
+.kicker{margin:0 0 14px;font-weight:700;font-size:clamp(12px,3.3vw,16px);letter-spacing:.16em;color:var(--accent)}
+.hero h1{margin:0 0 18px;font-family:var(--en);font-weight:900;font-size:clamp(60px,17vw,128px);line-height:.9;letter-spacing:-.04em;text-transform:uppercase}
+.rotator{margin:0 0 20px;font-weight:900;font-size:clamp(22px,6vw,36px);line-height:1.3;letter-spacing:.04em}
+.rot-mask{position:relative;display:inline-block;vertical-align:top;overflow:hidden;height:1.3em;margin-left:.3em;color:var(--accent)}
+.rot-word{position:absolute;left:0;top:0;line-height:1.3;white-space:nowrap;transform:translateY(105%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.rot-word.on{transform:none}
+.rot-word.out{transform:translateY(-105%)}
+.rot-sizer{display:inline-grid;visibility:hidden}
+.rot-sizer span{grid-area:1/1;white-space:nowrap}
+.lead{margin:0;max-width:30em;font-size:clamp(14.5px,3.7vw,17px);font-weight:500;line-height:1.9;letter-spacing:.05em;color:#E8E2D2}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-stats{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hero-stats div{background:rgba(255,255,255,.08);border-radius:18px;padding:16px 12px}
+.hero-stats b{display:block;font-family:var(--en);font-weight:900;font-size:clamp(26px,6.5vw,40px);line-height:1;color:var(--accent)}
+.hero-stats span{display:block;margin-top:8px;font-size:clamp(11.5px,3vw,13.5px);line-height:1.5;font-weight:700;color:#E8E2D2}
 
-.thread{display:none}
-.hero.chatting .intro,.hero.chatting .sugg{display:none}
-.hero.chatting .hero-in{justify-content:flex-end;padding-top:32px}
-.hero.chatting .thread{display:flex;flex-direction:column;gap:26px;max-height:min(60svh,580px);overflow-y:auto;padding:8px 2px 24px;margin-bottom:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
-.m-user{align-self:flex-end;max-width:82%;background:rgba(255,255,255,.09);border-radius:22px;padding:10px 18px;font-size:15.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
-.m-ai{display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;align-items:start}
-.m-ai img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 25%;margin-top:2px}
-.m-ai .name{display:block;font-weight:700;font-size:13.5px;color:#fff;margin-bottom:4px}
-.m-ai .txt{white-space:pre-wrap;word-break:break-word;font-size:15.5px;line-height:1.9;color:var(--h-text)}
-.m-ai .txt.streaming::after{content:"";display:inline-block;width:.5em;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--accent);animation:blink 1s steps(2) infinite}
-.m-ai .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.m-ai .acts a{border:1px solid rgba(242,191,71,.45);color:var(--accent);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
-.m-ai .acts a:hover{background:var(--accent);color:var(--text)}
-.thinking{display:inline-flex;gap:5px;padding:10px 0}
-.thinking i{width:7px;height:7px;border-radius:50%;background:var(--h-muted);animation:pulse 1.1s infinite}
-.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
-@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.85)}40%{opacity:1;transform:none}}
-@keyframes blink{50%{opacity:0}}
+/* ticker */
+.ticker{background:var(--accent);color:var(--text);overflow:hidden;white-space:nowrap;padding-block:13px}
+.ticker .row{display:inline-flex;gap:20px;align-items:center;padding-left:20px;animation:run 48s linear infinite}
+.ticker span{font-family:var(--en);font-weight:800;font-size:17px;letter-spacing:.02em}
+.ticker i{font-style:normal;font-weight:900;opacity:.6}
+@keyframes run{to{transform:translateX(-50%)}}
 
-.composer{background:#14221C;border:1px solid var(--h-line);border-radius:26px;padding:14px 12px 10px 20px;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);transition:border-color .2s}
-.composer:focus-within{border-color:rgba(242,191,71,.55)}
-.composer textarea{display:block;width:100%;min-height:28px;max-height:160px;resize:none;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-size:16px;line-height:1.65;padding:4px 8px 0 0}
-.composer textarea::placeholder{color:var(--h-muted)}
-.c-row{display:flex;align-items:center;gap:8px;margin-top:8px}
-.model{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
-.model i{width:7px;height:7px;border-radius:50%;background:#4CC46A;box-shadow:0 0 0 3px rgba(76,196,106,.18)}
-.newchat{margin-left:auto;border:1px solid var(--h-line);background:none;color:var(--h-text);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700}
-.newchat[hidden]{display:none}
-.newchat:hover{background:rgba(255,255,255,.08)}
-.send{margin-left:auto;width:38px;height:38px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--text);transition:opacity .2s,transform .15s}
-.newchat:not([hidden])+.send{margin-left:0}
-.send:disabled{background:rgba(255,255,255,.12);color:var(--h-muted);cursor:default}
-.send:not(:disabled):hover{transform:scale(1.06)}
-.send svg{width:18px;height:18px}
-.sugg{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
-.sugg button{text-align:left;border:1px solid var(--h-line);background:var(--h-surface);border-radius:16px;padding:13px 16px;color:var(--h-text);transition:background .2s,border-color .2s}
-.sugg button:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-.sugg b{display:block;font-weight:700;font-size:14.5px;color:#fff}
-.sugg span{display:block;margin-top:2px;font-size:13px;color:var(--h-muted)}
-.note{margin:18px 0 0;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
-.note a{color:var(--h-text);text-decoration:underline;text-underline-offset:3px}
-.hint{display:block;margin:28px auto 0;width:max-content;font-size:13.5px;font-weight:700;color:var(--h-muted)}
-.hint:hover{color:var(--accent)}
-.hero.chatting .hint{display:none}
-
-/* proof strip */
-.proof{background:var(--cream);border-bottom:1px solid rgba(23,53,42,.12)}
-.proof .in{max-width:1240px;margin:0 auto;padding:22px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
-.proof .lbl{font-family:var(--mono);font-size:12px;color:var(--leaf)}
-.proof ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 26px}
-.proof li{font-family:var(--en);font-weight:700;font-size:15px;color:var(--text);opacity:.72}
-
-/* section titles: mono label above a left-aligned heading */
-.zt{margin:0 0 40px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.2;letter-spacing:.02em}
-.zt .sw{order:-1;display:block;font-family:var(--mono);font-weight:500;font-size:13px;line-height:1.4;letter-spacing:.04em;color:var(--leaf);margin:0 0 10px}
-.zt .sw::before{content:"// "}
-.zt .sw{text-transform:lowercase}
-/* narrower blocks keep the container's left edge */
-.tline,.schol-h,.schols{margin-left:max(0px,calc((100% - 1180px)/2))!important}
+/* section titles: big zh + yellow italic en underneath */
+.zt{margin:0 0 36px;display:flex;flex-direction:column;align-items:center;text-align:center;font-weight:900;font-size:clamp(26px,6.4vw,40px);line-height:1.2;letter-spacing:.04em}
+.zt .sw{order:2;display:block;font-family:var(--en);font-style:italic;font-weight:700;font-size:.6em;line-height:1.1;color:var(--leaf);letter-spacing:.01em;margin-top:.22em}
 .zt.light{color:#fff}
 .zt.light .sw{color:var(--accent)}
-.sec-intro{margin:-24px 0 36px;max-width:40em;color:var(--body);font-size:16px;line-height:1.85}
 .plain{padding:84px 20px 88px}
 .band{padding:84px 20px 92px;background:var(--ink);color:#fff}
 .greyband{padding:84px 20px 88px;background:var(--grey)}
 .plain>*,.band>*,.greyband>*{max-width:1180px;margin-inline:auto}
 
-/* ── about ── */
-.split{max-width:1180px;margin:0 auto;padding:84px 20px 40px;display:grid;gap:36px;align-items:center}
-.split>img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:24px;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+/* ── about split ── */
+.split{display:grid;background:var(--ink);color:#fff}
+.split>img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.05);transition:filter .6s}
 .split>img:hover{filter:none}
-.split .panel{min-width:0}
-.split .zt{margin-bottom:22px}
-.split p{margin:0 0 14px;color:var(--body);max-width:36em;font-size:15.5px;line-height:1.95}
-.split strong{color:var(--text);font-weight:900}
-.focus{margin:24px 0 0;display:flex;flex-wrap:wrap;gap:6px}
-.focus span{background:var(--grey);border-radius:999px;padding:4px 13px;font-weight:700;font-size:13.5px}
-.socs{display:flex;gap:10px;margin-top:24px}
-.soc{width:46px;height:46px;border-radius:14px;background:var(--ink);color:var(--accent);display:grid;place-items:center;transition:transform .2s}
-.soc:hover{transform:translateY(-3px)}
-.soc svg{width:20px;height:20px}
-
-/* ── services ── */
-.svc-grid{display:grid;gap:18px}
-.svc{background:var(--paper);border-radius:22px;padding:26px 24px 24px;box-shadow:var(--shadow);display:flex;flex-direction:column;scroll-margin-top:90px}
-.svc .no{font-family:var(--mono);font-size:12.5px;color:var(--leaf)}
-.svc h3{margin:8px 0 8px;font-weight:900;font-size:clamp(20px,4.6vw,24px);line-height:1.35}
-.svc .what{margin:0;color:var(--body);font-size:15px;line-height:1.8}
-.svc .for{margin:12px 0 0;font-size:13.5px;color:var(--muted)}
-.svc .for b{color:var(--text)}
-.svc .proofs{list-style:none;margin:16px 0 18px;padding:14px 0 0;border-top:1px dashed rgba(23,53,42,.22);display:grid;gap:6px}
-.svc .proofs li{position:relative;padding-left:18px;font-size:14px;line-height:1.65;color:var(--text)}
-.svc .proofs li::before{content:"✓";position:absolute;left:0;color:var(--leaf);font-weight:900}
-.svc .go{margin-top:auto;align-self:flex-start;font-weight:900;font-size:14.5px;border-bottom:2px solid var(--accent);padding-bottom:2px}
-.svc .go:hover{color:var(--leaf)}
-.flow{list-style:none;margin-top:44px;margin-bottom:0;padding:0;display:grid;gap:12px;counter-reset:f}
-.flow li{counter-increment:f;background:var(--grey);border-radius:18px;padding:16px 18px}
-.flow li::before{content:counter(f,decimal-leading-zero);display:block;font-family:var(--mono);font-size:12px;color:var(--leaf)}
-.flow b{display:block;font-weight:900;font-size:16px;margin-top:2px}
-.flow span{font-size:14px;color:var(--body)}
-.cta-bar{margin-top:20px;background:var(--ink);color:#fff;border-radius:22px;padding:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
-.cta-bar p{margin:0;font-weight:900;font-size:clamp(17px,4.4vw,21px);line-height:1.5}
-.cta-bar p span{display:block;font-weight:500;font-size:14.5px;color:#CFC8B6}
-.cta-bar div{display:flex;flex-wrap:wrap;gap:10px}
+.split .panel{padding:56px 24px 60px;text-align:center;min-width:0}
+.split .zt{color:var(--accent);margin-bottom:22px}
+.split .zt .sw{color:#fff;opacity:.85}
+.split p{margin:0 auto 14px;color:#EEE8DA;max-width:31em;font-size:15.5px;line-height:1.95}
+.split strong{color:#fff;font-weight:900}
+.focus{margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.22);max-width:31em}
+.focus-h{margin:0 0 8px;font-family:var(--en);font-weight:600;font-size:13px;letter-spacing:.32em;color:var(--accent)}
+.focus-list{margin:0;font-weight:500;font-size:clamp(12.5px,3.6vw,15.5px);line-height:2;letter-spacing:.04em;color:#fff}
+.focus-list i{font-style:normal;opacity:.55;margin:0 .15em}
+.socs{display:flex;justify-content:center;gap:14px;margin-top:36px}
+.soc{position:relative;width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);overflow:hidden;display:grid;place-items:center;color:#fff}
+.soc::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .45s cubic-bezier(.65,0,.35,1)}
+.soc:hover::before{transform:none}
+.soc:hover{color:var(--text);border-color:var(--accent)}
+.soc svg{position:relative;width:21px;height:21px}
 
 /* ── projects ── */
 .proj-feat{display:grid;gap:28px}
@@ -277,15 +213,15 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .spot p{margin:0;font-size:14.5px;line-height:1.7;opacity:.85}
 .spot a{text-decoration:underline;text-underline-offset:3px;font-weight:700}
 
-.tline{list-style:none;margin:0;padding:0 0 0 30px;max-width:820px;position:relative}
+.tline{list-style:none;margin:0 auto;padding:0 0 0 30px;max-width:820px;position:relative}
 .tline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:rgba(255,255,255,.18)}
 .tl{position:relative;padding:0 0 26px}
 .tl::before{content:"";position:absolute;left:-27px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--ink)}
 .tl .yr{font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.14em;color:#A9A792}
 .tl b{display:block;font-weight:900;font-size:19px;line-height:1.45;color:var(--accent)}
 .tl span.n{display:block;color:#EEE8DA;font-size:15px;line-height:1.7}
-.schol-h{margin:48px 0 18px;max-width:820px;font-family:var(--en);font-weight:600;font-size:13px;letter-spacing:.32em;color:var(--accent)}
-.schols{display:grid;gap:14px;max-width:820px}
+.schol-h{margin:48px auto 18px;max-width:820px;font-family:var(--en);font-weight:600;font-size:13px;letter-spacing:.32em;color:var(--accent)}
+.schols{display:grid;gap:14px;max-width:820px;margin-inline:auto}
 .schol{background:rgba(255,255,255,.07);border-radius:20px;padding:20px 22px}
 .schol b{display:block;font-weight:900;font-size:17px;margin-bottom:4px}
 .schol p{margin:0;color:#CFC8B6;font-size:14.5px;line-height:1.75}
@@ -300,7 +236,7 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .exp-list .kind{font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
 
 /* teaching list (reference: 講師經歷) */
-.tch-list{list-style:none;margin-top:0;margin-bottom:0;padding:0;border-top:2px solid var(--text)}
+.tch-list{list-style:none;margin:0 auto;padding:0;max-width:880px;border-top:2px solid var(--text)}
 .tch-list li{display:grid;grid-template-columns:1fr;gap:4px;padding:18px 4px;border-bottom:1px solid rgba(23,53,42,.18)}
 .tch-list .kind{font-weight:700;font-size:13.5px;letter-spacing:.12em;color:var(--leaf)}
 .tch-list b{font-weight:900;font-size:18.5px;line-height:1.5}
@@ -343,13 +279,23 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .rec-grid figcaption{position:absolute;left:14px;bottom:14px;right:14px;display:flex}
 .rec-grid figcaption span{background:var(--accent);color:var(--text);border-radius:999px;padding:5px 14px;font-weight:900;font-size:13px;line-height:1.4}
 
-/* closing CTA */
-.final{background:var(--grey);padding:84px 20px}
-.final .in{max-width:1180px;margin:0 auto}
-.final h2{margin:0 0 14px;font-weight:900;font-size:clamp(30px,7vw,56px);line-height:1.2}
-.final h2 em{font-style:normal;background:linear-gradient(transparent 62%,var(--accent) 62%)}
-.final p{margin:0 0 28px;max-width:36em;color:var(--body);font-size:16px;line-height:1.85}
-.final .row{display:flex;flex-wrap:wrap;gap:12px}
+/* cross-link to hire.html */
+.nav-d a.to-hire{color:var(--leaf)}
+.nav-d a.to-hire::after{transform:scaleX(1)}
+.to-hire-band{background:var(--accent);color:var(--text);padding:40px 20px}
+.to-hire-band .in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.to-hire-band .k{margin:0 0 6px;font-family:var(--en);font-weight:700;font-size:12.5px;letter-spacing:.2em}
+.to-hire-band h2{margin:0 0 6px;font-weight:900;font-size:clamp(22px,5vw,32px);line-height:1.3}
+.to-hire-band .d{margin:0;max-width:40em;font-size:15px;line-height:1.75}
+
+/* photo quote */
+.pq{position:relative;min-height:320px;display:grid;place-items:center;overflow:hidden;color:#fff;text-align:center}
+.pq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.45)}
+.pq blockquote{position:relative;margin:0;padding:64px 24px;max-width:900px}
+.pq p{margin:0;font-weight:900;font-size:clamp(19px,4.9vw,42px);line-height:1.5;letter-spacing:.03em}
+.pq p .ln{display:block}
+.pq p .hl{color:var(--accent)}
+.pq footer{margin-top:18px;font-family:var(--en);font-style:italic;font-weight:700;font-size:18px;color:var(--accent)}
 
 /* footer */
 .foot{background:var(--ink);color:#fff}
@@ -370,15 +316,14 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .lightbox[hidden]{display:none}
 .lightbox img{max-height:86vh;border-radius:16px}
 .lightbox button{position:absolute;top:16px;right:16px;width:44px;height:44px;border:0;border-radius:50%;background:var(--accent);color:var(--text);font-size:24px;font-weight:900}
-.toast{visibility:hidden;position:fixed;left:50%;bottom:24px;z-index:160;transform:translate(-50%,140%);background:var(--ink);color:var(--accent);border-radius:999px;padding:10px 22px;font-weight:900;font-size:14px;transition:transform .35s}
-.toast.show{visibility:visible;transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:24px;z-index:160;transform:translate(-50%,140%);background:var(--ink);color:var(--accent);border-radius:999px;padding:10px 22px;font-weight:900;font-size:14px;transition:transform .35s}
+.toast.show{transform:translate(-50%,0)}
 
 /* reveal */
 .js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
 .js .rv.in{opacity:1;transform:none}
 
 @media (min-width:720px){
-  .sugg{grid-template-columns:1fr 1fr}
   .proj-sec{grid-template-columns:1fr 1fr;gap:52px 24px}
   .yt-grid{grid-template-columns:1fr 1fr}
   .spots{grid-template-columns:1fr 1fr}
@@ -389,12 +334,18 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 @media (min-width:960px){
   .nav-d{display:flex}
   .burger{display:none}
-  .svc-grid{grid-template-columns:1fr 1fr}
-  .flow{grid-template-columns:repeat(4,1fr)}
-  .cta-bar{padding:28px 32px}
+  .hero{grid-template-columns:1.15fr .85fr;min-height:min(calc(100vh - 96px),820px)}
+  .hero-photo{order:2}
+  .hero-photo img{position:absolute;inset:0;aspect-ratio:auto}
+  .hero-in{display:flex;flex-direction:column;justify-content:center;padding:64px 56px 64px max(40px,calc((100vw - 1240px)/2 + 20px))}
+  .sticker{left:-54px;top:72px;bottom:auto;width:128px;height:128px}
+  .kicker{letter-spacing:.28em}
+  .sticker b{font-size:36px}
   .rec-grid{grid-template-columns:.75fr 1.25fr;align-items:stretch}
   .rec-grid .r1 img,.rec-grid .r2 img{aspect-ratio:auto;height:100%;min-height:460px}
-  .split{grid-template-columns:.8fr 1.2fr;gap:64px}
+  .split{grid-template-columns:1fr 1fr}
+  .split>img{aspect-ratio:auto;height:100%;min-height:620px}
+  .split .panel{display:flex;flex-direction:column;justify-content:center;padding:72px 56px}
   .proj-feat{grid-template-columns:1fr 1fr;align-items:start}
   .exp-grid{grid-template-columns:1fr 1fr;gap:44px 56px}
   .tch-list li{grid-template-columns:150px 1fr auto;gap:20px;align-items:baseline}
@@ -411,23 +362,25 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 </head>
 <body class="lang-zh">
 <a class="skip" href="#main"><span class="zh">跳到主要內容</span><span class="en">Skip to content</span></a>
+<a class="announce" href="hire.html"><span class="zh">現在接 AI 專案：AI 導入教學 · RAG · LINE Bot · Agentic AI <span aria-hidden="true">→</span></span><span class="en">Now taking AI projects: workshops · RAG · LINE Bots · agentic AI <span aria-hidden="true">→</span></span></a>
+
 <header class="bar">
   <div class="in">
     <a href="#main" class="logo" aria-label="Frank Fang 首頁">FRANK FANG<i aria-hidden="true"></i></a>
     <nav class="nav-d" aria-label="主選單 Main navigation">
-      <a href="#services"><span class="zh">服務</span><span class="en">Services</span></a>
       <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
-      <a href="#projects"><span class="zh">專案</span><span class="en">Projects</span></a>
+      <a href="#projects"><span class="zh">精選專案</span><span class="en">Projects</span></a>
+      <a href="#awards"><span class="zh">競賽獎項</span><span class="en">Awards</span></a>
       <a href="#teaching"><span class="zh">講師</span><span class="en">Teaching</span></a>
-      <a href="#awards"><span class="zh">獎項</span><span class="en">Awards</span></a>
       <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
+      <a href="hire.html" class="to-hire"><span class="zh">AI 接案 ↗</span><span class="en">Work with me ↗</span></a>
     </nav>
     <div class="right">
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="btn-zh" onclick="setLang('zh')">中</button>
         <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
       </div>
-      <a class="pill sm dark" href="#contact"><span class="zh">預約聊聊</span><span class="en">Let's talk</span></a>
+      <a class="pill sm dark" href="#contact"><span class="zh">聯絡我</span><span class="en">Contact</span></a>
       <button class="burger" id="menuOpen" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -436,7 +389,6 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 <div class="menu" id="menu" hidden>
   <div class="top"><span class="logo">FRANK FANG<i aria-hidden="true"></i></span><button class="close" id="menuClose" type="button" aria-label="關閉選單">×</button></div>
   <nav aria-label="選單">
-    <a href="#services"><span class="zh">我能幫你什麼</span><span class="en">Services</span></a>
     <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
     <a href="#projects"><span class="zh">精選專案</span><span class="en">Projects</span></a>
     <a href="#awards"><span class="zh">競賽獎項</span><span class="en">Awards</span></a>
@@ -444,6 +396,7 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
     <a href="#records"><span class="zh">國際經驗</span><span class="en">Global</span></a>
     <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
     <a href="#skills"><span class="zh">技能</span><span class="en">Skills</span></a>
+    <a href="hire.html"><span class="zh">AI 接案服務 ↗</span><span class="en">Work with me ↗</span></a>
     <a href="#contact"><span class="zh">聯絡我</span><span class="en">Contact</span></a>
   </nav>
 </div>
@@ -451,126 +404,61 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 <main id="main">
 
 <!-- HERO -->
-<section class="hero" id="ask" aria-labelledby="hero-title">
+<section class="hero" aria-labelledby="hero-title">
+  <figure class="hero-photo">
+    <img src="./images/frank-sweater.jpg" alt="方澤享 Frank Fang 坐著微笑" width="613" height="1089" fetchpriority="high">
+    <a class="sticker" href="#coolpath"><b>1st</b><span>Google<br>DevJam</span></a>
+  </figure>
   <div class="hero-in">
-    <div class="intro">
-      <p class="who"><img src="./images/frank-field.jpg" alt="" width="768" height="1024"><span>方澤享 Frank Fang</span><i>·</i><span class="zh">AI 分身</span><span class="en">AI twin</span></p>
-      <h1 id="hero-title"><span class="zh">想用 AI 解決什麼問題？</span><span class="en">What do you want AI to solve?</span></h1>
-      <p class="sub"><span class="zh">我是方澤享的 AI 分身。他做 <b>RAG</b>、<b>Agentic AI</b> 與 <b>LINE Bot</b>，也幫團隊導入 AI，Google DevJam 2026 冠軍。問我他能幫你做什麼。</span><span class="en">I'm Frank Fang's AI twin. He builds <b>RAG</b>, <b>agentic AI</b> and <b>LINE Bots</b>, helps teams adopt AI, and won Google DevJam 2026. Ask me what he can do for you.</span></p>
+    <p class="kicker">方澤享｜BUILDER · THINKER · SWIMMER</p>
+    <h1 id="hero-title">Frank<br>Fang</h1>
+    <p class="rotator zh" aria-label="我擅長 AI 應用、金融科技、創業提案、程式開發、自由式">我擅長<span class="rot-mask" aria-hidden="true"><span class="rot-word">AI 應用</span><span class="rot-word">金融科技</span><span class="rot-word">創業提案</span><span class="rot-word">程式開發</span><span class="rot-word">自由式</span></span></p>
+    <p class="rotator en" aria-label="I build AI tools, FinTech, startups, software, and I swim">I build<span class="rot-mask" aria-hidden="true"><span class="rot-word">AI tools</span><span class="rot-word">FinTech</span><span class="rot-word">startups</span><span class="rot-word">software</span><span class="rot-word">fast laps</span></span></p>
+    <p class="lead"><span class="zh">從一個「這能不能更好？」開始，<br>把資訊、金融與生活裡的問題，做成真正能用的東西。</span><span class="en">It starts with “could this be better?”<br>I turn questions in tech, finance and everyday life into things people can use.</span></p>
+    <div class="hero-actions">
+      <a class="pill" href="#projects"><span class="zh">看我的作品</span><span class="en">See my work</span> <span aria-hidden="true">→</span></a>
+      <a class="pill ghost" href="hire.html"><span class="zh">AI 接案服務</span><span class="en">Work with me</span> ↗</a>
     </div>
-    <div class="thread" id="thread" role="log" aria-live="polite"></div>
-    <form class="composer" id="composer">
-      <label class="skip" for="prompt"><span class="zh">問 AI 分身</span><span class="en">Ask the AI twin</span></label>
-      <textarea id="prompt" rows="1" maxlength="300"></textarea>
-      <div class="c-row">
-        <span class="model"><i aria-hidden="true"></i>Frank AI · demo</span>
-        <button type="button" class="newchat" id="newChat" hidden><span class="zh">新對話</span><span class="en">New chat</span></button>
-        <button type="submit" class="send" id="send" aria-label="送出 Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
-      </div>
-    </form>
-    <div class="sugg" id="sugg"></div>
-    <p class="note"><span class="zh">示範版 · 回覆為 Frank 預先寫好的內容 · <a href="#contact">直接聯絡本人</a></span><span class="en">Demo · replies are pre-written by Frank · <a href="#contact">contact him directly</a></span></p>
-    <a class="hint" href="#services"><span class="zh">或往下看他能幫你做什麼 ↓</span><span class="en">or scroll to see what he can do ↓</span></a>
-  </div>
-</section>
-
-<div class="proof">
-  <div class="in">
-    <span class="lbl"><span class="zh">// 曾合作與登台</span><span class="en">// worked with &amp; spoke at</span></span>
-    <ul>
-      <li><span class="zh">政大 AI 研究中心</span><span class="en">NCCU AI Center</span></li>
-      <li>Google DevJam 2026 · 1st</li>
-      <li><span class="zh">永平高中</span><span class="en">Yongping High School</span></li>
-      <li><span class="zh">政大 IMBA</span><span class="en">NCCU IMBA</span></li>
-      <li><span class="zh">政大 EMBA</span><span class="en">NCCU EMBA</span></li>
-      <li>Canton Foundation</li>
-      <li><span class="zh">北海道大學</span><span class="en">Hokkaido University</span></li>
-    </ul>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<section class="plain" id="services">
-  <h2 class="zt rv"><span class="sw" aria-hidden="true">what I can do for you</span><span class="zh">我可以幫你做什麼</span><span class="en">What I can do for you</span></h2>
-  <p class="sec-intro rv"><span class="zh">從「想用 AI 但不知道從哪開始」，到「已經有想法、需要有人做出來」，下面四件事是我最常幫人解決的。</span><span class="en">Whether you're wondering where AI even fits or already know exactly what you want built, these are the four things I help with most.</span></p>
-  <div class="svc-grid">
-    <article class="svc rv" id="svc-teach">
-      <span class="no">01 / TEACH</span>
-      <h3><span class="zh">AI 導入教學與工作坊</span><span class="en">AI adoption workshops</span></h3>
-      <p class="what"><span class="zh">從零帶團隊把 AI 用進日常工作：提示詞、AI 工作流程到 AI Agent 實作，內容依對象客製。</span><span class="en">Hands-on sessions that get teams using AI in real work — prompting, AI workflows, all the way to building an AI agent — tailored to the audience.</span></p>
-      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">學校、社團、企業內訓</span><span class="en">schools, student groups, company training</span></p>
-      <ul class="proofs">
-        <li><span class="zh">永平高中新生 AI 自主學習工作坊（帶領助教團隊）</span><span class="en">Yongping High School freshman AI workshop (led a TA team)</span></li>
-        <li><span class="zh">政大 IMBA 課堂講課</span><span class="en">Guest session, NCCU IMBA</span></li>
-        <li><span class="zh">EMBA「金融科技趨勢與創新」課程助教</span><span class="en">TA, EMBA "FinTech Trends &amp; Innovation"</span></li>
-      </ul>
-      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=AI%20%E5%B7%A5%E4%BD%9C%E5%9D%8A%E6%B4%BD%E8%A9%A2"><span class="zh">洽詢工作坊 →</span><span class="en">Book a workshop →</span></a>
-    </article>
-    <article class="svc rv" id="svc-rag">
-      <span class="no">02 / RAG</span>
-      <h3><span class="zh">RAG 知識庫與文件問答</span><span class="en">RAG knowledge bases</span></h3>
-      <p class="what"><span class="zh">把你的規章、手冊、講義或論文變成可以直接問答的 AI，回答附上出處，不亂講。</span><span class="en">Turn your policies, handbooks, course notes or papers into an AI you can question — with sources attached to every answer.</span></p>
-      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">文件多、常被問同樣問題的單位</span><span class="en">teams drowning in documents and repeat questions</span></p>
-      <ul class="proofs">
-        <li><span class="zh">CiteGuard 論文引用查核：雙層 RAG ＋ LLM 裁判，準確率 72%</span><span class="en">CiteGuard citation checker: dual RAG + LLM judge, 72% accuracy</span></li>
-        <li><span class="zh">政大 AI 研究中心研究助理（三個計畫）</span><span class="en">Research assistant on three NCCU AI Center projects</span></li>
-      </ul>
-      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=RAG%20%E7%9F%A5%E8%AD%98%E5%BA%AB%E6%B4%BD%E8%A9%A2"><span class="zh">聊聊你的資料 →</span><span class="en">Talk about your data →</span></a>
-    </article>
-    <article class="svc rv" id="svc-line">
-      <span class="no">03 / AUTOMATE</span>
-      <h3><span class="zh">LINE Bot 與流程自動化</span><span class="en">LINE Bots &amp; automation</span></h3>
-      <p class="what"><span class="zh">報名、簽到、請假、通知、名單管理這些重複工作，交給 LINE Bot 加 Google Sheets 自動跑。</span><span class="en">Sign-ups, check-ins, leave requests, reminders, member lists — hand the repetitive admin to a LINE Bot and Google Sheets.</span></p>
-      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">社團、競賽主辦、小型團隊</span><span class="en">clubs, competition organizers, small teams</span></p>
-      <ul class="proofs">
-        <li><span class="zh">社團 LINE 社員自動化管理</span><span class="en">LINE-based member management for a student club</span></li>
-        <li><span class="zh">商學院永續競賽 LINE Bot</span><span class="en">LINE Bot for the Business School sustainability competition</span></li>
-        <li><span class="zh">游泳隊排班管理系統（簽到、請假、課表、訓練日誌）</span><span class="en">Swim team scheduling system (check-in, leave, schedules, logs)</span></li>
-      </ul>
-      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=LINE%20Bot%20/%20%E8%87%AA%E5%8B%95%E5%8C%96%E6%B4%BD%E8%A9%A2"><span class="zh">把麻煩事交給我 →</span><span class="en">Automate it →</span></a>
-    </article>
-    <article class="svc rv" id="svc-agent">
-      <span class="no">04 / BUILD</span>
-      <h3><span class="zh">Agentic AI 與 AI 系統開發</span><span class="en">Agentic AI &amp; AI systems</span></h3>
-      <p class="what"><span class="zh">需要多輪對話、多步驟推理或會呼叫工具的 AI 系統，從原型、串接到部署上線。</span><span class="en">AI systems with multi-turn conversation, multi-step reasoning or tool use — from prototype and integration to deployment.</span></p>
-      <p class="for"><b><span class="zh">適合：</span><span class="en">For: </span></b><span class="zh">研究實驗、新創原型、內部工具</span><span class="en">research studies, startup prototypes, internal tools</span></p>
-      <ul class="proofs">
-        <li><span class="zh">葉玉珠老師實驗室：批判思考推理遊戲實驗系統（Express ＋ Zeabur，多輪 AI 互動）</span><span class="en">Prof. Yeh's lab: critical-thinking reasoning game (Express + Zeabur, multi-turn AI)</span></li>
-        <li><span class="zh">CoolPath 涼路：Google DevJam 2026 冠軍</span><span class="en">CoolPath: Google DevJam 2026 winner</span></li>
-      </ul>
-      <a class="go" href="mailto:113306052@g.nccu.edu.tw?subject=AI%20%E7%B3%BB%E7%B5%B1%E9%96%8B%E7%99%BC%E6%B4%BD%E8%A9%A2"><span class="zh">討論你的點子 →</span><span class="en">Pitch me your idea →</span></a>
-    </article>
-  </div>
-  <ol class="flow rv" aria-label="合作流程 How we'd work">
-    <li><b><span class="zh">聊需求</span><span class="en">Talk</span></b><span><span class="zh">先了解你的問題和現在的流程</span><span class="en">Understand the problem and your current workflow</span></span></li>
-    <li><b><span class="zh">做原型</span><span class="en">Prototype</span></b><span><span class="zh">先做出能試用的小版本</span><span class="en">Ship a small version you can try</span></span></li>
-    <li><b><span class="zh">開發上線</span><span class="en">Build</span></b><span><span class="zh">串接你的資料與工具</span><span class="en">Connect your data and tools</span></span></li>
-    <li><b><span class="zh">交接與教學</span><span class="en">Hand over</span></b><span><span class="zh">教會團隊自己用、自己改</span><span class="en">Teach your team to run and tweak it</span></span></li>
-  </ol>
-  <div class="cta-bar rv">
-    <p><span class="zh">不確定 AI 能幫上什麼？</span><span class="en">Not sure where AI fits?</span><span><span class="zh">先問問我的 AI 分身，或直接寄信給我。</span><span class="en">Ask my AI twin first, or just email me.</span></span></p>
-    <div>
-      <a class="pill" href="#ask" data-ask><span class="zh">問 AI 分身</span><span class="en">Ask the AI twin</span></a>
-      <a class="pill ghost" href="mailto:113306052@g.nccu.edu.tw?subject=%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2"><span class="zh">寄信給我</span><span class="en">Email me</span></a>
+    <div class="hero-stats">
+      <div><b>7+</b><span class="zh">獨立開發專案</span><span class="en">Self-built projects</span></div>
+      <div><b>1st</b><span class="zh">Google DevJam 冠軍</span><span class="en">Google DevJam winner</span></div>
+      <div><b>7th</b><span class="zh">全大運接力決賽</span><span class="en">University Games relay</span></div>
     </div>
   </div>
 </section>
+
+<div class="ticker" aria-hidden="true"><div class="row"><span>CREATIVE CODING</span><i>／</i><span>FINTECH</span><i>／</i><span>AI FOR GOOD</span><i>／</i><span>REAL-WORLD IMPACT</span><i>／</i><span>KEEP SWIMMING</span><i>／</i><span>CREATIVE CODING</span><i>／</i><span>FINTECH</span><i>／</i><span>AI FOR GOOD</span><i>／</i><span>REAL-WORLD IMPACT</span><i>／</i><span>KEEP SWIMMING</span><i>／</i><span>CREATIVE CODING</span><i>／</i><span>FINTECH</span><i>／</i><span>AI FOR GOOD</span><i>／</i><span>REAL-WORLD IMPACT</span><i>／</i><span>KEEP SWIMMING</span><i>／</i><span>CREATIVE CODING</span><i>／</i><span>FINTECH</span><i>／</i><span>AI FOR GOOD</span><i>／</i><span>REAL-WORLD IMPACT</span><i>／</i><span>KEEP SWIMMING</span><i>／</i></div></div>
 
 <!-- ABOUT -->
 <section class="split" id="about">
-  <img src="./images/frank-sweater.jpg" alt="方澤享 Frank Fang 坐著微笑" loading="lazy" width="613" height="1089">
+  <img src="./images/frank-field.jpg" alt="方澤享在政大操場自拍" loading="lazy" width="768" height="1024">
   <div class="panel">
-    <h2 class="zt"><span class="sw" aria-hidden="true">about me</span><span class="zh">嗨，我是方澤享</span><span class="en">Hi, I'm Frank</span></h2>
+    <h2 class="zt"><span class="sw" aria-hidden="true">About me</span><span class="zh">HI！我是方澤享</span><span class="en">Hi! I'm Frank</span></h2>
     <p><span class="zh">企管、統計、資管，三個系，每一個都是我自己選的。現在回頭看，那些拼起來剛剛好：商業的直覺、數字的嚴謹、程式的執行力，加上金融的視角，讓我可以在不同語言之間切換，<strong>真正把東西做出來</strong>。</span><span class="en">Business, Statistics, Information Management — three majors, each one I chose myself. The pieces fit: business intuition, statistical rigor, engineering execution and a financial lens let me switch between ways of thinking and <strong>actually build things</strong>.</span></p>
     <p><span class="zh">我創辦了<strong>政大金融科技創新實驗室</strong>，以 <strong>CoolPath 涼路</strong>拿下 <strong>Google DevJam 黑客松 TW 2026 冠軍</strong>，也帶著沈錡大使獎學金赴<strong>日本九州</strong>考察台積電供應鏈。</span><span class="en">I founded <strong>NCCU's FinTech Innovation Lab</strong>, won <strong>Google DevJam Hackathon TW 2026</strong> with <strong>CoolPath</strong>, and flew to <strong>Kyushu</strong> on scholarship to study TSMC's supply chain.</span></p>
     <p><span class="zh">我也站上講台：帶助教團隊開 AI 工作坊、在 IMBA 講課、擔任 EMBA 金融科技課程助教；今年夏天拿獎助到<strong>北海道大學</strong>修課，帶領小組報告。</span><span class="en">I teach too — AI workshops with my own TA team, a guest session for IMBA, and TA for an EMBA FinTech course. This summer a scholarship took me to <strong>Hokkaido University</strong>, where I led my group's presentation.</span></p>
     <p><span class="zh">我也游泳，代表政大參加<strong>全大運</strong>，自由式接力全國第七。泳道和程式碼教我同一件事：持續推進，就能突破。</span><span class="en">I also swim — 7th in the freestyle relay at the <strong>National University Games</strong> for NCCU. The lane and the codebase teach the same thing: keep moving forward and you'll break through.</span></p>
-    <div class="focus"><span>AI 應用開發</span><span>RAG</span><span>Agentic AI</span><span>LINE Bot</span><span>金融科技</span><span>永續創新</span></div>
+    <div class="focus">
+      <p class="focus-h">FOCUS</p>
+      <p class="focus-list"><span class="nb">AI 應用開發</span><i>｜</i><span class="nb">金融科技</span><i>｜</i><span class="nb">永續創新</span><br><span class="nb">創業提案</span><i>｜</i><span class="nb">自動化工具</span></p>
+    </div>
     <nav class="socs" aria-label="社群連結 Social links">
       <a class="soc" href="https://github.com/Frankfangcode" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a>
       <a class="soc" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.83v1.54h.06c.53-1.01 1.84-2.08 3.79-2.08 4.05 0 4.8 2.67 4.8 6.13V21h-4v-5c0-1.2-.02-2.73-1.66-2.73-1.67 0-1.92 1.3-1.92 2.65V21h-4V9.75Z"/></svg></a>
       <a class="soc" href="mailto:113306052@g.nccu.edu.tw" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg></a>
     </nav>
+  </div>
+</section>
+
+<!-- WORK WITH ME -->
+<section class="to-hire-band">
+  <div class="in rv">
+    <div>
+      <p class="k">WORK WITH ME</p>
+      <h2><span class="zh">需要把 AI 用進你的團隊？</span><span class="en">Want AI working inside your team?</span></h2>
+      <p class="d"><span class="zh">我接 AI 導入教學與工作坊、RAG 知識庫、LINE Bot 自動化與 Agentic AI 系統開發，也可以先問問我的 AI 分身。</span><span class="en">I take on AI workshops, RAG knowledge bases, LINE Bot automation and agentic AI builds — or ask my AI twin first.</span></p>
+    </div>
+    <a class="pill dark" href="hire.html"><span class="zh">看接案服務</span><span class="en">See services</span> →</a>
   </div>
 </section>
 
@@ -884,29 +772,27 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
   </div>
 </section>
 
-<!-- CLOSING CTA -->
-<section class="final">
-  <div class="in">
-    <h2 class="rv"><span class="zh">有想用 AI <em>解決的問題</em>嗎？</span><span class="en">Got a problem <em>AI could solve</em>?</span></h2>
-    <p class="rv"><span class="zh">不管是一場工作坊、一個 LINE Bot，還是一套 AI 系統，寫信告訴我你想解決什麼，我會回覆可行的做法。</span><span class="en">A workshop, a LINE Bot or a full AI system — tell me what you want to solve and I'll reply with how we could do it.</span></p>
-    <div class="row rv">
-      <a class="pill dark" href="mailto:113306052@g.nccu.edu.tw?subject=%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2"><span class="zh">寄信給我</span><span class="en">Email me</span> ↗</a>
-      <a class="pill" href="#ask" data-ask><span class="zh">先問 AI 分身</span><span class="en">Ask the AI twin first</span></a>
-    </div>
-  </div>
+<!-- QUOTE -->
+<section class="pq">
+  <img src="./images/gaia-underwater.jpg" alt="" loading="lazy">
+  <blockquote>
+    <p class="zh"><span class="ln">「科技不只是技術，</span><span class="ln">而是一種<span class="hl">解決問題</span>、創造新機會的工具。」</span></p>
+    <p class="en"><span class="ln">“Technology isn't just code —</span><span class="ln">it's a tool for <span class="hl">solving real problems</span>.”</span></p>
+    <footer>— Frank Fang</footer>
+  </blockquote>
 </section>
 
 </main>
 
 <footer class="foot" id="contact">
   <div class="in">
-    <div class="f-brand"><a class="f-big" href="mailto:113306052@g.nccu.edu.tw">Let's build it<span aria-hidden="true">↗</span></a></div>
+    <div class="f-brand"><a class="f-big" href="mailto:113306052@g.nccu.edu.tw">LET'S TALK<span aria-hidden="true">↗</span></a></div>
     <nav class="f-nav" aria-label="頁尾選單 Footer">
       <p class="lbl"><span class="zh">網站導覽</span><span class="en">SITE</span></p>
       <a href="#about"><span class="zh">關於</span><span class="en">About</span></a>
       <a href="#projects"><span class="zh">精選專案</span><span class="en">Projects</span></a>
       <a href="#awards"><span class="zh">競賽獎項</span><span class="en">Awards</span></a>
-      <a href="#experience"><span class="zh">經歷</span><span class="en">Experience</span></a>
+      <a href="hire.html"><span class="zh">AI 接案服務</span><span class="en">Work with me</span></a>
     </nav>
     <nav class="f-nav" aria-label="社群 Social">
       <p class="lbl"><span class="zh">社群</span><span class="en">ELSEWHERE</span></p>
@@ -916,7 +802,7 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
     </nav>
     <div>
       <p class="lbl"><span class="zh">聯絡我</span><span class="en">CONTACT</span></p>
-      <p class="f-note"><span class="zh">AI 工作坊、系統開發、實習機會，歡迎來信。</span><span class="en">Workshops, AI builds, internships — say hi.</span></p>
+      <p class="f-note"><span class="zh">專案合作、實習機會、競賽組隊，歡迎來信。</span><span class="en">Projects, internships, competition teams — say hi.</span></p>
       <p class="f-mail"><span id="email">113306052@g.nccu.edu.tw</span><button class="copy" id="copyBtn" type="button"><span class="zh">複製</span><span class="en">Copy</span></button></p>
     </div>
   </div>
@@ -986,127 +872,20 @@ document.getElementById('copyBtn').addEventListener('click',async()=>{
   toast.textContent=T.copied[language];toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800);
 });
 
-// AI twin (demo): keyword-matched, pre-written replies
-const MAIL='113306052@g.nccu.edu.tw';
-const mail=(subject,body)=>'mailto:'+MAIL+'?subject='+encodeURIComponent(subject)+(body?'&body='+encodeURIComponent(body):'');
-const KB=[
- {k:['價格','報價','費用','多少錢','收費','預算','price','cost','quote','budget','rate'],
-  zh:'費用會依範圍、時程和要串接的系統而定。最快的方式是寄信簡單說明你的需求，Frank 會回覆可行做法和初步估算。',
-  en:'It depends on scope, timeline and what needs to be integrated. The fastest way is to email a short description — Frank will reply with an approach and a rough estimate.',
-  a:[{zh:'寄信詢價',en:'Ask for a quote',href:mail('報價詢問')}]},
- {k:['導入','教學','工作坊','內訓','上課','講課','講師','課程','培訓','教','workshop','teach','training','adopt','lecture'],
-  zh:'可以！Frank 帶過永平高中新生的 AI 自主學習工作坊（含助教團隊），在政大 IMBA 講過課，也是 EMBA「金融科技趨勢與創新」的課程助教。\n內容會依對象調整，從提示詞、AI 工作流程到 AI Agent 實作都可以。',
-  en:'Yes! Frank ran an AI self-directed learning workshop for Yongping High School freshmen (with his own TA team), gave a session at NCCU IMBA, and TAs the EMBA course "FinTech Trends & Innovation".\nContent is tailored — from prompting and AI workflows to building an AI agent.',
-  a:[{zh:'看工作坊服務',en:'Workshop details',href:'#svc-teach'},{zh:'寄信洽詢',en:'Email to book',href:mail('AI 工作坊洽詢'),alt:1}]},
- {k:['rag','知識庫','文件','問答','檢索','論文','引用','查核','knowledge','document','citation','search'],
-  zh:'RAG 就是讓 AI 先從你的資料裡找答案、再回答，所以答案有出處，比較不會亂講。\nFrank 做過 CiteGuard 論文引用查核：雙層 RAG 加 LLM 裁判，自動檢查引用錯誤，最佳模型準確率 72%。你的規章、手冊、講義也能做成這種問答 AI。',
-  en:'RAG means the AI looks things up in your own documents before answering, so answers come with sources and far less making things up.\nFrank built CiteGuard, a citation checker using dual RAG plus an LLM judge — 72% accuracy with the best model. Your policies, handbooks or course notes can work the same way.',
-  a:[{zh:'看 RAG 服務',en:'RAG service',href:'#svc-rag'},{zh:'看專案',en:'See projects',href:'#projects',alt:1}]},
- {k:['line','bot','機器人','自動化','社員','社團','簽到','請假','排班','sheets','apps script','automation','automate'],
-  zh:'Frank 做過好幾個 LINE Bot：社團的 LINE 社員自動化管理、商學院永續競賽的 LINE Bot，還有游泳隊的排班管理系統（簽到、請假、課表、訓練日誌，用 Google Apps Script ＋ Sheets）。\n重複的行政工作很適合交給它。',
-  en:'Frank has built several LINE Bots: automated member management for a student club, a bot for the Business School sustainability competition, and the swim team scheduling system (check-in, leave, schedules, training logs on Google Apps Script + Sheets).\nRepetitive admin is exactly what they are good at.',
-  a:[{zh:'看自動化服務',en:'Automation service',href:'#svc-line'},{zh:'寄信聊聊',en:'Email Frank',href:mail('LINE Bot / 自動化洽詢'),alt:1}]},
- {k:['agent','agentic','代理','多輪','推理','實驗','葉玉珠','系統','開發','做一個','build','develop','prototype','原型'],
-  zh:'Agentic AI 是能多步驟思考、呼叫工具、跟人多輪互動的 AI。\nFrank 幫葉玉珠老師實驗室架了批判思考推理遊戲的實驗系統，用 Express ＋ Zeabur 處理多輪 AI 互動；Google DevJam 冠軍作品 CoolPath 也是他做的。',
-  en:'Agentic AI can reason in steps, call tools and hold multi-turn conversations.\nFrank built the critical-thinking reasoning game platform for Prof. Yeh\'s lab — Express + Zeabur handling multi-turn AI interaction — and CoolPath, his Google DevJam winner.',
-  a:[{zh:'看系統開發服務',en:'AI systems service',href:'#svc-agent'},{zh:'討論點子',en:'Pitch an idea',href:mail('AI 系統開發洽詢'),alt:1}]},
- {k:['coolpath','涼路','devjam','冠軍','黑客松','hackathon','google'],
-  zh:'CoolPath 涼路拿下 Google DevJam 黑客松 TW 2026 冠軍：比較最快路線和涼爽路線，把沿途地表溫度放進步行選擇，還規劃讓企業用 ESG 預算認養城市涼點。',
-  en:'CoolPath won Google DevJam Hackathon TW 2026. It compares the fastest and the coolest walking routes using land surface temperature, with a model where companies fund city cooling stops from ESG budgets.',
-  a:[{zh:'看 CoolPath',en:'See CoolPath',href:'#coolpath'}]},
- {k:['蓋亞','gaiacraft','遊戲','game','usr','3d','nccu100','阿嬤','永續','sustainab'],
-  zh:'蓋亞造界用像素 RPG 驅動真實的永續行為，也用 AI 把耆老記憶保存成遊戲資產。Frank 是技術總監，作品已經從 2D 進化到政大百年校園 3D 版。',
-  en:'GaiaCraft uses a pixel RPG to drive real sustainability actions and uses AI to preserve elders\' memories as game assets. Frank is Technical Director — it has grown from 2D into a 3D NCCU centennial campus.',
-  a:[{zh:'玩 3D 版',en:'Play 3D',href:'https://play.gaiacraft.tw'},{zh:'看專案',en:'See project',href:'#projects',alt:1}]},
- {k:['金融','fintech','canton','區塊鏈','web3','blockchain','實驗室','ftl'],
-  zh:'Frank 創辦了政大金融科技創新實驗室（FTL）：說明會 52 人參加，和 Canton Foundation 簽了 MOU，也和 TABEI 合辦了 Canton 公開課。',
-  en:'Frank founded NCCU\'s FinTech Innovation Lab (FTL): 52 people at the launch session, an MOU with the Canton Foundation, and a public lecture on Canton co-hosted with TABEI.',
-  a:[{zh:'看經歷',en:'See experience',href:'#experience'}]},
- {k:['北海道','日本','國際','海外','hokkaido','japan','global','abroad'],
-  zh:'2026 年 8 月 Frank 拿政大「全球 Top 1000 學生研修獎助」去北海道大學 Hokkaido Summer Institute 修課，並帶領小組報告「札幌農學校校友對台灣近代發展的影響」。',
-  en:'In August 2026 Frank went to Hokkaido Summer Institute on NCCU\'s Global Top 1000 grant and led his group\'s presentation on how Sapporo Agricultural College alumni shaped modern Taiwan.',
-  a:[{zh:'看國際經驗',en:'See global',href:'#records'}]},
- {k:['游泳','swim','全大運'],
-  zh:'對，他也游泳！代表政大參加 115 年全大運，4×100 公尺自由式接力決賽第七。',
-  en:'Yes, he swims! 7th in the 4×100 m freestyle relay final at the 2026 National Intercollegiate Games for NCCU.',
-  a:[{zh:'看獎項',en:'See awards',href:'#awards'}]},
- {k:['合作','聯絡','找你','email','信箱','mail','約','contact','hire','reach','work with'],
-  zh:'直接寄信到 '+MAIL+' 就好，寫一下你想解決的問題、時程和對象，Frank 會親自回覆。',
-  en:'Email '+MAIL+' with the problem you want to solve, your timeline and audience — Frank replies personally.',
-  a:[{zh:'寄信給 Frank',en:'Email Frank',href:mail('合作洽詢')},{zh:'看服務',en:'See services',href:'#services',alt:1}]},
- {k:['你是誰','介紹','自己','who','about','frank','方澤享','學校','科系','gpa','成績'],
-  zh:'我是方澤享的 AI 分身。他是政大資管與 AI 學士學程的學生（GPA 91.40），Google DevJam 2026 冠軍，平常在做 RAG、Agentic AI 和 LINE Bot，也在政大 AI 研究中心當研究助理。',
-  en:'I\'m Frank Fang\'s AI twin. He studies Information Management and AI at NCCU (GPA 91.40), won Google DevJam 2026, builds RAG, agentic AI and LINE Bots, and works as a research assistant at the NCCU AI Center.',
-  a:[{zh:'他能幫你什麼',en:'What he can do',href:'#services'},{zh:'認識他',en:'About him',href:'#about',alt:1}]}
-];
-const SUGG={
- zh:[{t:'幫我們導入 AI',d:'工作坊怎麼進行？',q:'你能幫我們導入 AI 嗎？'},
-     {t:'把文件變成問答 AI',d:'RAG 能做到什麼？',q:'RAG 是什麼？你做過嗎？'},
-     {t:'LINE Bot 自動化',d:'社員管理、報名、簽到',q:'你做過哪些 LINE Bot？'},
-     {t:'Agentic AI 系統',d:'多輪對話與工具呼叫',q:'你的 Agentic AI 經驗？'}],
- en:[{t:'Help us adopt AI',d:'How do the workshops work?',q:'Can you help us adopt AI?'},
-     {t:'Turn documents into a Q&A AI',d:'What can RAG do?',q:'What is RAG — have you built one?'},
-     {t:'Automate with a LINE Bot',d:'Members, sign-ups, check-ins',q:'What LINE Bots have you built?'},
-     {t:'Agentic AI systems',d:'Multi-turn chat and tool use',q:'Any agentic AI experience?'}]};
-const PH={zh:'問 Frank 的 AI 分身任何問題…',en:'Ask Frank\'s AI twin anything…'};
-const hero=document.getElementById('ask'),thread=document.getElementById('thread'),composer=document.getElementById('composer'),
-      prompt=document.getElementById('prompt'),send=document.getElementById('send'),sugg=document.getElementById('sugg'),newChat=document.getElementById('newChat');
-const AV='./images/frank-field.jpg';
-let busy=false;
-function answerFor(q){
-  const t=q.toLowerCase();
-  const hit=KB.find(e=>e.k.some(k=>t.includes(k)));
-  if(hit)return{text:hit[language],acts:hit.a};
-  return{text:language==='zh'?'這題我的分身還答不太出來。\n把問題直接寄給 Frank 本人，他會親自回覆你。':'My twin can\'t answer that one yet.\nSend it to the real Frank — he\'ll reply personally.',
-         acts:[{zh:'把問題寄給 Frank',en:'Send it to Frank',href:mail('來自網站 AI 分身的問題',q)}]};
-}
-const scrollThread=()=>{thread.scrollTop=thread.scrollHeight;};
-function addActs(box,acts){
-  if(!acts||!acts.length)return;
-  const row=document.createElement('div');row.className='acts';
-  acts.forEach(a=>{const l=document.createElement('a');l.href=a.href;l.textContent=a[language];
-    if(/^https?:/.test(a.href)){l.target='_blank';l.rel='noopener';}row.appendChild(l);});
-  box.appendChild(row);
-}
-function aiMessage(){
-  const m=document.createElement('div');m.className='m-ai';
-  m.innerHTML='<img src="'+AV+'" alt=""><div><span class="name">Frank AI</span><div class="txt"><span class="thinking" aria-label="thinking"><i></i><i></i><i></i></span></div></div>';
-  thread.appendChild(m);scrollThread();return m;
-}
-function stream(m,text,acts){
-  const txt=m.querySelector('.txt'),box=txt.parentNode;
-  return new Promise(res=>{
-    const done=()=>{txt.classList.remove('streaming');txt.textContent=text;addActs(box,acts);scrollThread();res();};
-    if(reduced){done();return;}
-    setTimeout(()=>{
-      txt.textContent='';txt.classList.add('streaming');let i=0;
-      const tick=setInterval(()=>{i+=2;txt.textContent=text.slice(0,i);scrollThread();if(i>=text.length){clearInterval(tick);done();}},18);
-    },700);
-  });
-}
-async function ask(q){
-  q=q.trim();if(!q||busy)return;busy=true;
-  hero.classList.add('chatting');newChat.hidden=false;
-  const u=document.createElement('div');u.className='m-user';u.textContent=q;thread.appendChild(u);
-  prompt.value='';fit();
-  const r=answerFor(q);await stream(aiMessage(),r.text,r.acts);
-  busy=false;fit();
-}
-function fit(){prompt.style.height='auto';prompt.style.height=Math.min(prompt.scrollHeight,160)+'px';send.disabled=!prompt.value.trim()||busy;}
-function renderSugg(){
-  sugg.innerHTML='';
-  SUGG[language].forEach(c=>{const b=document.createElement('button');b.type='button';
-    b.innerHTML='<b></b><span></span>';b.querySelector('b').textContent=c.t;b.querySelector('span').textContent=c.d;
-    b.addEventListener('click',()=>ask(c.q));sugg.appendChild(b);});
-  prompt.placeholder=PH[language];
-}
-prompt.addEventListener('input',fit);
-prompt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask(prompt.value);}});
-composer.addEventListener('submit',e=>{e.preventDefault();ask(prompt.value);});
-newChat.addEventListener('click',()=>{if(busy)return;thread.innerHTML='';hero.classList.remove('chatting');newChat.hidden=true;prompt.focus();});
-document.querySelectorAll('[data-ask]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();hero.scrollIntoView({behavior:reduced?'auto':'smooth'});setTimeout(()=>prompt.focus({preventScroll:true}),reduced?0:500);}));
-const _setLang=setLang;setLang=function(l){_setLang(l);renderSugg();};
-renderSugg();fit();
+// hero word rotator
+document.querySelectorAll('.rot-mask').forEach(mask=>{
+  const words=[...mask.children];let i=0;
+  // invisible stack of every word sizes the mask to the widest one
+  const sizer=document.createElement('span');sizer.className='rot-sizer';
+  words.forEach(w=>{const c=document.createElement('span');c.textContent=w.textContent;sizer.appendChild(c);});
+  mask.appendChild(sizer);words[0].classList.add('on');
+  if(reduced)return;
+  setInterval(()=>{
+    const cur=words[i];cur.classList.replace('on','out');
+    i=(i+1)%words.length;words[i].classList.add('on');
+    setTimeout(()=>{cur.style.transition='none';cur.classList.remove('out');void cur.offsetWidth;cur.style.transition='';},650);
+  },2200);
+});
 
 // scroll reveal + active nav
 if('IntersectionObserver' in window && !reduced){
@@ -1116,7 +895,7 @@ if('IntersectionObserver' in window && !reduced){
 const navLinks=document.querySelectorAll('.nav-d a');
 if('IntersectionObserver' in window){
   const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)navLinks.forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id));}),{rootMargin:'-20% 0px -70% 0px'});
-  document.querySelectorAll('#services,#about,#projects,#teaching,#awards,#experience').forEach(s=>spy.observe(s));
+  document.querySelectorAll('#about,#projects,#teaching,#awards,#experience').forEach(s=>spy.observe(s));
 }
 </script>
 </body>
