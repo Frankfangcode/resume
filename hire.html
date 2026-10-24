@@ -763,14 +763,15 @@ const SUGG={
      {i:'deal',t:'Working together',q:'How do we work together, and what does it cost?'}]};
 const PH={zh:'問 Frank 的 AI 分身任何問題',en:'Ask Frank\'s AI twin anything'};
 const NOTE={
- live:{zh:'由 Gemma 4 回答，可能會出錯；重要資訊請<a href="#contact">直接聯絡 Frank</a>。',en:'Answered by Gemma 4 and may be wrong — <a href="#contact">contact Frank</a> for anything important.'},
+ live:{zh:'由 Google Gemma 4 回答（忙碌時改用 Gemini Flash-Lite），可能會出錯；重要資訊請<a href="#contact">直接聯絡 Frank</a>。',en:'Answered by Google Gemma 4 (Gemini Flash-Lite when busy) and may be wrong — <a href="#contact">contact Frank</a> for anything important.'},
  demo:{zh:'示範模式 · 回覆為 Frank 預先寫好的內容 · <a href="#contact">直接聯絡本人</a>',en:'Demo mode · replies are pre-written by Frank · <a href="#contact">contact him directly</a>'}};
 const hero=document.getElementById('ask'),thread=document.getElementById('thread'),composer=document.getElementById('composer'),
       prompt=document.getElementById('prompt'),send=document.getElementById('send'),sugg=document.getElementById('sugg'),
       newChat=document.getElementById('newChat'),note=document.getElementById('aiNote');
 const SPARK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.4 4.6 2.6 7.6 8 10-5.4 2.4-7.6 5.4-8 10-.4-4.6-2.6-7.6-8-10 5.4-2.4 7.6-5.4 8-10Z"/></svg>';
 document.getElementById('aiDot').classList.toggle('off',!AI_ENDPOINT);
-let busy=false,convo=[];
+let busy=false,convo=[],lastModel='';
+const MODEL_NAME={'gemma-4-26b-a4b-it':'Gemma 4','gemini-3.5-flash-lite':'Gemini 3.5 Flash-Lite'};
 
 function matchKB(q){const t=q.toLowerCase();return KB.find(e=>e.k.some(k=>t.includes(k)));}
 function canned(q){
@@ -817,6 +818,7 @@ async function streamAI(onText){
   try{
     const r=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:convo,lang:language}),signal:ctrl.signal});
     if(!r.ok||!r.body)throw new Error('ai '+r.status);
+    lastModel=r.headers.get('X-Model')||'';
     const reader=r.body.getReader(),dec=new TextDecoder();let buf='',out='';
     for(;;){
       const {value,done}=await reader.read();if(done)break;
@@ -847,12 +849,14 @@ async function ask(q){
   prompt.value='';fit();
   convo.push({role:'user',content:q});
   const m=aiMessage(),txt=m.querySelector('.txt'),box=txt.parentNode;
-  let text,acts;
+  let text,acts,src='';
   if(AI_ENDPOINT){
-    try{text=await streamAI(t=>paint(txt,t,true));const hit=matchKB(q);acts=hit?hit.a:null;}
+    try{text=await streamAI(t=>paint(txt,t,true));const hit=matchKB(q);acts=hit?hit.a:null;src=MODEL_NAME[lastModel]||lastModel;}
     catch(e){const c=canned(q);text=c.text;acts=c.acts;await typeOut(txt,text);}
   }else{const c=canned(q);text=c.text;acts=c.acts;await typeOut(txt,text);}
-  paint(txt,text,false);m.classList.remove('busy');addActs(box,acts);scrollThread();
+  paint(txt,text,false);m.classList.remove('busy');addActs(box,acts);
+  if(src){const tag=document.createElement('span');tag.className='src';tag.textContent=(language==='zh'?'由 ':'Answered by ')+src+(language==='zh'?' 回答':'');box.appendChild(tag);}
+  scrollThread();
   convo.push({role:'assistant',content:text});convo=convo.slice(-10);
   busy=false;sync();
 }

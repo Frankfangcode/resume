@@ -1,7 +1,16 @@
 // Cloudflare Worker: relays the hire.html AI twin to Gemma 4 on the Gemini API,
 // so the API key stays server-side. Streams Gemini's SSE response straight back.
 
-const MODEL = 'gemma-4-26b-a4b-it';
+const PRIMARY = 'gemma-4-26b-a4b-it';
+const FALLBACK = 'gemini-3.5-flash-lite';
+// Tried in order. Each model gets a minimal-thinking request, then a plain one
+// (the plain retry also covers a model that rejects thinkingConfig with 400).
+const ATTEMPTS = [
+  { model: PRIMARY, thinking: true },
+  { model: PRIMARY, thinking: false },
+  { model: FALLBACK, thinking: true },
+  { model: FALLBACK, thinking: false },
+];
 const ALLOWED_ORIGINS = [
   'https://frankiefunky.com',
   'https://www.frankiefunky.com',
@@ -78,9 +87,8 @@ export default {
       : '\n\n請用繁體中文（台灣用語）回答。直接回答，不要寫出冗長的推理過程。';
     // Gemma 4 thinks before answering and the thought tokens count against
     // maxOutputTokens, so ask for minimal thinking and leave room for the reply.
-    // If the model rejects thinkingConfig (400), retry without it.
-    const call = thinking => fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`,
+    const call = ({ model, thinking }) => fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY },
@@ -95,12 +103,25 @@ export default {
         }),
       },
     );
-    let upstream = await call(true);
-    if (upstream.status === 400) upstream = await call(false);
-    if (!upstream.ok || !upstream.body) return json(502, { error: 'upstream', status: upstream.status }, cors);
+    // Gemma 4 on the Gemini API intermittently returns 500 or 400 for identical
+    // requests, so walk ATTEMPTS until one streams: Gemma 4 twice, then Flash-Lite.
+    let upstream, used;
+    for (const attempt of ATTEMPTS) {
+      upstream = await call(attempt);
+      if (upstream.ok && upstream.body) { used = attempt.model; break; }
+      await upstream.body?.cancel();
+      await new Promise(r => setTimeout(r, 250));
+    }
+    if (!used) return json(502, { error: 'upstream', status: upstream.status }, cors);
 
     return new Response(upstream.body, {
-      headers: { ...cors, 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache' },
+      headers: {
+        ...cors,
+        'Content-Type': 'text/event-stream; charset=utf-8',
+        'Cache-Control': 'no-cache',
+        'X-Model': used,
+        'Access-Control-Expose-Headers': 'X-Model',
+      },
     });
   },
 };
