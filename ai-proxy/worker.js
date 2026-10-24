@@ -73,8 +73,13 @@ export default {
       .map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content.slice(0, MAX_CHARS) }] }));
     if (!contents.length || contents[contents.length - 1].role !== 'user') return json(400, { error: 'messages' }, cors);
 
-    const langLine = body.lang === 'en' ? '\n\nReply in English.' : '\n\n請用繁體中文（台灣用語）回答。';
-    const upstream = await fetch(
+    const langLine = body.lang === 'en'
+      ? '\n\nReply in English. Answer directly; do not write out long reasoning.'
+      : '\n\n請用繁體中文（台灣用語）回答。直接回答，不要寫出冗長的推理過程。';
+    // Gemma 4 thinks before answering and the thought tokens count against
+    // maxOutputTokens, so ask for minimal thinking and leave room for the reply.
+    // If the model rejects thinkingConfig (400), retry without it.
+    const call = thinking => fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`,
       {
         method: 'POST',
@@ -82,10 +87,16 @@ export default {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: PROFILE + langLine }] },
           contents,
-          generationConfig: { temperature: 0.6, maxOutputTokens: 600 },
+          generationConfig: {
+            temperature: 0.6,
+            maxOutputTokens: 2048,
+            ...(thinking ? { thinkingConfig: { thinkingLevel: 'MINIMAL' } } : {}),
+          },
         }),
       },
     );
+    let upstream = await call(true);
+    if (upstream.status === 400) upstream = await call(false);
     if (!upstream.ok || !upstream.body) return json(502, { error: 'upstream', status: upstream.status }, cors);
 
     return new Response(upstream.body, {
