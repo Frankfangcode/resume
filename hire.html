@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0B1712">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 /* Look: warm cream paper, deep forest green blocks, near-black green type, one warm gold. No outlined boxes — every block is a solid fill or a photo. */
@@ -80,64 +80,90 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 .menu nav a{font-weight:900;font-size:clamp(28px,8vw,40px);letter-spacing:.04em;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.12)}
 .menu nav a:hover{color:var(--accent)}
 
-/* ── hero: ChatGPT-style AI twin ── */
-.hero{--h-bg:#0B1712;--h-text:#EDE9DF;--h-muted:#98A49D;--h-line:rgba(255,255,255,.11);--h-surface:rgba(255,255,255,.045);
+/* ── hero: AI twin, Gemini-like composer ── */
+.hero{--h-bg:#101412;--h-text:#E6EAE7;--h-muted:#9AA39D;--h-line:rgba(255,255,255,.09);--h-chip:#1A201D;
+  --g1:#7FD1A8;--g2:#F2BF47;--g3:#EE8D6B;
   position:relative;background:var(--h-bg);color:var(--h-text);overflow:hidden;
-  background-image:radial-gradient(60% 45% at 50% -5%,rgba(242,191,71,.14),transparent 70%),radial-gradient(45% 55% at 95% 105%,rgba(63,175,91,.13),transparent 70%)}
-.hero-in{position:relative;width:min(780px,100%);margin:0 auto;padding:72px 20px 40px;min-height:min(calc(100svh - 60px),900px);display:flex;flex-direction:column;justify-content:center}
+  background-image:radial-gradient(55% 40% at 50% 0%,rgba(127,209,168,.07),transparent 70%)}
+.hero-in{position:relative;width:min(860px,100%);margin:0 auto;padding:64px 20px 40px;min-height:min(calc(100svh - 60px),900px);display:flex;flex-direction:column;justify-content:center}
 .intro{text-align:center}
-.who{display:inline-flex;align-items:center;gap:8px;margin:0;padding:4px 14px 4px 4px;border:1px solid var(--h-line);border-radius:999px;background:var(--h-surface);font-size:13px;font-weight:500;color:var(--h-text)}
-.who img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:50% 25%}
-.who i{font-style:normal;color:var(--h-muted)}
-.hero h1{margin:22px 0 12px;font-weight:700;font-size:clamp(30px,6.4vw,52px);line-height:1.2;letter-spacing:.01em;color:#fff}
-.hero h1 .en{font-family:var(--en);letter-spacing:-.025em}
-.sub{margin:0 auto 34px;max-width:34em;color:var(--h-muted);font-size:clamp(15px,3.8vw,16.5px);line-height:1.8}
-.sub b{color:var(--h-text);font-weight:700}
+.h-badge{display:inline-flex;align-items:center;gap:10px;padding:5px 18px 5px 5px;border:1px solid var(--h-line);border-radius:999px;background:rgba(255,255,255,.025);font-size:14.5px;font-weight:500;color:#F2F4F2;transition:border-color .2s}
+.h-badge:hover{border-color:rgba(255,255,255,.2)}
+.b-av{position:relative;width:30px;height:30px;border-radius:50%;padding:2px;background:conic-gradient(from 200deg,var(--g1),var(--g2),var(--g3),var(--g1))}
+.b-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:50% 25%;border:2px solid var(--h-bg)}
+.hero h1{margin:26px 0 14px;font-weight:400;font-size:clamp(32px,6.6vw,60px);line-height:1.18;letter-spacing:-.005em;color:#fff}
+.hero h1 .en{font-family:var(--en);font-weight:400;letter-spacing:-.03em}
+.grad{background:linear-gradient(90deg,var(--g1),var(--g2) 60%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:0 auto 40px;max-width:36em;color:var(--h-muted);font-size:clamp(15px,3.8vw,16.5px);font-weight:400;line-height:1.8}
 
-.thread{display:none}
-.hero.chatting .intro,.hero.chatting .sugg{display:none}
-.hero.chatting .hero-in{justify-content:flex-end;padding-top:32px}
-.hero.chatting .thread{display:flex;flex-direction:column;gap:26px;max-height:min(60svh,580px);overflow-y:auto;padding:8px 2px 24px;margin-bottom:14px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
-.m-user{align-self:flex-end;max-width:82%;background:rgba(255,255,255,.09);border-radius:22px;padding:10px 18px;font-size:15.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
-.m-ai{display:grid;grid-template-columns:30px minmax(0,1fr);gap:14px;align-items:start}
-.m-ai img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 25%;margin-top:2px}
-.m-ai .name{display:block;font-weight:700;font-size:13.5px;color:#fff;margin-bottom:4px}
-.m-ai .txt{white-space:pre-wrap;word-break:break-word;font-size:15.5px;line-height:1.9;color:var(--h-text)}
-.m-ai .txt.streaming::after{content:"";display:inline-block;width:.5em;height:1em;margin-left:2px;vertical-align:-.12em;background:var(--accent);animation:blink 1s steps(2) infinite}
-.m-ai .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.m-ai .acts a{border:1px solid rgba(242,191,71,.45);color:var(--accent);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;transition:background .2s,color .2s}
-.m-ai .acts a:hover{background:var(--accent);color:var(--text)}
-.thinking{display:inline-flex;gap:5px;padding:10px 0}
-.thinking i{width:7px;height:7px;border-radius:50%;background:var(--h-muted);animation:pulse 1.1s infinite}
-.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
-@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.85)}40%{opacity:1;transform:none}}
-@keyframes blink{50%{opacity:0}}
+/* composer with a light-edge on top and a warm glow underneath */
+.composer{position:relative;background:#171C19;border:1px solid var(--h-line);border-radius:28px;padding:20px 14px 14px 22px;transition:border-color .25s}
+.composer::before{content:"";position:absolute;left:14%;right:18%;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--g1) 35%,var(--g2) 65%,transparent);opacity:.75;transition:opacity .25s}
+.composer::after{content:"";position:absolute;left:42%;right:20%;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--g3),var(--g2),transparent);box-shadow:0 4px 22px 3px rgba(238,141,107,.22)}
+.composer:focus-within{border-color:rgba(255,255,255,.16)}
+.composer:focus-within::before{opacity:1}
+.composer textarea{display:block;width:100%;min-height:56px;max-height:180px;resize:none;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-size:17px;line-height:1.65;padding:0 8px 0 0}
+.composer textarea::placeholder{color:#8C958F}
+.c-row{display:flex;align-items:center;gap:8px;margin-top:14px}
+.c-ic{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:none;color:#CFD5D1;display:grid;place-items:center;transition:background .2s}
+.c-ic:hover{background:rgba(255,255,255,.07)}
+.c-ic svg{width:20px;height:20px}
+.c-model{margin-left:auto;height:40px;display:inline-flex;align-items:center;gap:8px;padding:0 16px;border:1px solid rgba(255,255,255,.14);border-radius:999px;font-family:var(--en);font-size:14px;font-weight:600;color:#ECEFED;white-space:nowrap}
+.c-model i{width:7px;height:7px;border-radius:50%;background:#4CC46A;box-shadow:0 0 0 3px rgba(76,196,106,.18)}
+.c-model i.off{background:#9AA39D;box-shadow:none}
+.c-model small{font-weight:500;color:var(--h-muted);font-size:12.5px}
+.send{height:40px;min-width:40px;border:0;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 18px;background:#262D29;color:#fff;font-weight:700;font-size:14px;white-space:nowrap;transition:background .2s,padding .2s}
+.send:hover{background:#2F3732}
+.send svg{width:16px;height:16px}
+.send .spark{color:var(--g2)}
+.send .arrow{display:none}
+.send.ready{padding:0;width:40px;background:var(--accent);color:var(--text)}
+.send.ready .lucky{display:none}
+.send.ready .arrow{display:block}
+.send:disabled{opacity:.5;cursor:default}
 
-.composer{background:#14221C;border:1px solid var(--h-line);border-radius:26px;padding:14px 12px 10px 20px;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);transition:border-color .2s}
-.composer:focus-within{border-color:rgba(242,191,71,.55)}
-.composer textarea{display:block;width:100%;min-height:28px;max-height:160px;resize:none;border:0;outline:0;background:transparent;color:#fff;font:inherit;font-size:16px;line-height:1.65;padding:4px 8px 0 0}
-.composer textarea::placeholder{color:var(--h-muted)}
-.c-row{display:flex;align-items:center;gap:8px;margin-top:8px}
-.model{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
-.model i{width:7px;height:7px;border-radius:50%;background:#4CC46A;box-shadow:0 0 0 3px rgba(76,196,106,.18)}
-.newchat{margin-left:auto;border:1px solid var(--h-line);background:none;color:var(--h-text);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700}
-.newchat[hidden]{display:none}
-.newchat:hover{background:rgba(255,255,255,.08)}
-.send{margin-left:auto;width:38px;height:38px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--text);transition:opacity .2s,transform .15s}
-.newchat:not([hidden])+.send{margin-left:0}
-.send:disabled{background:rgba(255,255,255,.12);color:var(--h-muted);cursor:default}
-.send:not(:disabled):hover{transform:scale(1.06)}
-.send svg{width:18px;height:18px}
-.sugg{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
-.sugg button{text-align:left;border:1px solid var(--h-line);background:var(--h-surface);border-radius:16px;padding:13px 16px;color:var(--h-text);transition:background .2s,border-color .2s}
-.sugg button:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-.sugg b{display:block;font-weight:700;font-size:14.5px;color:#fff}
-.sugg span{display:block;margin-top:2px;font-size:13px;color:var(--h-muted)}
-.note{margin:18px 0 0;text-align:center;font-family:var(--mono);font-size:11.5px;color:var(--h-muted)}
+/* suggestion chips */
+.chips-row{position:relative;margin-top:22px}
+.sugg{display:flex;gap:10px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);padding-right:48px}
+.sugg::-webkit-scrollbar{display:none}
+.sugg button{flex:none;height:44px;display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--h-chip);color:#E5E9E6;padding:0 18px 0 16px;font-size:15px;font-weight:500;transition:background .2s}
+.sugg button:hover{background:#232A26}
+.sugg svg{width:18px;height:18px;flex:none}
+.sugg-next{position:absolute;right:0;top:2px;width:40px;height:40px;border-radius:50%;border:1px solid var(--h-line);background:var(--h-bg);color:#CFD5D1;font-size:22px;line-height:1;box-shadow:-14px 0 18px 6px var(--h-bg)}
+.sugg-next:hover{background:#1E2521}
+.sugg-next[hidden]{display:none}
+.note{margin:22px 0 0;text-align:center;font-size:12.5px;color:#7F8882}
 .note a{color:var(--h-text);text-decoration:underline;text-underline-offset:3px}
-.hint{display:block;margin:28px auto 0;width:max-content;font-size:13.5px;font-weight:700;color:var(--h-muted)}
+.hint{display:block;margin:26px auto 0;width:max-content;font-size:13.5px;font-weight:500;color:var(--h-muted)}
 .hint:hover{color:var(--accent)}
-.hero.chatting .hint{display:none}
+
+/* conversation */
+.thread{display:none}
+.hero.chatting .intro,.hero.chatting .chips-row,.hero.chatting .hint{display:none}
+.hero.chatting .hero-in{justify-content:flex-end;padding-top:28px}
+.hero.chatting .thread{display:flex;flex-direction:column;gap:30px;max-height:min(62svh,600px);overflow-y:auto;padding:8px 4px 28px;margin-bottom:12px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent}
+.m-user{align-self:flex-end;max-width:80%;background:#232A26;border-radius:24px 24px 6px 24px;padding:11px 18px;font-size:15.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:#F2F4F2}
+.m-ai{display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start}
+.m-ai .spk{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 200deg,var(--g1),var(--g2),var(--g3),var(--g1))}
+.m-ai .spk svg{width:16px;height:16px;color:#101412}
+.m-ai.busy .spk{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.m-ai .txt{font-size:15.5px;line-height:1.9;color:var(--h-text);word-break:break-word;padding-top:3px}
+.m-ai .txt p{margin:0 0 10px}
+.m-ai .txt p:last-child{margin-bottom:0}
+.m-ai .txt ul,.m-ai .txt ol{margin:4px 0 10px;padding-left:1.3em}
+.m-ai .txt li{margin:2px 0}
+.m-ai .txt b{color:#fff;font-weight:700}
+.m-ai .txt code{font-family:var(--mono);font-size:.9em;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:6px}
+.m-ai .caret{display:inline-block;width:.45em;height:1em;margin-left:2px;vertical-align:-.12em;border-radius:2px;background:var(--g2);animation:blink 1s steps(2) infinite}
+.shimmer{display:inline-block;font-weight:500;background:linear-gradient(90deg,#6E7771 0%,#E6EAE7 50%,#6E7771 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 1.6s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+@keyframes blink{50%{opacity:0}}
+.m-ai .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.m-ai .acts a{border:1px solid rgba(255,255,255,.16);color:#F2F4F2;border-radius:999px;padding:7px 15px;font-size:13.5px;font-weight:500;transition:background .2s,border-color .2s}
+.m-ai .acts a:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.28)}
+.m-ai .acts a:first-child{border-color:rgba(242,191,71,.55);color:var(--g2)}
+.m-ai .src{display:block;margin-top:10px;font-size:11.5px;color:#7F8882}
 
 /* proof strip */
 .proof{background:var(--cream);border-bottom:1px solid rgba(23,53,42,.12)}
@@ -451,22 +477,25 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
 <section class="hero" id="ask" aria-labelledby="hero-title">
   <div class="hero-in">
     <div class="intro">
-      <p class="who"><img src="./images/frank-field.jpg" alt="" width="768" height="1024"><span>方澤享 Frank Fang</span><i>·</i><span class="zh">AI 分身</span><span class="en">AI twin</span></p>
-      <h1 id="hero-title"><span class="zh">想用 AI 解決什麼問題？</span><span class="en">What do you want AI to solve?</span></h1>
-      <p class="sub"><span class="zh">我是方澤享的 AI 分身。他做 <b>RAG</b>、<b>Agentic AI</b> 與 <b>LINE Bot</b>，也幫團隊導入 AI，Google DevJam 2026 冠軍。問我他能幫你做什麼。</span><span class="en">I'm Frank Fang's AI twin. He builds <b>RAG</b>, <b>agentic AI</b> and <b>LINE Bots</b>, helps teams adopt AI, and won Google DevJam 2026. Ask me what he can do for you.</span></p>
+      <a class="h-badge" href="#services"><span class="b-av"><img src="./images/frank-field.jpg" alt="" width="768" height="1024"></span><span class="zh">Frank 的 AI 分身 · 由 Gemma 4 驅動</span><span class="en">Frank's AI twin · powered by Gemma 4</span></a>
+      <h1 id="hero-title"><span class="zh">想用 <span class="grad">AI</span> 解決什麼問題？</span><span class="en">What should <span class="grad">AI</span> solve for you?</span></h1>
+      <p class="sub"><span class="zh">問問方澤享的 AI 分身：AI 導入教學、RAG 知識庫、LINE Bot 自動化、Agentic AI 系統，他能幫你做什麼。</span><span class="en">Ask Frank Fang's AI twin what he can build for you — AI workshops, RAG knowledge bases, LINE Bot automation, agentic AI systems.</span></p>
     </div>
     <div class="thread" id="thread" role="log" aria-live="polite"></div>
     <form class="composer" id="composer">
       <label class="skip" for="prompt"><span class="zh">問 AI 分身</span><span class="en">Ask the AI twin</span></label>
-      <textarea id="prompt" rows="1" maxlength="300"></textarea>
+      <textarea id="prompt" rows="2" maxlength="500"></textarea>
       <div class="c-row">
-        <span class="model"><i aria-hidden="true"></i>Frank AI · demo</span>
-        <button type="button" class="newchat" id="newChat" hidden><span class="zh">新對話</span><span class="en">New chat</span></button>
-        <button type="submit" class="send" id="send" aria-label="送出 Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+        <button type="button" class="c-ic" id="newChat" aria-label="新對話 New chat" title="新對話 New chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></button>
+        <span class="c-model"><i id="aiDot" aria-hidden="true"></i>Gemma 4 <small>26B</small></span>
+        <button type="submit" class="send" id="send"><span class="lucky"><span class="spark">✦</span> <span class="zh">隨便問問</span><span class="en">Surprise me</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg><span class="skip"><span class="zh">送出</span><span class="en">Send</span></span></button>
       </div>
     </form>
-    <div class="sugg" id="sugg"></div>
-    <p class="note"><span class="zh">示範版 · 回覆為 Frank 預先寫好的內容 · <a href="#contact">直接聯絡本人</a></span><span class="en">Demo · replies are pre-written by Frank · <a href="#contact">contact him directly</a></span></p>
+    <div class="chips-row">
+      <div class="sugg" id="sugg"></div>
+      <button type="button" class="sugg-next" id="suggNext" aria-label="更多建議 More">›</button>
+    </div>
+    <p class="note" id="aiNote"></p>
     <a class="hint" href="#services"><span class="zh">或往下看他能幫你做什麼 ↓</span><span class="en">or scroll to see what he can do ↓</span></a>
   </div>
 </section>
@@ -581,7 +610,7 @@ body.lang-zh .en,body.lang-en .zh{display:none!important}
     <nav class="f-nav" aria-label="社群 Social">
       <p class="lbl"><span class="zh">社群</span><span class="en">ELSEWHERE</span></p>
       <a href="https://github.com/Frankfangcode" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://www.linkedin.com/in/frankiefunky" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="https://frankfangcode.itch.io/gaiacraftyongan" target="_blank" rel="noopener">itch.io ↗</a>
     </nav>
     <div>
@@ -709,26 +738,61 @@ const KB=[
   en:'I\'m Frank Fang\'s AI twin. He studies Information Management and AI at NCCU (GPA 91.40), won Google DevJam 2026, builds RAG, agentic AI and LINE Bots, and works as a research assistant at the NCCU AI Center.',
   a:[{zh:'他能幫你什麼',en:'What he can do',href:'#services'},{zh:'認識他',en:'About him',href:'index.html#about',alt:1}]}
 ];
+// Deployed ai-proxy/worker.js URL. Empty → pre-written replies only.
+const AI_ENDPOINT='';
+const IC={
+ teach:'<svg viewBox="0 0 24 24" fill="none" stroke="#F2BF47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>',
+ rag:'<svg viewBox="0 0 24 24" fill="none" stroke="#7FD1A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>',
+ line:'<svg viewBox="0 0 24 24" fill="none" stroke="#4CC46A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4.1-4 7.5-9 7.5-1 0-2-.1-2.9-.4L5 20l1-3.6C4.2 15.1 3 13.4 3 11.5 3 7.4 7 4 12 4s9 3.4 9 7.5Z"/></svg>',
+ agent:'<svg viewBox="0 0 24 24" fill="none" stroke="#9DB8FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg>',
+ deal:'<svg viewBox="0 0 24 24" fill="none" stroke="#EE8D6B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4Z"/><path d="M8 9h8M8 12h5"/></svg>',
+ trophy:'<svg viewBox="0 0 24 24" fill="none" stroke="#F2BF47" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M10 17h4"/></svg>'
+};
 const SUGG={
- zh:[{t:'幫我們導入 AI',d:'工作坊怎麼進行？',q:'你能幫我們導入 AI 嗎？'},
-     {t:'把文件變成問答 AI',d:'RAG 能做到什麼？',q:'RAG 是什麼？你做過嗎？'},
-     {t:'LINE Bot 自動化',d:'社員管理、報名、簽到',q:'你做過哪些 LINE Bot？'},
-     {t:'Agentic AI 系統',d:'多輪對話與工具呼叫',q:'你的 Agentic AI 經驗？'}],
- en:[{t:'Help us adopt AI',d:'How do the workshops work?',q:'Can you help us adopt AI?'},
-     {t:'Turn documents into a Q&A AI',d:'What can RAG do?',q:'What is RAG — have you built one?'},
-     {t:'Automate with a LINE Bot',d:'Members, sign-ups, check-ins',q:'What LINE Bots have you built?'},
-     {t:'Agentic AI systems',d:'Multi-turn chat and tool use',q:'Any agentic AI experience?'}]};
-const PH={zh:'問 Frank 的 AI 分身任何問題…',en:'Ask Frank\'s AI twin anything…'};
+ zh:[{i:'teach',t:'幫我們導入 AI',q:'你能幫我們導入 AI 嗎？工作坊怎麼進行？'},
+     {i:'rag',t:'把文件變成問答 AI',q:'RAG 是什麼？你做過嗎？'},
+     {i:'line',t:'LINE Bot 自動化',q:'你做過哪些 LINE Bot？'},
+     {i:'agent',t:'Agentic AI 系統',q:'你的 Agentic AI 經驗？'},
+     {i:'trophy',t:'DevJam 冠軍作品',q:'CoolPath 是什麼？'},
+     {i:'deal',t:'怎麼跟你合作',q:'怎麼跟你合作？費用怎麼算？'}],
+ en:[{i:'teach',t:'Help us adopt AI',q:'Can you help us adopt AI? How do the workshops work?'},
+     {i:'rag',t:'Docs → Q&A AI',q:'What is RAG — have you built one?'},
+     {i:'line',t:'LINE Bot automation',q:'What LINE Bots have you built?'},
+     {i:'agent',t:'Agentic AI systems',q:'Any agentic AI experience?'},
+     {i:'trophy',t:'DevJam winner',q:'What is CoolPath?'},
+     {i:'deal',t:'Working together',q:'How do we work together, and what does it cost?'}]};
+const PH={zh:'問 Frank 的 AI 分身任何問題',en:'Ask Frank\'s AI twin anything'};
+const NOTE={
+ live:{zh:'由 Gemma 4 回答，可能會出錯；重要資訊請<a href="#contact">直接聯絡 Frank</a>。',en:'Answered by Gemma 4 and may be wrong — <a href="#contact">contact Frank</a> for anything important.'},
+ demo:{zh:'示範模式 · 回覆為 Frank 預先寫好的內容 · <a href="#contact">直接聯絡本人</a>',en:'Demo mode · replies are pre-written by Frank · <a href="#contact">contact him directly</a>'}};
 const hero=document.getElementById('ask'),thread=document.getElementById('thread'),composer=document.getElementById('composer'),
-      prompt=document.getElementById('prompt'),send=document.getElementById('send'),sugg=document.getElementById('sugg'),newChat=document.getElementById('newChat');
-const AV='./images/frank-field.jpg';
-let busy=false;
-function answerFor(q){
-  const t=q.toLowerCase();
-  const hit=KB.find(e=>e.k.some(k=>t.includes(k)));
+      prompt=document.getElementById('prompt'),send=document.getElementById('send'),sugg=document.getElementById('sugg'),
+      newChat=document.getElementById('newChat'),note=document.getElementById('aiNote');
+const SPARK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.4 4.6 2.6 7.6 8 10-5.4 2.4-7.6 5.4-8 10-.4-4.6-2.6-7.6-8-10 5.4-2.4 7.6-5.4 8-10Z"/></svg>';
+document.getElementById('aiDot').classList.toggle('off',!AI_ENDPOINT);
+let busy=false,convo=[];
+
+function matchKB(q){const t=q.toLowerCase();return KB.find(e=>e.k.some(k=>t.includes(k)));}
+function canned(q){
+  const hit=matchKB(q);
   if(hit)return{text:hit[language],acts:hit.a};
   return{text:language==='zh'?'這題我的分身還答不太出來。\n把問題直接寄給 Frank 本人，他會親自回覆你。':'My twin can\'t answer that one yet.\nSend it to the real Frank — he\'ll reply personally.',
          acts:[{zh:'把問題寄給 Frank',en:'Send it to Frank',href:mail('來自網站 AI 分身的問題',q)}]};
+}
+// tiny, escape-first markdown: paragraphs, - / 1. lists, **bold**, `code`
+function md(src){
+  const esc=src.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const inline=t=>t.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>');
+  let html='',list=null,para=[];
+  const flushP=()=>{if(para.length){html+='<p>'+para.map(inline).join('<br>')+'</p>';para=[];}};
+  const flushL=()=>{if(list){html+='</'+list+'>';list=null;}};
+  esc.split('\n').forEach(line=>{
+    const ul=line.match(/^\s*[-*•]\s+(.*)/),ol=line.match(/^\s*\d+[.)]\s+(.*)/);
+    if(ul||ol){flushP();const tag=ul?'ul':'ol';if(list!==tag){flushL();html+='<'+tag+'>';list=tag;}html+='<li>'+inline((ul||ol)[1])+'</li>';}
+    else if(!line.trim()){flushP();flushL();}
+    else{flushL();para.push(line);}
+  });
+  flushP();flushL();return html;
 }
 const scrollThread=()=>{thread.scrollTop=thread.scrollHeight;};
 function addActs(box,acts){
@@ -739,41 +803,80 @@ function addActs(box,acts){
   box.appendChild(row);
 }
 function aiMessage(){
-  const m=document.createElement('div');m.className='m-ai';
-  m.innerHTML='<img src="'+AV+'" alt=""><div><span class="name">Frank AI</span><div class="txt"><span class="thinking" aria-label="thinking"><i></i><i></i><i></i></span></div></div>';
+  const m=document.createElement('div');m.className='m-ai busy';
+  m.innerHTML='<span class="spk" aria-hidden="true">'+SPARK+'</span><div><div class="txt"><span class="shimmer">'+(language==='zh'?'思考中…':'Thinking…')+'</span></div></div>';
   thread.appendChild(m);scrollThread();return m;
 }
-function stream(m,text,acts){
-  const txt=m.querySelector('.txt'),box=txt.parentNode;
+function paint(txt,text,live){
+  let html=md(text);
+  if(live){const c='<span class="caret"></span>',i=Math.max(html.lastIndexOf('</p>'),html.lastIndexOf('</li>'));html=i>=0?html.slice(0,i)+c+html.slice(i):html+c;}
+  txt.innerHTML=html;scrollThread();
+}
+async function streamAI(onText){
+  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),25000);
+  try{
+    const r=await fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:convo,lang:language}),signal:ctrl.signal});
+    if(!r.ok||!r.body)throw new Error('ai '+r.status);
+    const reader=r.body.getReader(),dec=new TextDecoder();let buf='',out='';
+    for(;;){
+      const {value,done}=await reader.read();if(done)break;
+      buf+=dec.decode(value,{stream:true});let i;
+      while((i=buf.indexOf('\n'))>=0){
+        const line=buf.slice(0,i).trim();buf=buf.slice(i+1);
+        if(!line.startsWith('data:'))continue;
+        try{const j=JSON.parse(line.slice(5));
+          for(const part of (j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts)||[])
+            if(part.text&&!part.thought){out+=part.text;onText(out);}
+        }catch(e){}
+      }
+    }
+    if(!out.trim())throw new Error('empty');
+    return out.trim();
+  }finally{clearTimeout(timer);}
+}
+function typeOut(txt,text){
   return new Promise(res=>{
-    const done=()=>{txt.classList.remove('streaming');txt.textContent=text;addActs(box,acts);scrollThread();res();};
-    if(reduced){done();return;}
-    setTimeout(()=>{
-      txt.textContent='';txt.classList.add('streaming');let i=0;
-      const tick=setInterval(()=>{i+=2;txt.textContent=text.slice(0,i);scrollThread();if(i>=text.length){clearInterval(tick);done();}},18);
-    },700);
+    if(reduced){paint(txt,text,false);res();return;}
+    setTimeout(()=>{let i=0;const tick=setInterval(()=>{i+=2;paint(txt,text.slice(0,i),true);if(i>=text.length){clearInterval(tick);res();}},18);},600);
   });
 }
 async function ask(q){
-  q=q.trim();if(!q||busy)return;busy=true;
-  hero.classList.add('chatting');newChat.hidden=false;
+  q=q.trim();if(!q||busy)return;busy=true;sync();
+  hero.classList.add('chatting');
   const u=document.createElement('div');u.className='m-user';u.textContent=q;thread.appendChild(u);
   prompt.value='';fit();
-  const r=answerFor(q);await stream(aiMessage(),r.text,r.acts);
-  busy=false;fit();
+  convo.push({role:'user',content:q});
+  const m=aiMessage(),txt=m.querySelector('.txt'),box=txt.parentNode;
+  let text,acts;
+  if(AI_ENDPOINT){
+    try{text=await streamAI(t=>paint(txt,t,true));const hit=matchKB(q);acts=hit?hit.a:null;}
+    catch(e){const c=canned(q);text=c.text;acts=c.acts;await typeOut(txt,text);}
+  }else{const c=canned(q);text=c.text;acts=c.acts;await typeOut(txt,text);}
+  paint(txt,text,false);m.classList.remove('busy');addActs(box,acts);scrollThread();
+  convo.push({role:'assistant',content:text});convo=convo.slice(-10);
+  busy=false;sync();
 }
-function fit(){prompt.style.height='auto';prompt.style.height=Math.min(prompt.scrollHeight,160)+'px';send.disabled=!prompt.value.trim()||busy;}
+function sync(){send.classList.toggle('ready',!!prompt.value.trim());send.disabled=busy;}
+function fit(){prompt.style.height='auto';prompt.style.height=Math.min(Math.max(prompt.scrollHeight,56),180)+'px';sync();}
 function renderSugg(){
   sugg.innerHTML='';
   SUGG[language].forEach(c=>{const b=document.createElement('button');b.type='button';
-    b.innerHTML='<b></b><span></span>';b.querySelector('b').textContent=c.t;b.querySelector('span').textContent=c.d;
+    b.innerHTML=IC[c.i]+'<span></span>';b.querySelector('span').textContent=c.t;
     b.addEventListener('click',()=>ask(c.q));sugg.appendChild(b);});
-  prompt.placeholder=PH[language];
+  prompt.placeholder=PH[language];requestAnimationFrame(syncNext);
+  note.innerHTML=NOTE[AI_ENDPOINT?'live':'demo'][language];
 }
 prompt.addEventListener('input',fit);
-prompt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();ask(prompt.value);}});
-composer.addEventListener('submit',e=>{e.preventDefault();ask(prompt.value);});
-newChat.addEventListener('click',()=>{if(busy)return;thread.innerHTML='';hero.classList.remove('chatting');newChat.hidden=true;prompt.focus();});
+prompt.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();composer.requestSubmit();}});
+composer.addEventListener('submit',e=>{e.preventDefault();
+  if(prompt.value.trim())ask(prompt.value);
+  else{const list=SUGG[language];ask(list[Math.floor(Math.random()*list.length)].q);}
+});
+newChat.addEventListener('click',()=>{if(busy)return;thread.innerHTML='';convo=[];hero.classList.remove('chatting');prompt.focus();});
+const suggNext=document.getElementById('suggNext');
+suggNext.addEventListener('click',()=>sugg.scrollBy({left:240,behavior:reduced?'auto':'smooth'}));
+const syncNext=()=>{suggNext.hidden=sugg.scrollLeft+sugg.clientWidth>=sugg.scrollWidth-4;};
+sugg.addEventListener('scroll',syncNext,{passive:true});addEventListener('resize',syncNext);
 document.querySelectorAll('[data-ask]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();hero.scrollIntoView({behavior:reduced?'auto':'smooth'});setTimeout(()=>prompt.focus({preventScroll:true}),reduced?0:500);}));
 const _setLang=setLang;setLang=function(l){_setLang(l);renderSugg();};
 renderSugg();fit();
